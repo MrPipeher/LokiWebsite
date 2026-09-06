@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loki — Stealth Floating AI Companion & Homework Engine</title>
+  <meta name="description" content="Loki is a high-speed, unobtrusive desktop AI HUD designed for real-time problem solving, multi-shot screen queuing, and offline session archiving." />
+  
+  <!-- Google Fonts & Phosphor Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background Ambient Glows -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <div class="brand-icon">
+          <i class="ph-fill ph-lightning"></i>
+        </div>
+        <span class="brand-name">LOKI</span>
+        <span class="brand-badge">HUD</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#stealth-demo">Stealth Proof</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#features">Features</a>
+        <a href="#workflows">Workflows</a>
+        <a href="#simulator">Live HUD</a>
+        <a href="#keybinds">Hotkeys</a>
+        <a href="#support">Support</a>
+      </nav>
+
+      <div class="nav-cta">
+        <a href="#support" class="btn btn-secondary btn-sm">
+          <i class="ph-bold ph-discord-logo"></i> Discord Ticket
+        </a>
+        <a href="#pricing" class="btn btn-primary btn-sm">
+          <i class="ph-bold ph-shopping-bag"></i> Get Access
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-container">
+      <div class="hero-badge">
+        <i class="ph-fill ph-shield-check"></i> Non-Intrusive Floating Desktop Engine
+      </div>
+      <h1 class="hero-title">
+        The Ultimate Stealth AI Overlay for <span class="gradient-text">Instant Answers</span> & Deep Study.
+      </h1>
+      <p class="hero-subtitle">
+        Capture multiple problem parts, solve complex math formulas in milliseconds, customize transparent HUDs, or float raw AI text completely invisible to screen recorders.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#pricing" class="btn btn-primary btn-lg">
+          <i class="ph-bold ph-lightning"></i> Get Instant Access
+        </a>
+        <a href="#simulator" class="btn btn-outline btn-lg">
+          <i class="ph-fill ph-play-circle"></i> Try Interactive Simulator
+        </a>
+      </div>
+
+      <!-- Quick Feature Strip -->
+      <div class="feature-strip">
+        <div class="strip-item">
+          <i class="ph-bold ph-eye-slash"></i>
+          <span>100% Undetectable to Capture</span>
+        </div>
+        <div class="strip-item">
+          <i class="ph-bold ph-stack"></i>
+          <span>Up to 3 Queued Screenshots</span>
+        </div>
+        <div class="strip-item">
+          <i class="ph-bold ph-cpu"></i>
+          <span>BYOK: OpenAI, Gemini, Claude</span>
+        </div>
+        <div class="strip-item">
+          <i class="ph-bold ph-folder-notch-open"></i>
+          <span>Automated Offline HTML Archive</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🛡️ NEW: "WHAT I SEE VS. WHAT THEY SEE" INTERACTIVE SHOWCASE -->
+  <section id="stealth-demo" class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="pill-label">Hardware-Level Capture Exclusion</span>
+        <h2 class="section-title">What You See vs. What They See</h2>
+        <p class="section-desc">Loki utilizes direct OS window composition flags. On your physical display, formulas and proofs hover crystal clear. On Zoom, Teams, Discord, and screen monitors, your display appears 100% clean.</p>
+      </div>
+
+      <div class="comparison-container">
+        <!-- Switch Controls -->
+        <div class="comparison-switcher">
+          <button class="comp-tab active" id="tabUserView" onclick="switchStealthView('user')">
+            <i class="ph-bold ph-desktop"></i> What You See (Your Monitor)
+          </button>
+          <button class="comp-tab" id="tabStreamView" onclick="switchStealthView('stream')">
+            <i class="ph-bold ph-video-camera"></i> What They See (Screen Share / Recording)
+          </button>
+        </div>
+
+        <!-- Simulated Monitor Screen -->
+        <div class="sim-screen" id="stealthSimScreen">
+          
+          <!-- Mock Desktop Background / Exam Browser Window -->
+          <div class="mock-browser">
+            <div class="browser-tab-bar">
+              <div class="window-dots">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="browser-address"><i class="ph-bold ph-lock"></i> https://portal.exam-environment.edu/test/calculus-final</div>
+            </div>
+            <div class="browser-content">
+              <div class="exam-header-row">
+                <span class="exam-q-badge">Question 14 of 30</span>
+                <span class="exam-timer"><i class="ph-bold ph-clock"></i> 48:12 remaining</span>
+              </div>
+              <h3 class="exam-problem-title">Evaluate the indefinite integral:</h3>
+              <div class="exam-formula-box">
+                &int; (3x<sup>2</sup> &middot; e<sup>x<sup>3</sup></sup>) dx
+              </div>
+              <div class="exam-options-grid">
+                <div class="exam-option"><strong>A)</strong> 3e<sup>x<sup>3</sup></sup> + C</div>
+                <div class="exam-option opt-target"><strong>B)</strong> e<sup>x<sup>3</sup></sup> + C</div>
+                <div class="exam-option"><strong>C)</strong> x<sup>3</sup> &middot; e<sup>x<sup>2</sup></sup> + C</div>
+                <div class="exam-option"><strong>D)</strong> 9x &middot; e<sup>x<sup>3</sup></sup> + C</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- THE FLOATING LOKI HUD (Toggled via JS/CSS) -->
+          <div class="stealth-loki-overlay" id="stealthLokiOverlay">
+            <div class="hud-mini-header">
+              <div class="hud-title"><i class="ph-fill ph-lightning"></i> LOKI REASONING ENGINE</div>
+              <span class="hud-status">SOLVED &bull; 240ms</span>
+            </div>
+            <div class="hud-mini-body">
+              <div class="hud-direct-ans">Answer: <strong>Option B</strong> [e<sup>x<sup>3</sup></sup> + C]</div>
+              <div class="hud-proof-step"><strong>u-substitution:</strong> Let u = x<sup>3</sup> &rArr; du = 3x<sup>2</sup> dx</div>
+              <div class="hud-proof-step">&int; e<sup>u</sup> du = e<sup>u</sup> + C = <strong>e<sup>x<sup>3</sup></sup> + C</strong></div>
+            </div>
+          </div>
+
+          <!-- Invisibility Status Watermark on Stream View -->
+          <div class="stream-hidden-badge" id="streamHiddenNotice" style="display: none;">
+            <i class="ph-bold ph-shield-check"></i> Loki HUD Excluded From Recording Stream (0% Footprint)
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 💳 PRICING SECTION -->
+  <section id="pricing" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="pill-label">Transparent Access</span>
+        <h2 class="section-title">Choose Your License Plan</h2>
+        <p class="section-desc">Instant Stripe checkout with immediate on-screen key delivery and Discord support ticket access.</p>
+      </div>
+
+      <div class="pricing-grid">
+        
+        <!-- 1-Day Pass -->
+        <div class="pricing-card">
+          <div class="plan-header">
+            <span class="plan-badge">Sprint Access</span>
+            <h3>1-Day Pass</h3>
+            <p>Perfect for crunch sessions and single-exam prep.</p>
+          </div>
+          <div class="plan-price">
+            <span class="currency">$</span>
+            <span class="amount">10</span>
+            <span class="period">/ 24 hours</span>
+          </div>
+          <ul class="plan-features">
+            <li><i class="ph-bold ph-check"></i> <strong>24 Hours</strong> Full Access</li>
+            <li><i class="ph-bold ph-check"></i> 150 AI Engine Queries</li>
+            <li><i class="ph-bold ph-check"></i> 3-Shot Screenshot Queuing</li>
+            <li><i class="ph-bold ph-check"></i> Anti-Screen-Capture Stealth</li>
+            <li><i class="ph-bold ph-check"></i> Automated HTML Archiving</li>
+          </ul>
+          <button class="btn btn-outline btn-block btn-buy" onclick="checkout('1day')">
+            <i class="ph-bold ph-lightning"></i> Get 1-Day Pass ($10)
+          </button>
+        </div>
+
+        <!-- 7-Day Pass (Featured) -->
+        <div class="pricing-card featured">
+          <div class="featured-ribbon">Most Popular</div>
+          <div class="plan-header">
+            <span class="plan-badge gold">Exam Week</span>
+            <h3>7-Day Pass</h3>
+            <p>The go-to choice for midterm and finals weeks.</p>
+          </div>
+          <div class="plan-price">
+            <span class="currency">$</span>
+            <span class="amount">50</span>
+            <span class="period">/ 7 days</span>
+          </div>
+          <ul class="plan-features">
+            <li><i class="ph-bold ph-check"></i> <strong>7 Full Days</strong> Unrestricted Access</li>
+            <li><i class="ph-bold ph-check"></i> <strong>300 AI Queries</strong> Limit</li>
+            <li><i class="ph-bold ph-check"></i> High-Speed Priority Processing</li>
+            <li><i class="ph-bold ph-check"></i> Bring Your Own Key (BYOK) Models</li>
+            <li><i class="ph-bold ph-check"></i> Automated HTML Archiving</li>
+            <li><i class="ph-bold ph-check"></i> 24/7 Priority Discord Support</li>
+          </ul>
+          <button class="btn btn-primary btn-block btn-buy" onclick="checkout('7days')">
+            <i class="ph-bold ph-lightning"></i> Get 7-Day Pass ($50)
+          </button>
+        </div>
+
+        <!-- Lifetime Founder Pass -->
+        <div class="pricing-card founder">
+          <div class="scarcity-pill"><i class="ph-bold ph-fire"></i> Only 15 Keys Available</div>
+          <div class="plan-header">
+            <span class="plan-badge cyan">Founder Tier</span>
+            <h3>Lifetime Access</h3>
+            <p>One-time payment for permanent unrestricted access.</p>
+          </div>
+          <div class="plan-price">
+            <span class="currency">$</span>
+            <span class="amount">200</span>
+            <span class="period">/ one-time</span>
+          </div>
+          <ul class="plan-features">
+            <li><i class="ph-bold ph-check"></i> <strong>Lifetime</strong> Permanent License</li>
+            <li><i class="ph-bold ph-check"></i> 1,000 Queries / Month (Auto-Reset)</li>
+            <li><i class="ph-bold ph-check"></i> All Future Updates & Enhancements</li>
+            <li><i class="ph-bold ph-check"></i> Full BYOK System Note Injection</li>
+            <li><i class="ph-bold ph-check"></i> VIP Discord Role & Direct Staff Line</li>
+          </ul>
+          <button class="btn btn-outline btn-block btn-buy founder-btn" onclick="checkout('lifetime')">
+            <i class="ph-bold ph-crown"></i> Claim Founder Key ($200)
+          </button>
+        </div>
+
+      </div>
+
+      <div class="pricing-footer-guarantee">
+        <i class="ph-bold ph-shield-check"></i> Instant Automated Delivery &bull; Safe 256-Bit Encrypted Stripe Processing
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Grid Section -->
+  <section id="features" class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Built for Speed, Stealth & Deep Accuracy</h2>
+        <p class="section-desc">Everything you need to capture complex exams, homework diagrams, and scientific equations without breaking your workflow.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="feature-card">
+          <div class="card-icon"><i class="ph-bold ph-cursor-click"></i></div>
+          <h3>3-Second RMB Instant Capture</h3>
+          <p>Hold your Right Mouse Button for 3 seconds anywhere on screen. Loki captures the frame and queries your active model immediately upon release.</p>
+          <div class="card-tag">RMB Hold Shortcut</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon"><i class="ph-bold ph-images-square"></i></div>
+          <h3>Multi-Shot Diagram Queuing</h3>
+          <p>Queue up to 3 captures (prompt + chart + multiple choice options) using <kbd>Alt + C</kbd> and send them unified in one combined AI context window.</p>
+          <div class="card-tag">Max 3 Screenshots</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon"><i class="ph-bold ph-ghost"></i></div>
+          <h3>Show Text Only & HUD Opacity</h3>
+          <p>Drop background opacity down to 0% or enable "Show Text Only" so solutions float transparently over your desktop without detectable window borders.</p>
+          <div class="card-tag">0%–100% Transparency</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon"><i class="ph-bold ph-cpu"></i></div>
+          <h3>Custom Engine & BYOK</h3>
+          <p>Bring your own API key for Google Gemini, OpenAI GPT-4o, Anthropic Claude, OpenRouter, or Zhipu GLM. Inject custom system prompts and study notes.</p>
+          <div class="card-tag">Full Model Customization</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon"><i class="ph-bold ph-arrows-clockwise"></i></div>
+          <h3>Upside-Down Math Inverter</h3>
+          <p>Graphics driver scaling causing inverted equations? Press <kbd>Alt + F</kbd> to instantaneously flip mathematical formulas back into readable format.</p>
+          <div class="card-tag">Alt + F Auto-Invert</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="card-icon"><i class="ph-bold ph-folder-star"></i></div>
+          <h3>HTML Session Archiving</h3>
+          <p>Every problem and high-res solution is automatically archived into organized offline HTML files under <code>C:\Users\Public\Documents\TFD_Review</code>.</p>
+          <div class="card-tag">Offline Study Portfolios</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKFLOWS WITH PURE CSS DYNAMIC MOCKUPS (ZERO BROKEN VIDEOS) -->
+  <section id="workflows" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="pill-label">Architecture Breakdown</span>
+        <h2 class="section-title">Engineered For Performance</h2>
+        <p class="section-desc">Explore standard operating workflows replicated dynamically in pure interactive software displays.</p>
+      </div>
+
+      <div class="workflows-list">
+
+        <!-- Workflow 1: Window Manipulation & Resizing -->
+        <div class="workflow-row">
+          <div class="workflow-info">
+            <div class="step-num">Workflow 01</div>
+            <h3>Fluid Drag & Corner Unlock Resizing</h3>
+            <p>
+              Left-click and hold anywhere on Loki's dark body to reposition it alongside problem sets. Opening Settings (<kbd>Alt + O</kbd>) temporarily unlocks the bottom-right grab handle so you can customize exact screen real estate.
+            </p>
+            <ul class="workflow-points">
+              <li><i class="ph-bold ph-check"></i> Drag window effortlessly from any backdrop region.</li>
+              <li><i class="ph-bold ph-check"></i> Accidental resize protection during normal solving.</li>
+              <li><i class="ph-bold ph-check"></i> Corner-grip resizing unlocked in System Configuration.</li>
+            </ul>
+            <div class="hotkey-pill"><i class="ph-bold ph-keyboard"></i> Shortcut: <strong>Alt + O</strong></div>
+          </div>
+          <div class="workflow-media">
+            <!-- CSS MOCKUP: Resizing Window -->
+            <div class="mock-display-box">
+              <div class="mock-hud-demo drag-demo">
+                <div class="mock-drag-bar"><i class="ph-bold ph-arrows-out-cardinal"></i> Reposition HUD Window Anywhere</div>
+                <div class="mock-hud-inner">
+                  <div class="hud-sample-msg">log₂(x) + log₂(x - 3) = 2</div>
+                  <div class="mock-corner-grip" title="Corner Resize Unlocked"><i class="ph-bold ph-dots-nine"></i></div>
+                </div>
+              </div>
+              <div class="video-overlay-badge"><i class="ph-bold ph-arrows-out-simple"></i> Fluid Drag & Corner Grip</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workflow 2: Rapid Capture & Queuing -->
+        <div class="workflow-row reverse">
+          <div class="workflow-info">
+            <div class="step-num">Workflow 02</div>
+            <h3>Screen Queuing & Lightning Fast Solving</h3>
+            <p>
+              Capture standalone multiple-choice questions or sequence three images together (Question text + Graph + Choices). Hit the Bolt icon or <kbd>Alt + Enter</kbd> to receive instantaneous formatted math and code proofs.
+            </p>
+            <ul class="workflow-points">
+              <li><i class="ph-bold ph-check"></i> <strong>Alt + C</strong> captures & stages screenshot to buffer.</li>
+              <li><i class="ph-bold ph-check"></i> Red badge displays exact queued counter (1, 2, or 3).</li>
+              <li><i class="ph-bold ph-check"></i> <strong>Alt + Backspace</strong> removes the last captured frame.</li>
+            </ul>
+            <div class="hotkey-pill"><i class="ph-bold ph-keyboard"></i> Shortcut: <strong>Alt + Enter (Solve)</strong></div>
+          </div>
+          <div class="workflow-media">
+            <!-- CSS MOCKUP: Queued buffer items -->
+            <div class="mock-display-box">
+              <div class="mock-queue-cards">
+                <div class="q-card"><i class="ph-bold ph-image"></i> <span>Capture 1: Question</span></div>
+                <div class="q-card"><i class="ph-bold ph-chart-line"></i> <span>Capture 2: Graph</span></div>
+                <div class="q-card active"><i class="ph-bold ph-list-numbers"></i> <span>Capture 3: Choices (Ready)</span></div>
+                <div class="q-solve-indicator"><i class="ph-fill ph-lightning"></i> Alt + Enter &bull; Solving unified buffer...</div>
+              </div>
+              <div class="video-overlay-badge"><i class="ph-bold ph-stack"></i> Multi-Shot Image Queuing</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workflow 3: Custom Engine & Model Switching -->
+        <div class="workflow-row">
+          <div class="workflow-info">
+            <div class="step-num">Workflow 03</div>
+            <h3>Custom AI Engine & Study Notes Injection</h3>
+            <p>
+              Connect directly to Gemini 1.5 Flash/Pro, Claude 3.5 Sonnet, GPT-4o, or OpenRouter. Inject specific classroom study notes and custom system instructions so the model reasons exactly according to your professor's syllabus.
+            </p>
+            <ul class="workflow-points">
+              <li><i class="ph-bold ph-check"></i> BYOK (Bring Your Own Key) zero-rate-limit support.</li>
+              <li><i class="ph-bold ph-check"></i> Dedicated System Prompt & Study Context Memory boxes.</li>
+              <li><i class="ph-bold ph-check"></i> Type custom model strings directly in manual input.</li>
+            </ul>
+            <div class="hotkey-pill"><i class="ph-bold ph-sliders"></i> Tab: <strong>Engine Settings</strong></div>
+          </div>
+          <div class="workflow-media">
+            <!-- CSS MOCKUP: Engine Config -->
+            <div class="mock-display-box">
+              <div class="mock-engine-box">
+                <div class="engine-row"><span class="engine-tag gemini active"><i class="ph-bold ph-sparkle"></i> Gemini 1.5 Pro</span> <span class="badge-status">Connected</span></div>
+                <div class="engine-row"><span class="engine-tag claude"><i class="ph-bold ph-atom"></i> Claude 3.5 Sonnet</span> <span class="badge-status">Ready</span></div>
+                <div class="engine-row"><span class="engine-tag gpt"><i class="ph-bold ph-cpu"></i> OpenAI GPT-4o</span> <span class="badge-status">Ready</span></div>
+                <div class="context-box-mock"><i class="ph-bold ph-notepad"></i> Injected Context: "Follow Calculus IV syllabus proof structures"</div>
+              </div>
+              <div class="video-overlay-badge"><i class="ph-bold ph-cpu"></i> BYOK Custom AI Engine</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workflow 4: Stealth HUD & Text Only Mode -->
+        <div class="workflow-row reverse">
+          <div class="workflow-info">
+            <div class="step-num">Workflow 04</div>
+            <h3>Stealth HUD Opacity & "Show Text Only"</h3>
+            <p>
+              Make Loki blend completely into your wallpaper or exam browser. Dial the opacity slider from 100% to 0%, scale fonts from Small to Extra Large, toggle between White/Black high-contrast text, or eliminate window backgrounds entirely.
+            </p>
+            <ul class="workflow-points">
+              <li><i class="ph-bold ph-check"></i> <strong>Show Text Only</strong> removes bounding boxes.</li>
+              <li><i class="ph-bold ph-check"></i> <strong>HUD Opacity</strong> smoothly adjusts from 0% to 100%.</li>
+              <li><i class="ph-bold ph-check"></i> Hide action sidebar for an ultralight footprint.</li>
+            </ul>
+            <div class="hotkey-pill"><i class="ph-bold ph-eye-slash"></i> Shortcut: <strong>Alt + V (Hide/Show)</strong></div>
+          </div>
+          <div class="workflow-media">
+            <!-- CSS MOCKUP: Floating Transparent Text -->
+            <div class="mock-display-box stealth-glass-bg">
+              <div class="glass-text-only">
+                <div class="floating-proof-snippet">
+                  <div class="dot-live"></div>
+                  <strong>Ans: x = 4</strong> &bull; [Factor: (x-4)(x+1)=0]
+                </div>
+                <div class="stealth-indicator-pill"><i class="ph-bold ph-ghost"></i> 0% Opacity Borderless Text Mode</div>
+              </div>
+              <div class="video-overlay-badge"><i class="ph-bold ph-ghost"></i> Pure Glass Transparent HUD</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workflow 5: Archiving & Question Review -->
+        <div class="workflow-row">
+          <div class="workflow-info">
+            <div class="step-num">Workflow 05</div>
+            <h3>Automated Offline Review Portfolios</h3>
+            <p>
+              Never lose a question you practiced. When enabled, Loki compiles all problems, your queued screenshots, and generated step-by-step proofs into timestamped HTML files stored directly on your machine.
+            </p>
+            <ul class="workflow-points">
+              <li><i class="ph-bold ph-check"></i> Stored at <code>C:\Users\Public\Documents\TFD_Review</code>.</li>
+              <li><i class="ph-bold ph-check"></i> Organized into clean date-stamped session folders.</li>
+              <li><i class="ph-bold ph-check"></i> Double-click any file to open interactive browser review sheets.</li>
+            </ul>
+            <div class="hotkey-pill"><i class="ph-bold ph-folder"></i> Path: <strong>TFD_Review</strong></div>
+          </div>
+          <div class="workflow-media">
+            <!-- CSS MOCKUP: Offline HTML Archive -->
+            <div class="mock-display-box">
+              <div class="mock-archive-tree">
+                <div class="tree-item folder"><i class="ph-bold ph-folder-open"></i> TFD_Review\Session_[07-06-2026]</div>
+                <div class="tree-item file active"><i class="ph-bold ph-file-html"></i> Question_14_Calculus_Integral.html</div>
+                <div class="tree-item file"><i class="ph-bold ph-file-html"></i> Question_15_Linear_Algebra.html</div>
+                <div class="tree-item-desc"><i class="ph-bold ph-hard-drive"></i> Offline HTML study dossiers saved locally</div>
+              </div>
+              <div class="video-overlay-badge"><i class="ph-bold ph-folder-star"></i> Auto Local Archiving</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Live Simulator Section -->
+  <section id="simulator" class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="pill-label">Interactive Playground</span>
+        <h2 class="section-title">Test Drive the Loki HUD Interface</h2>
+        <p class="section-desc">Click the live sidebar controls, cycle answer details, adjust HUD opacity, and preview text-only modes right inside your browser.</p>
+      </div>
+
+      <div class="sim-wrapper">
+        <!-- Control Dashboard for the Simulator -->
+        <div class="sim-controls">
+          <h4>Simulator Controls</h4>
+          <div class="control-group">
+            <label>HUD Background Opacity (<span id="simOpacityVal">100%</span>)</label>
+            <input type="range" id="simOpacitySlider" min="10" max="100" value="100">
+          </div>
+
+          <div class="control-group">
+            <label>Font / UI Scale</label>
+            <div class="btn-toggle-group">
+              <button class="toggle-btn" onclick="setSimScale('small')">Small</button>
+              <button class="toggle-btn active" onclick="setSimScale('medium')">Med</button>
+              <button class="toggle-btn" onclick="setSimScale('large')">Large</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>Text Color</label>
+            <div class="btn-toggle-group">
+              <button class="toggle-btn active" id="textColorWhiteBtn" onclick="setSimTextColor('white')">White</button>
+              <button class="toggle-btn" id="textColorBlackBtn" onclick="setSimTextColor('black')">Black</button>
+            </div>
+          </div>
+
+          <div class="control-group switch-group">
+            <label for="simTextOnlySwitch">Show Text Only Mode</label>
+            <input type="checkbox" id="simTextOnlySwitch" onchange="toggleSimTextOnly(this.checked)">
+          </div>
+
+          <div class="control-group switch-group">
+            <label for="simSidebarSwitch">Show Sidebar Action Bar</label>
+            <input type="checkbox" id="simSidebarSwitch" checked onchange="toggleSimSidebar(this.checked)">
+          </div>
+
+          <div class="control-group switch-group">
+            <label for="simShortAnswerSwitch">Short Answers Only</label>
+            <input type="checkbox" id="simShortAnswerSwitch" onchange="toggleSimAnswerMode(this.checked)">
+          </div>
+
+          <button class="btn btn-outline btn-block" onclick="resetSimulator()">Reset Simulator Defaults</button>
+        </div>
+
+        <!-- The Interactive Loki HUD Element -->
+        <div class="sim-stage" id="simStage">
+          <div class="loki-window" id="lokiWindow">
+            <!-- Sidebar -->
+            <div class="loki-sidebar" id="lokiSidebar">
+              <button class="loki-btn active-bolt" title="Send Request (Alt + Enter)" onclick="simSolve()">
+                <i class="ph-fill ph-lightning"></i>
+              </button>
+              <button class="loki-btn" title="Queue Screenshot (Alt + C)" onclick="simQueueScreenshot()">
+                <i class="ph-bold ph-camera"></i>
+                <span class="badge" id="simQueueBadge" style="display:none;">0</span>
+              </button>
+              <button class="loki-btn" title="Manual Input (Alt + X)" onclick="simToggleInput()">
+                <i class="ph-bold ph-pencil-simple"></i>
+              </button>
+              <button class="loki-btn" title="Delete Screenshot (Alt + Backspace)" onclick="simDeleteScreenshot()">
+                <i class="ph-bold ph-trash"></i>
+              </button>
+              <button class="loki-btn" title="Rotate Images (Alt + F)" onclick="simFlipEquation()">
+                <i class="ph-bold ph-arrows-clockwise"></i>
+              </button>
+              <button class="loki-btn" title="Open Settings (Alt + O)" onclick="simOpenSettings()">
+                <i class="ph-bold ph-gear"></i>
+              </button>
+            </div>
+
+            <!-- Main Content Feed -->
+            <div class="loki-body" id="lokiBody">
+              <div class="loki-header-watermark">
+                <i class="ph-fill ph-lightning"></i> LOKI
+              </div>
+
+              <!-- Content Feed View -->
+              <div class="loki-feed" id="lokiFeed">
+                <div class="feed-message" id="feedMsg">
+                  <p class="greeting-text">Hello! How can I assist you today? If you have a specific academic question, a math problem, or a writing assignment, queue a screenshot or send a request.</p>
+                </div>
+              </div>
+
+              <!-- Sliding Input Box -->
+              <div class="loki-input-area" id="lokiInputArea" style="display: none;">
+                <span class="input-label">User Input:</span>
+                <div class="input-row">
+                  <input type="text" id="simTextInput" placeholder="Type clarification, equation or question..." />
+                  <button class="btn-send-mini" onclick="simSendText()"><i class="ph-bold ph-paper-plane-right"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Complete Hotkey Cheat Sheet -->
+  <section id="keybinds" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="pill-label">Fast Execution</span>
+        <h2 class="section-title">Default Keybind Matrix</h2>
+        <p class="section-desc">Every action can be triggered in a split second via custom rebindable global key combinations.</p>
+      </div>
+
+      <div class="hotkey-grid">
+        <div class="hotkey-card">
+          <div class="key-combo"><kbd>Hold RMB</kbd> <span>(3s)</span></div>
+          <div class="key-desc">
+            <h4>Instant Screenshot & Solve</h4>
+            <p>Captures the current active screen frame and instantly transmits it to the AI engine on mouse release.</p>
+          </div>
+        </div>
+
+        <div class="hotkey-card">
+          <div class="key-combo"><kbd>Alt</kbd> + <kbd>Enter</kbd></div>
+          <div class="key-desc">
+            <h4>Send Request / Solve</h4>
+            <p>Triggers AI reasoning on all currently queued screenshots and manual input text buffers.</p>
+          </div>
+        </div>
+
+        <div class="hotkey-card">
+          <div class="key-combo"><kbd>Alt</kbd> + <kbd>C</kbd></div>
+          <div class="key-desc">
+            <h4>Queue Screenshot (1 to 3)</h4>
+            <p>Snapshots current screen and stages it into the multi-image queue without sending immediately.</p>
+          </div>
+        </div>
+
+        <div class="hotkey-card">
+          <div class="key-combo"><kbd>Alt</kbd> + <kbd>Backspace</kbd></div>
+          <div class="key-desc">
+            <h4>Delete Last Screenshot</h4>
+            <p>Removes the most recent screenshot from the staged queue and decrements the counter badge.</p>
+          </div>
+        </div>
+
+        <div class="hotkey-card">
+          <div class="key-combo"><kbd>Alt</kbd> + <kbd>X</kbd></div>
+          <div class="key-desc">
+            <h4>Toggle Manual Input Box</h4>
+            <p>Opens the sliding bottom text field to write custom prompts, queries, or provide extra context.</p>
+          </div>
+        </div>
+
+        <div class="hotkey-card">
+          <div class="key-combo"><kbd>Alt</kbd> + <kbd>O</kbd></div>
+          <div class="key-desc">
+            <h4>Open System Configuration</h4>
+            <p>Opens settings (General, Engine, Keybinds) and unlocks the bottom-right corner grip for resizing.</p>
+          </div>
+        </div>
+
+        <div class="hotkey-card">
+          <div class="key-combo"><kbd>Alt</kbd> + <kbd>V</kbd></div>
+          <div class="key-desc">
+            <h4>Show / Hide Window</h4>
+            <p>Instantly toggles the floating overlay in and out of sight to maintain a 100% clean desktop.</p>
+          </div>
+        </div>
+
+        <div class="hotkey-card">
+          <div class="key-combo"><kbd>Alt</kbd> + <kbd>F</kbd></div>
+          <div class="key-desc">
+            <h4>Rotate / Invert Images</h4>
+            <p>Flips mathematical formulas vertically to correct driver-related upside-down LaTeX renderings.</p>
+          </div>
+        </div>
+
+        <div class="hotkey-card">
+          <div class="key-combo"><kbd>Alt</kbd> + <kbd>End</kbd></div>
+          <div class="key-desc">
+            <h4>Exit Application</h4>
+            <p>Instantly terminates all background hooks and completely closes Loki safely.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Complete Documentation / Manual -->
+  <section id="documentation" class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="pill-label">Complete Manual</span>
+        <h2 class="section-title">Step-by-Step Knowledgebase</h2>
+        <p class="section-desc">Comprehensive instructions for mastering every system configuration and advanced mode in Loki.</p>
+      </div>
+
+      <div class="docs-accordion">
+        
+        <!-- Step 0 -->
+        <div class="doc-item active">
+          <div class="doc-trigger" onclick="toggleDoc(this)">
+            <div class="doc-meta">
+              <span class="step-tag">Step 00</span>
+              <h3>Window Placement & Corner-Grip Resizing</h3>
+            </div>
+            <i class="ph-bold ph-caret-down"></i>
+          </div>
+          <div class="doc-content">
+            <p><strong>Positioning:</strong> Left-click and hold anywhere on the dark background of the main overlay window, then drag it to your preferred position on your monitor.</p>
+            <p><strong>Resizing:</strong> To prevent accidental resizing during examinations, the window border is locked by default. Open the System Configuration window (<kbd>Alt + O</kbd> or the Gear icon). Once open, hover over the bottom-right corner, click and drag the grip to your desired size, then click <em>Apply Changes</em>.</p>
+          </div>
+        </div>
+
+        <!-- Step 1 & 2 -->
+        <div class="doc-item">
+          <div class="doc-trigger" onclick="toggleDoc(this)">
+            <div class="doc-meta">
+              <span class="step-tag">Steps 01–03</span>
+              <h3>Capturing, Multi-Shot Queuing & Deletion</h3>
+            </div>
+            <i class="ph-bold ph-caret-down"></i>
+          </div>
+          <div class="doc-content">
+            <p><strong>Instant 3s Hold:</strong> Hold Right Mouse Button (RMB) anywhere for 3 seconds and release. It automatically snapshots and queries the AI immediately.</p>
+            <p><strong>Multi-Shot Queuing:</strong> For long questions with separate charts or spread-out options, press <kbd>Alt + C</kbd> up to 3 times to queue multiple screens. A red counter badge will appear over the trash icon. Press <kbd>Alt + Enter</kbd> to solve all frames together.</p>
+            <p><strong>Deleting Mis-captures:</strong> Press <kbd>Alt + Backspace</kbd> or click the Trash icon to remove the most recent capture.</p>
+          </div>
+        </div>
+
+        <!-- Step 8 & 9 -->
+        <div class="doc-item">
+          <div class="doc-trigger" onclick="toggleDoc(this)">
+            <div class="doc-meta">
+              <span class="step-tag">Steps 08–09</span>
+              <h3>Short Answers vs. Step-by-Step Proofs & Math Flipping</h3>
+            </div>
+            <i class="ph-bold ph-caret-down"></i>
+          </div>
+          <div class="doc-content">
+            <p><strong>Response Depth:</strong> Open Settings (<kbd>Alt + O</kbd>) &gt; General tab. Check <em>Short Answers</em> for rapid multiple-choice solutions. Uncheck it for deep, pedagogical, step-by-step mathematical proofs and reasoning.</p>
+            <p><strong>Upside Down Math Inversion:</strong> If virtual screen scaling renders LaTeX math upside down, click the Rotate icon or press <kbd>Alt + F</kbd> to invert equations vertically.</p>
+          </div>
+        </div>
+
+        <!-- Step 10 to 13 -->
+        <div class="doc-item">
+          <div class="doc-trigger" onclick="toggleDoc(this)">
+            <div class="doc-meta">
+              <span class="step-tag">Steps 10–13</span>
+              <h3>Stealth Modes, Text-Only & Visibility Customization</h3>
+            </div>
+            <i class="ph-bold ph-caret-down"></i>
+          </div>
+          <div class="doc-content">
+            <p><strong>HUD Opacity:</strong> Under General &gt; HUD Opacity, adjust the slider between 0% (glass-clear) and 100% (solid dark slate).</p>
+            <p><strong>Show Text Only:</strong> Checking <em>Show Text Only</em> completely removes the window's dark container, allowing the AI solution to float directly on your screen surface. Pair this with Black text for light backgrounds or White text for dark themes.</p>
+            <p><strong>Hide Sidebar:</strong> Uncheck <em>Show Sidebar Menu</em> to completely collapse the icon rail. You can continue triggering all actions via hotkeys.</p>
+          </div>
+        </div>
+
+        <!-- Step 14 & 15 -->
+        <div class="doc-item">
+          <div class="doc-trigger" onclick="toggleDoc(this)">
+            <div class="doc-meta">
+              <span class="step-tag">Steps 14–15</span>
+              <h3>Custom AI Engine & Keybind Remapping</h3>
+            </div>
+            <i class="ph-bold ph-caret-down"></i>
+          </div>
+          <div class="doc-content">
+            <p><strong>BYOK AI Engine:</strong> Open Settings &gt; Engine tab &gt; check <em>Enable Custom AI</em>. Choose your endpoint provider (Google Gemini, OpenAI GPT, Anthropic Claude, OpenRouter, Zhipu GLM) and paste your API key. You can also paste specific course notes into the <em>Study Notes / Context</em> box.</p>
+            <p><strong>Keybinds:</strong> Under the Keybinds tab, click any shortcut button (it will display <code>[Press a key...]</code>) and type your new single key or modifier combo (e.g. <code>Ctrl + Shift + S</code>), then hit <em>Apply Changes</em>.</p>
+          </div>
+        </div>
+
+        <!-- Step 17 & 18 -->
+        <div class="doc-item">
+          <div class="doc-trigger" onclick="toggleDoc(this)">
+            <div class="doc-meta">
+              <span class="step-tag">Steps 17–18</span>
+              <h3>Automated Archiving & Review Location</h3>
+            </div>
+            <i class="ph-bold ph-caret-down"></i>
+          </div>
+          <div class="doc-content">
+            <p><strong>Enable Archiving:</strong> Check <em>Save Questions</em> under General &gt; Archiving.</p>
+            <p><strong>Finding Your Questions:</strong> Open Windows File Explorer (<kbd>Win + E</kbd>) and paste the following path into the address bar:</p>
+            <div class="code-box">C:\Users\Public\Documents\TFD_Review</div>
+            <p>Files are automatically cataloged by date (e.g. <code>[07-06-2026]</code>) and question index (e.g. <code>Question_1.html</code>). Double-click any file to open a full offline review sheet in Chrome, Edge, or Firefox.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Discord Ticket & Support Section -->
+  <section id="support" class="section">
+    <div class="container">
+      <div class="support-card">
+        <div class="support-content">
+          <span class="pill-label"><i class="ph-bold ph-discord-logo"></i> 24/7 Discord Support</span>
+          <h2>Need Help or Have a Bug Report?</h2>
+          <p>
+            Our dedicated Discord bot automates instant, private 1-on-1 support tickets. Follow these 3 easy steps to open a ticket directly with our engineering team:
+          </p>
+
+          <div class="ticket-steps">
+            <div class="t-step">
+              <div class="t-badge">1</div>
+              <div>
+                <strong>Visit #support-ticket</strong>
+                <p>Join our Discord server and navigate to the <code>#support-ticket</code> channel.</p>
+              </div>
+            </div>
+            <div class="t-step">
+              <div class="t-badge">2</div>
+              <div>
+                <strong>Click "Open Ticket"</strong>
+                <p>Click the blue button. A private channel (e.g., <code>#ticket-0002</code>) is immediately created for you.</p>
+              </div>
+            </div>
+            <div class="t-step">
+              <div class="t-badge">3</div>
+              <div>
+                <strong>Select Category & Describe</strong>
+                <p>Pick <em>General/Help</em> or <em>Bug Report</em> to connect instantly with staff.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="support-cta">
+            <a href="https://discord.gg" target="_blank" class="btn btn-discord btn-lg">
+              <i class="ph-bold ph-discord-logo"></i> Join Discord & Open Support Ticket
+            </a>
+          </div>
+        </div>
+
+        <div class="support-preview">
+          <div class="discord-mockup">
+            <div class="dc-header">
+              <i class="ph-bold ph-hash"></i> ticket-0002
+              <span class="dc-tag">Private</span>
+            </div>
+            <div class="dc-body">
+              <div class="dc-bot-msg">
+                <div class="dc-avatar"><i class="ph-fill ph-lightning"></i></div>
+                <div class="dc-text">
+                  <div class="dc-author">Loki Support Bot <span class="bot-badge">BOT</span></div>
+                  <p>Support Ticket <strong>#0002</strong> unlocked! Select a category below:</p>
+                  <div class="dc-buttons">
+                    <button class="dc-btn dc-btn-primary">General/Help</button>
+                    <button class="dc-btn dc-btn-danger">Bug Report</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <div class="brand">
+          <div class="brand-icon"><i class="ph-fill ph-lightning"></i></div>
+          <span class="brand-name">LOKI</span>
+        </div>
+        <p>The ultra-lightweight, customizable desktop AI HUD designed for high-performance learning and immediate precision.</p>
+      </div>
+
+      <div class="footer-links-group">
+        <h4>Navigation</h4>
+        <a href="#stealth-demo">Stealth Proof</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#features">Features</a>
+        <a href="#workflows">Workflows</a>
+        <a href="#simulator">Live Simulator</a>
+      </div>
+
+      <div class="footer-links-group">
+        <h4>Resources</h4>
+        <a href="#documentation">Step-by-Step Manual</a>
+        <a href="#support">Discord Ticket Help</a>
+        <a href="https://discord.gg" target="_blank">Join Community</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-flex">
+        <p>&copy; 2026 Loki HUD Systems. All rights reserved.</p>
+        <p class="offline-tag"><i class="ph-fill ph-check-circle"></i> Compatible with Windows 10/11</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Scripts -->
+  <script>
+    // ⚙️ BACKEND API CONFIGURATION (Change to your server's live URL if hosted on a separate domain)
+    const BACKEND_URL = "https://d1q4n4qb8q811f.cloudfront.net";
+
+    // ─── 1. STRIPE CHECKOUT TRIGGER ─────────────────────────────
+    async function checkout(planName) {
+      const buyBtns = document.querySelectorAll('.btn-buy');
+      buyBtns.forEach(b => {
+        b.disabled = true;
+        b.style.opacity = '0.6';
+      });
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/stripe/create-checkout-session`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ plan: planName })
+        });
+
+        const data = await response.json();
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert("Checkout Error: " + (data.error || "Could not connect to payment gateway."));
+          buyBtns.forEach(b => {
+            b.disabled = false;
+            b.style.opacity = '1';
+          });
+        }
+      } catch (err) {
+        console.error("Payment error:", err);
+        alert("Failed to initiate checkout. Please ensure your backend server is running.");
+        buyBtns.forEach(b => {
+          b.disabled = false;
+          b.style.opacity = '1';
+        });
+      }
+    }
+
+    // ─── 2. STEALTH "WHAT I SEE VS WHAT THEY SEE" INTERACTIVE TOGGLE ───
+    function switchStealthView(view) {
+      const tabUser = document.getElementById('tabUserView');
+      const tabStream = document.getElementById('tabStreamView');
+      const overlay = document.getElementById('stealthLokiOverlay');
+      const streamNotice = document.getElementById('streamHiddenNotice');
+      const screen = document.getElementById('stealthSimScreen');
+
+      if (view === 'user') {
+        tabUser.classList.add('active');
+        tabStream.classList.remove('active');
+        overlay.classList.remove('hidden-on-stream');
+        streamNotice.style.display = 'none';
+        screen.classList.remove('stream-mode');
+      } else {
+        tabStream.classList.add('active');
+        tabUser.classList.remove('active');
+        overlay.classList.add('hidden-on-stream');
+        streamNotice.style.display = 'flex';
+        screen.classList.add('stream-mode');
+      }
+    }
+
+    // ─── 3. SIMULATOR STATE & LOGIC ─────────────────────────────
+    let queueCount = 0;
+    let isFlipped = false;
+    let isShortMode = false;
+    let isTextOnly = false;
+
+    function setSimScale(scale) {
+      const feed = document.getElementById('lokiFeed');
+      feed.classList.remove('scale-small', 'scale-medium', 'scale-large');
+      feed.classList.add('scale-' + scale);
+      
+      document.querySelectorAll('.btn-toggle-group .toggle-btn').forEach(btn => {
+        if(btn.innerText.toLowerCase().includes(scale.substring(0,3))) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    function setSimTextColor(color) {
+      const body = document.getElementById('lokiBody');
+      const whiteBtn = document.getElementById('textColorWhiteBtn');
+      const blackBtn = document.getElementById('textColorBlackBtn');
+      
+      if (color === 'black') {
+        body.style.color = '#0f172a';
+        whiteBtn.classList.remove('active');
+        blackBtn.classList.add('active');
+      } else {
+        body.style.color = '#ffffff';
+        whiteBtn.classList.add('active');
+        blackBtn.classList.remove('active');
+      }
+    }
+
+    const opacitySlider = document.getElementById('simOpacitySlider');
+    const opacityVal = document.getElementById('simOpacityVal');
+    const lokiWindow = document.getElementById('lokiWindow');
+
+    if (opacitySlider) {
+      opacitySlider.addEventListener('input', (e) => {
+        const val = e.target.value;
+        opacityVal.innerText = val + '%';
+        if(!isTextOnly) {
+          lokiWindow.style.backgroundColor = `rgba(18, 24, 38, ${val / 100})`;
+        }
+      });
+    }
+
+    function toggleSimTextOnly(checked) {
+      isTextOnly = checked;
+      if(checked) {
+        lokiWindow.classList.add('text-only-mode');
+        document.getElementById('simStage').classList.add('light-pattern');
+      } else {
+        lokiWindow.classList.remove('text-only-mode');
+        document.getElementById('simStage').classList.remove('light-pattern');
+        const val = opacitySlider.value;
+        lokiWindow.style.backgroundColor = `rgba(18, 24, 38, ${val / 100})`;
+      }
+    }
+
+    function toggleSimSidebar(checked) {
+      const sidebar = document.getElementById('lokiSidebar');
+      sidebar.style.display = checked ? 'flex' : 'none';
+    }
+
+    function toggleSimAnswerMode(checked) {
+      isShortMode = checked;
+    }
+
+    function simQueueScreenshot() {
+      if (queueCount < 3) {
+        queueCount++;
+        const badge = document.getElementById('simQueueBadge');
+        badge.style.display = 'block';
+        badge.innerText = queueCount;
+        renderMessage(`📸 Screenshot staged! Queued images: <strong>${queueCount}/3</strong>. Press ⚡ to solve.`);
+      } else {
+        renderMessage(`⚠️ Queue limit reached (3/3). Press ⚡ or Alt + Enter to solve.`);
+      }
+    }
+
+    function simDeleteScreenshot() {
+      const badge = document.getElementById('simQueueBadge');
+      if (queueCount > 0) {
+        queueCount--;
+        if (queueCount === 0) {
+          badge.style.display = 'none';
+        } else {
+          badge.innerText = queueCount;
+        }
+        renderMessage(`🗑️ Last screenshot removed. Remaining queued: <strong>${queueCount}</strong>.`);
+      } else {
+        renderMessage(`ℹ️ Queue is currently empty.`);
+      }
+    }
+
+    function simToggleInput() {
+      const area = document.getElementById('lokiInputArea');
+      area.style.display = area.style.display === 'none' ? 'block' : 'none';
+      if(area.style.display === 'block') {
+        document.getElementById('simTextInput').focus();
+      }
+    }
+
+    function simSendText() {
+      const input = document.getElementById('simTextInput');
+      if(input.value.trim() !== "") {
+        simSolve(input.value);
+        input.value = "";
+      }
+    }
+
+    function simFlipEquation() {
+      isFlipped = !isFlipped;
+      const feed = document.getElementById('lokiFeed');
+      if (isFlipped) {
+        feed.classList.add('flipped-math');
+        renderMessage(`🔄 Equations & LaTeX rotated vertically (Alt + F correction applied).`);
+      } else {
+        feed.classList.remove('flipped-math');
+        renderMessage(`🔄 Equations reverted to normal orientation.`);
+      }
+    }
+
+    function simOpenSettings() {
+      renderMessage(`⚙️ <strong>System Configuration Opened</strong>: Corner-grip resize is now unlocked! (Alt + O)`);
+    }
+
+    function simSolve(customText = null) {
+      const feed = document.getElementById('feedMsg');
+      feed.innerHTML = `<div class="typing-dots"><span></span><span></span><span></span> Reasoning...</div>`;
+
+      setTimeout(() => {
+        queueCount = 0;
+        document.getElementById('simQueueBadge').style.display = 'none';
+
+        if (isShortMode) {
+          feed.innerHTML = `
+            <div class="solution-box">
+              <span class="sol-badge">Direct Answer</span>
+              <h4><strong>Answer: Option B</strong></h4>
+              <p>e<sup>x<sup>3</sup></sup> + C is correct.</p>
+            </div>
+          `;
+        } else {
+          feed.innerHTML = `
+            <div class="solution-box">
+              <span class="sol-badge">Comprehensive Step-by-Step Proof</span>
+              <h4><strong>Integral:</strong> &int; (3x² &middot; e^(x³)) dx</h4>
+              <ol class="sol-steps">
+                <li><strong>Substitution:</strong> Let u = x³ &rArr; du = 3x² dx</li>
+                <li><strong>Transform:</strong> &int; e^u du</li>
+                <li><strong>Integrate:</strong> e^u + C</li>
+                <li><strong>Back-Substitute:</strong> e^(x³) + C</li>
+                <li><strong>Conclusion:</strong> Matches <strong>Option B</strong> exactly.</li>
+              </ol>
+            </div>
+          `;
+        }
+      }, 600);
+    }
+
+    function renderMessage(html) {
+      document.getElementById('feedMsg').innerHTML = `<p>${html}</p>`;
+    }
+
+    function resetSimulator() {
+      queueCount = 0;
+      isFlipped = false;
+      isShortMode = false;
+      isTextOnly = false;
+      document.getElementById('simQueueBadge').style.display = 'none';
+      document.getElementById('simOpacitySlider').value = 100;
+      document.getElementById('simOpacityVal').innerText = '100%';
+      document.getElementById('simTextOnlySwitch').checked = false;
+      document.getElementById('simSidebarSwitch').checked = true;
+      document.getElementById('simShortAnswerSwitch').checked = false;
+      document.getElementById('lokiWindow').classList.remove('text-only-mode');
+      document.getElementById('simStage').classList.remove('light-pattern');
+      document.getElementById('lokiSidebar').style.display = 'flex';
+      document.getElementById('lokiInputArea').style.display = 'none';
+      setSimTextColor('white');
+      setSimScale('medium');
+      renderMessage(`Hello! How can I assist you today? If you have a specific academic question, a math problem, or a writing assignment, queue a screenshot or send a request.`);
+    }
+
+    // Docs Accordion
+    function toggleDoc(trigger) {
+      const item = trigger.parentElement;
+      const isActive = item.classList.contains('active');
+      document.querySelectorAll('.doc-item').forEach(i => i.classList.remove('active'));
+      if (!isActive) {
+        item.classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>
