@@ -267,7 +267,8 @@
 
         if (response.ok && data.success) {
           document.getElementById('keyText').innerText = data.key;
-          document.getElementById('passcodeText').innerText = data.passcode || '3636=';
+          const rawCode = data.passcode || '3636=';
+            document.getElementById('passcodeText').innerText = rawCode.endsWith('=') ? rawCode : rawCode + '=';
           if (data.downloadUrl) {
             document.getElementById('downloadBtn').href = data.downloadUrl;
           }
