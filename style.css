@@ -172,6 +172,77 @@ kbd {
 }
 
 /* ==========================================================================
+   MANDATORY COMPLIANCE / PROHIBITED USE BANNER
+   ========================================================================== */
+.mandatory-notice-banner {
+  background: linear-gradient(90deg, #7f1d1d 0%, #991b1b 50%, #7f1d1d 100%);
+  border-bottom: 2px solid #ef4444;
+  color: #ffffff;
+  padding: 14px 20px;
+  position: relative;
+  z-index: 1000;
+  box-shadow: 0 4px 25px rgba(239, 68, 68, 0.35);
+}
+.mandatory-notice-banner .notice-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  max-width: 1240px;
+  margin: 0 auto;
+  text-align: center;
+}
+.mandatory-notice-banner .notice-icon {
+  font-size: 1.6rem;
+  color: #fef08a;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.mandatory-notice-banner .notice-text {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+.mandatory-notice-banner .notice-text strong {
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* Pricing Section Prohibited Use Notice Box */
+.pricing-prohibited-notice {
+  background: rgba(127, 29, 29, 0.45);
+  border: 1px solid rgba(239, 68, 68, 0.6);
+  border-left: 6px solid #ef4444;
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  margin-bottom: 36px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.2);
+}
+.pricing-prohibited-notice .notice-icon {
+  font-size: 1.8rem;
+  color: #ef4444;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.pricing-prohibited-notice .notice-text {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #fee2e2;
+  font-weight: 800;
+}
+.pricing-prohibited-notice .notice-text strong {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+/* ==========================================================================
    NAVBAR
    ========================================================================== */
 .navbar {
@@ -1656,6 +1727,37 @@ kbd {
 }
 
 @media (max-width: 768px) {
+  .mandatory-notice-banner {
+    padding: 12px 16px;
+  }
+  .mandatory-notice-banner .notice-container {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    gap: 10px;
+  }
+  .mandatory-notice-banner .notice-icon {
+    font-size: 1.3rem;
+    margin-top: 2px;
+  }
+  .mandatory-notice-banner .notice-text {
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+  .pricing-prohibited-notice {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+  }
+  .pricing-prohibited-notice .notice-icon {
+    font-size: 1.4rem;
+    margin-top: 2px;
+  }
+  .pricing-prohibited-notice .notice-text {
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
   .nav-links { display: none; }
   .hero-title { font-size: 2rem; }
   .grid-3, .hotkey-grid { grid-template-columns: 1fr; }
