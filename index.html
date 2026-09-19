@@ -50,6 +50,7 @@
         <a href="#simulator">Live HUD</a>
         <a href="#keybinds">Hotkeys</a>
         <a href="#support">Support</a>
+        <a href="affiliate.html" style="color: var(--accent-gold);"><i class="ph-bold ph-handshake"></i> Affiliates</a>
       </nav>
 
       <div class="nav-cta">
@@ -891,6 +892,7 @@
         <a href="#documentation">Step-by-Step Manual</a>
         <a href="#support">Discord Ticket Help</a>
         <a href="https://discord.gg/fab9WUG39U" target="_blank">Join Community</a>
+        <a href="affiliate.html" style="color: var(--accent-gold);"><i class="ph-bold ph-handshake"></i> Affiliate Program</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -906,7 +908,28 @@
     // ⚙️ BACKEND API CONFIGURATION (Change to your server's live URL if hosted on a separate domain)
     const BACKEND_URL = "https://d1q4n4qb8q811f.cloudfront.net";
 
-    // ─── 1. STRIPE CHECKOUT TRIGGER ─────────────────────────────
+    // ─── 0. AFFILIATE REFERRAL TRACKING ────────────────────────
+    (function captureAffiliateRef() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const ref = urlParams.get('ref');
+        if (ref) {
+          const cleanRef = ref.trim().toLowerCase();
+          localStorage.setItem('loki_affiliate_ref', cleanRef);
+
+          // Ping backend click tracker (non-blocking)
+          fetch(`${BACKEND_URL}/api/affiliate/click`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: cleanRef })
+          }).catch(() => {});
+        }
+      } catch (e) {
+        console.warn("Affiliate ref capture error:", e);
+      }
+    })();
+
+    // ─── 1. STRIPE CHECKOUT TRIGGER (WITH AFFILIATE TAG) ────────
     async function checkout(planName) {
       const buyBtns = document.querySelectorAll('.btn-buy');
       buyBtns.forEach(b => {
@@ -914,11 +937,17 @@
         b.style.opacity = '0.6';
       });
 
+      // Retrieve saved affiliate code from localStorage (if customer landed via affiliate link)
+      const savedRef = localStorage.getItem('loki_affiliate_ref') || '';
+
       try {
         const response = await fetch(`${BACKEND_URL}/api/stripe/create-checkout-session`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ plan: planName })
+          body: JSON.stringify({ 
+            plan: planName,
+            ref: savedRef 
+          })
         });
 
         const data = await response.json();
