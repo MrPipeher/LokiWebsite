@@ -6,7 +6,6 @@
   <title>Loki — Stealth Floating AI Companion & Homework Engine</title>
   <meta name="description" content="Loki is a high-speed, unobtrusive desktop AI HUD designed for real-time problem solving, multi-shot screen queuing, and offline session archiving." />
   
-  <!-- Google Fonts & Phosphor Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -16,7 +15,7 @@
 </head>
 <body>
 
-  <!-- Background Ambient Glows -->
+  <!-- Ambient Background Glows -->
   <div class="ambient-glow glow-1"></div>
   <div class="ambient-glow glow-2"></div>
   <div class="ambient-glow glow-3"></div>
@@ -40,7 +39,7 @@
       </nav>
 
       <div class="nav-cta">
-        <a href="#support" class="btn btn-secondary btn-sm">
+        <a href="https://discord.gg/fab9WUG39U" target="_blank" class="btn btn-secondary btn-sm">
           <i class="ph-bold ph-discord-logo"></i> Discord Ticket
         </a>
         <a href="#pricing" class="btn btn-primary btn-sm">
@@ -60,7 +59,7 @@
         The Ultimate Stealth AI Overlay for <span class="gradient-text">Instant Answers</span> & Deep Study.
       </h1>
       <p class="hero-subtitle">
-        Capture multiple problem parts, solve complex math formulas in milliseconds, customize transparent HUDs, or float raw AI text completely invisible to screen recorders.
+        Capture multiple problem parts, solve complex math formulas in milliseconds, and float raw solutions completely invisible to screen recorders, Zoom, Teams, and Discord.
       </p>
 
       <div class="hero-actions">
@@ -72,13 +71,6 @@
         </a>
       </div>
 
-      <!-- OS Availability & Requirements Pill -->
-      <div class="hero-requirements-note">
-        <span class="req-item win"><i class="ph-bold ph-windows-logo"></i> <strong>Windows 11 Only</strong> (Requires Latest Updates)</span>
-        <span class="req-sep">&bull;</span>
-        <span class="req-item mac"><i class="ph-bold ph-apple-logo"></i> macOS <span class="badge-pill dev">In Development</span></span>
-      </div>
-
       <!-- Quick Feature Strip -->
       <div class="feature-strip">
         <div class="strip-item">
@@ -87,38 +79,40 @@
         </div>
         <div class="strip-item">
           <i class="ph-bold ph-stack"></i>
-          <span>Up to 3 Queued Screenshots</span>
+          <span>Multi-Shot Diagram Queuing</span>
         </div>
         <div class="strip-item">
           <i class="ph-bold ph-cpu"></i>
           <span>BYOK: OpenAI, Gemini, Claude</span>
         </div>
         <div class="strip-item">
-          <i class="ph-bold ph-windows-logo" style="color: #38bdf8;"></i>
-          <span>Windows 11 (Latest Updates)</span>
+          <i class="ph-bold ph-devices" style="color: #38bdf8;"></i>
+          <span>Windows 11 &amp; macOS Ready</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 🛡️ NEW: "WHAT I SEE VS. WHAT THEY SEE" INTERACTIVE SHOWCASE -->
+  <!-- 🛡️ INTERACTIVE SLIDER SHOWCASE -->
   <section id="stealth-demo" class="section section-dark">
     <div class="container">
       <div class="section-header">
-        <span class="pill-label">Hardware-Level Capture Exclusion</span>
+        <span class="pill-label">Hardware Invisibility</span>
         <h2 class="section-title">What You See vs. What They See</h2>
-        <p class="section-desc">Loki utilizes direct OS window composition flags. On your physical display, formulas and proofs hover crystal clear. On Zoom, Teams, Discord, and screen monitors, your display appears 100% clean.</p>
+        <p class="section-desc">Drag the interactive slider below to see how hardware-level window exclusion renders Loki crystal clear on your screen while remaining 100% absent on screen shares, recordings, and capture cards.</p>
       </div>
 
       <div class="comparison-container">
-        <!-- Switch Controls -->
-        <div class="comparison-switcher">
-          <button class="comp-tab active" id="tabUserView" onclick="switchStealthView('user')">
-            <i class="ph-bold ph-desktop"></i> What You See (Your Monitor)
-          </button>
-          <button class="comp-tab" id="tabStreamView" onclick="switchStealthView('stream')">
-            <i class="ph-bold ph-video-camera"></i> What They See (Screen Share / Recording)
-          </button>
+        
+        <!-- Interactive Slider Control -->
+        <div class="stealth-slider-control-card">
+          <div class="slider-label-row">
+            <span class="s-label left"><i class="ph-bold ph-video-camera"></i> What They See (0% Opacity)</span>
+            <span class="s-label right"><i class="ph-bold ph-desktop"></i> What You See (100% Visibility)</span>
+          </div>
+          <div class="slider-track-wrap">
+            <input type="range" id="stealthSlider" min="0" max="100" value="100" oninput="updateStealthSlider(this.value)">
+          </div>
         </div>
 
         <!-- Simulated Monitor Screen -->
@@ -130,12 +124,12 @@
               <div class="window-dots">
                 <span></span><span></span><span></span>
               </div>
-              <div class="browser-address"><i class="ph-bold ph-lock"></i> https://portal.exam-environment.edu/test/calculus-final</div>
+              <div class="browser-address"><i class="ph-bold ph-lock"></i> https://portal.homework-problem-set.edu/math/calculus-series</div>
             </div>
             <div class="browser-content">
               <div class="exam-header-row">
-                <span class="exam-q-badge">Question 14 of 30</span>
-                <span class="exam-timer"><i class="ph-bold ph-clock"></i> 48:12 remaining</span>
+                <span class="exam-q-badge">Problem 14 of 30</span>
+                <span class="exam-timer"><i class="ph-bold ph-clock"></i> 48:12 elapsed</span>
               </div>
               <h3 class="exam-problem-title">Evaluate the indefinite integral:</h3>
               <div class="exam-formula-box">
@@ -150,7 +144,7 @@
             </div>
           </div>
 
-          <!-- THE FLOATING LOKI HUD (Toggled via JS/CSS) -->
+          <!-- THE FLOATING LOKI HUD -->
           <div class="stealth-loki-overlay" id="stealthLokiOverlay">
             <div class="hud-mini-header">
               <div class="hud-title"><i class="ph-fill ph-lightning"></i> LOKI REASONING ENGINE</div>
@@ -163,9 +157,9 @@
             </div>
           </div>
 
-          <!-- Invisibility Status Watermark on Stream View -->
+          <!-- Status badge when fully hidden -->
           <div class="stream-hidden-badge" id="streamHiddenNotice" style="display: none;">
-            <i class="ph-bold ph-shield-check"></i> Loki HUD Excluded From Recording Stream (0% Footprint)
+            <i class="ph-bold ph-shield-check"></i> Excluded from screen share / stream (0% Footprint)
           </div>
 
         </div>
@@ -179,60 +173,21 @@
       <div class="section-header">
         <span class="pill-label">Transparent Access</span>
         <h2 class="section-title">Choose Your License Plan</h2>
-        <p class="section-desc">Instant Stripe checkout with immediate on-screen key delivery and Discord support ticket access.</p>
+        <p class="section-desc">Select your operating system and plan duration for immediate on-screen key delivery and instant access.</p>
       </div>
 
-      <!-- ⚠️ PROHIBITED USE MANDATORY WARNING -->
-      <div class="pricing-prohibited-notice">
-        <div class="notice-icon">
-          <i class="ph-bold ph-warning-octagon"></i>
-        </div>
-        <div class="notice-content">
-          <div class="notice-header-row">
-            <span class="notice-badge">CRITICAL WARNING</span>
-            <div class="notice-title">ZERO TOLERANCE: STRICTLY NO COLLEGE BOARD OR STANDARDIZED TEST SUPPORT</div>
-          </div>
-          <p class="notice-p">
-            Loki is engineered exclusively as a homework study aid and learning companion. It <strong>does NOT function inside secure lockdown browsers</strong> and is <strong>strictly prohibited</strong> on all official standardized testing platforms. Do <u>not</u> purchase Loki if you intend to use it on any of the following:
-          </p>
-          <div class="prohibited-tags-grid">
-            <div class="prohibited-tag"><i class="ph-bold ph-prohibit"></i> <span><strong>College Board:</strong> Bluebook, Digital SAT, PSAT</span></div>
-            <div class="prohibited-tag"><i class="ph-bold ph-prohibit"></i> <span><strong>AP Program:</strong> AP Classroom & AP Exams</span></div>
-            <div class="prohibited-tag"><i class="ph-bold ph-prohibit"></i> <span><strong>Standardized Tests:</strong> ACT, GRE, MCAT, LSAT</span></div>
-            <div class="prohibited-tag"><i class="ph-bold ph-prohibit"></i> <span><strong>Government Tests:</strong> Civil service & military exams</span></div>
-          </div>
-          <div class="notice-enforcement">
-            <i class="ph-bold ph-shield-warning"></i>
-            <div>
-              <strong>Enforcement & Ban Policy:</strong> Any attempt to use Loki on College Board software (including Bluebook) or standardized exam environments will trigger an <strong>immediate, non-refundable permanent license termination</strong> and account ban, and user details will be forwarded to the responsible institutions and test security authorities.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 💻 OS COMPATIBILITY & SYSTEM REQUIREMENTS BANNER -->
-      <div class="pricing-os-notice">
-        <div class="os-notice-item win">
-          <i class="ph-bold ph-windows-logo os-icon"></i>
-          <div class="os-notice-content">
-            <h4>
-              Windows 11 Only
-              <span class="os-status-pill win">Supported</span>
-            </h4>
-            <p><strong>Requires Windows 11 with the latest Windows updates installed.</strong> Windows 10 and earlier versions are not supported due to OS-level window exclusion API requirements.</p>
-          </div>
-        </div>
-        <div class="os-notice-divider"></div>
-        <div class="os-notice-item mac">
-          <i class="ph-bold ph-apple-logo os-icon"></i>
-          <div class="os-notice-content">
-            <h4>
-              macOS
-              <span class="os-status-pill mac">In Development</span>
-            </h4>
-            <p>A native macOS version is actively in development and coming soon. Please join our Discord community for beta testing access and launch updates.</p>
-          </div>
-        </div>
+      <!-- 💻 OS SELECTOR SWITCH -->
+      <div class="os-toggle-container">
+        <button class="os-toggle-btn active" id="btnOsWin" onclick="setPlatform('win')" style="cursor: default;">
+          <i class="ph-bold ph-windows-logo"></i>
+          <span>Windows 11</span>
+          <span class="os-tag win">Instant Setup (.exe)</span>
+        </button>
+        <button class="os-toggle-btn" id="btnOsMac" disabled style="opacity: 0.5; cursor: not-allowed;" title="macOS build releasing soon">
+          <i class="ph-bold ph-apple-logo"></i>
+          <span>macOS Universal</span>
+          <span class="os-tag mac" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">Coming Soon</span>
+        </button>
       </div>
 
       <div class="pricing-grid">
@@ -242,7 +197,7 @@
           <div class="plan-header">
             <span class="plan-badge">Sprint Access</span>
             <h3>1-Day Pass</h3>
-            <p>Perfect for crunch sessions and single-exam prep.</p>
+            <p>Perfect for crunch sessions and fast revision sets.</p>
           </div>
           <div class="plan-price">
             <span class="currency">$</span>
@@ -250,14 +205,13 @@
             <span class="period">/ 24 hours</span>
           </div>
           <ul class="plan-features">
-            <li><i class="ph-bold ph-windows-logo" style="color: #38bdf8;"></i> <strong>Windows 11 Only</strong> (Latest Updates)</li>
+            <li><i class="ph-bold ph-check"></i> <strong class="os-display-name">Windows 11</strong> Native App</li>
             <li><i class="ph-bold ph-check"></i> <strong>24 Hours</strong> Full Access</li>
             <li><i class="ph-bold ph-check"></i> 50 AI Engine Queries</li>
-            <li><i class="ph-bold ph-check"></i> 1-Shot Screenshot Queuing</li>
-            <li><i class="ph-bold ph-check"></i> Anti-Screen-Capture Stealth</li>
-            <li><i class="ph-bold ph-check"></i> Automated HTML Archiving</li>
+            <li><i class="ph-bold ph-check"></i> Single Machine Lock</li>
+            <li><i class="ph-bold ph-check"></i> Screen Capture Invisibility</li>
           </ul>
-          <button class="btn btn-outline btn-block btn-buy" onclick="checkout('1day')">
+          <button class="btn btn-outline btn-block btn-buy" onclick="openComplianceModal('1day')">
             <i class="ph-bold ph-lightning"></i> Get 1-Day Pass ($10)
           </button>
         </div>
@@ -268,7 +222,7 @@
           <div class="plan-header">
             <span class="plan-badge gold">Exam Week</span>
             <h3>7-Day Pass</h3>
-            <p>The go-to choice for midterm and finals weeks.</p>
+            <p>The standard choice for midterm and final study weeks.</p>
           </div>
           <div class="plan-price">
             <span class="currency">$</span>
@@ -276,14 +230,13 @@
             <span class="period">/ 7 days</span>
           </div>
           <ul class="plan-features">
-            <li><i class="ph-bold ph-windows-logo" style="color: #38bdf8;"></i> <strong>Windows 11 Only</strong> (Latest Updates)</li>
+            <li><i class="ph-bold ph-check"></i> <strong class="os-display-name">Windows 11</strong> Native App</li>
             <li><i class="ph-bold ph-check"></i> <strong>7 Full Days</strong> Access</li>
             <li><i class="ph-bold ph-check"></i> <strong>300 AI Queries</strong> Limit</li>
-            <li><i class="ph-bold ph-check"></i> High-Speed Priority Processing</li>
             <li><i class="ph-bold ph-check"></i> Bring Your Own Key (BYOK)</li>
             <li><i class="ph-bold ph-check"></i> 24/7 Priority Discord Support</li>
           </ul>
-          <button class="btn btn-primary btn-block btn-buy" onclick="checkout('7days')">
+          <button class="btn btn-primary btn-block btn-buy" onclick="openComplianceModal('7days')">
             <i class="ph-bold ph-lightning"></i> Get 7-Day Pass ($35)
           </button>
         </div>
@@ -293,7 +246,7 @@
           <div class="plan-header">
             <span class="plan-badge cyan">Semester Pack</span>
             <h3>30-Day Pass</h3>
-            <p>Unrestricted full-month access for demanding courses.</p>
+            <p>Unrestricted full-month access for demanding course loads.</p>
           </div>
           <div class="plan-price">
             <span class="currency">$</span>
@@ -301,14 +254,13 @@
             <span class="period">/ 30 days</span>
           </div>
           <ul class="plan-features">
-            <li><i class="ph-bold ph-windows-logo" style="color: #38bdf8;"></i> <strong>Windows 11 Only</strong> (Latest Updates)</li>
+            <li><i class="ph-bold ph-check"></i> <strong class="os-display-name">Windows 11</strong> Native App</li>
             <li><i class="ph-bold ph-check"></i> <strong>30 Full Days</strong> Access</li>
             <li><i class="ph-bold ph-check"></i> <strong>1,000 AI Queries</strong> Limit</li>
-            <li><i class="ph-bold ph-check"></i> Priority Processing & Updates</li>
-            <li><i class="ph-bold ph-check"></i> Full BYOK System Note Injection</li>
-            <li><i class="ph-bold ph-check"></i> VIP Discord Role</li>
+            <li><i class="ph-bold ph-check"></i> Full BYOK System Prompt Injection</li>
+            <li><i class="ph-bold ph-check"></i> VIP Discord Role &amp; Support</li>
           </ul>
-          <button class="btn btn-outline btn-block btn-buy" onclick="checkout('30days')">
+          <button class="btn btn-outline btn-block btn-buy" onclick="openComplianceModal('30days')">
             <i class="ph-bold ph-lightning"></i> Get 30-Day Pass ($89)
           </button>
         </div>
@@ -316,7 +268,7 @@
       </div>
 
       <div class="pricing-footer-guarantee">
-        <i class="ph-bold ph-windows-logo" style="color: #38bdf8;"></i> Windows 11 (Latest Updates Required) &bull; <i class="ph-bold ph-apple-logo"></i> macOS In Development &bull; <i class="ph-bold ph-shield-check"></i> Instant Automated Delivery &bull; Safe 256-Bit Encrypted Stripe Processing
+        <i class="ph-bold ph-shield-check"></i> Instant Automated Delivery &bull; Safe 256-Bit Encrypted Stripe Processing &bull; Single-Machine HWID Lock
       </div>
     </div>
   </section>
@@ -325,7 +277,7 @@
   <section id="features" class="section section-dark">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">Built for Speed, Stealth & Deep Accuracy</h2>
+        <h2 class="section-title">Built for Speed, Stealth &amp; Deep Accuracy</h2>
         <p class="section-desc">Everything you need to capture complex exams, homework diagrams, and scientific equations without breaking your workflow.</p>
       </div>
 
@@ -346,14 +298,14 @@
 
         <div class="feature-card">
           <div class="card-icon"><i class="ph-bold ph-ghost"></i></div>
-          <h3>Show Text Only & HUD Opacity</h3>
+          <h3>Show Text Only &amp; HUD Opacity</h3>
           <p>Drop background opacity down to 0% or enable "Show Text Only" so solutions float transparently over your desktop without detectable window borders.</p>
           <div class="card-tag">0%–100% Transparency</div>
         </div>
 
         <div class="feature-card">
           <div class="card-icon"><i class="ph-bold ph-cpu"></i></div>
-          <h3>Custom Engine & BYOK</h3>
+          <h3>Custom Engine &amp; BYOK</h3>
           <p>Bring your own API key for Google Gemini, OpenAI GPT-4o, Anthropic Claude, OpenRouter, or Zhipu GLM. Inject custom system prompts and study notes.</p>
           <div class="card-tag">Full Model Customization</div>
         </div>
@@ -368,177 +320,15 @@
         <div class="feature-card">
           <div class="card-icon"><i class="ph-bold ph-folder-star"></i></div>
           <h3>HTML Session Archiving</h3>
-          <p>Every problem and high-res solution is automatically archived into organized offline HTML files under <code>C:\Users\Public\Documents\TFD_Review</code>.</p>
+          <p>Every problem and solution is automatically archived into organized offline HTML review files stored locally on your machine.</p>
           <div class="card-tag">Offline Study Portfolios</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- WORKFLOWS WITH PURE CSS DYNAMIC MOCKUPS (ZERO BROKEN VIDEOS) -->
-  <section id="workflows" class="section">
-    <div class="container">
-      <div class="section-header">
-        <span class="pill-label">Architecture Breakdown</span>
-        <h2 class="section-title">Engineered For Performance</h2>
-        <p class="section-desc">Explore standard operating workflows replicated dynamically in pure interactive software displays.</p>
-      </div>
-
-      <div class="workflows-list">
-
-        <!-- Workflow 1: Window Manipulation & Resizing -->
-        <div class="workflow-row">
-          <div class="workflow-info">
-            <div class="step-num">Workflow 01</div>
-            <h3>Fluid Drag & Corner Unlock Resizing</h3>
-            <p>
-              Left-click and hold anywhere on Loki's dark body to reposition it alongside problem sets. Opening Settings (<kbd>Alt + O</kbd>) temporarily unlocks the bottom-right grab handle so you can customize exact screen real estate.
-            </p>
-            <ul class="workflow-points">
-              <li><i class="ph-bold ph-check"></i> Drag window effortlessly from any backdrop region.</li>
-              <li><i class="ph-bold ph-check"></i> Accidental resize protection during normal solving.</li>
-              <li><i class="ph-bold ph-check"></i> Corner-grip resizing unlocked in System Configuration.</li>
-            </ul>
-            <div class="hotkey-pill"><i class="ph-bold ph-keyboard"></i> Shortcut: <strong>Alt + O</strong></div>
-          </div>
-          <div class="workflow-media">
-            <!-- CSS MOCKUP: Resizing Window -->
-            <div class="mock-display-box">
-              <div class="mock-hud-demo drag-demo">
-                <div class="mock-drag-bar"><i class="ph-bold ph-arrows-out-cardinal"></i> Reposition HUD Window Anywhere</div>
-                <div class="mock-hud-inner">
-                  <div class="hud-sample-msg">log₂(x) + log₂(x - 3) = 2</div>
-                  <div class="mock-corner-grip" title="Corner Resize Unlocked"><i class="ph-bold ph-dots-nine"></i></div>
-                </div>
-              </div>
-              <div class="video-overlay-badge"><i class="ph-bold ph-arrows-out-simple"></i> Fluid Drag & Corner Grip</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Workflow 2: Rapid Capture & Queuing -->
-        <div class="workflow-row reverse">
-          <div class="workflow-info">
-            <div class="step-num">Workflow 02</div>
-            <h3>Screen Queuing & Lightning Fast Solving</h3>
-            <p>
-              Capture standalone multiple-choice questions or sequence three images together (Question text + Graph + Choices). Hit the Bolt icon or <kbd>Alt + Enter</kbd> to receive instantaneous formatted math and code proofs.
-            </p>
-            <ul class="workflow-points">
-              <li><i class="ph-bold ph-check"></i> <strong>Alt + C</strong> captures & stages screenshot to buffer.</li>
-              <li><i class="ph-bold ph-check"></i> Red badge displays exact queued counter (1, 2, or 3).</li>
-              <li><i class="ph-bold ph-check"></i> <strong>Alt + Backspace</strong> removes the last captured frame.</li>
-            </ul>
-            <div class="hotkey-pill"><i class="ph-bold ph-keyboard"></i> Shortcut: <strong>Alt + Enter (Solve)</strong></div>
-          </div>
-          <div class="workflow-media">
-            <!-- CSS MOCKUP: Queued buffer items -->
-            <div class="mock-display-box">
-              <div class="mock-queue-cards">
-                <div class="q-card"><i class="ph-bold ph-image"></i> <span>Capture 1: Question</span></div>
-                <div class="q-card"><i class="ph-bold ph-chart-line"></i> <span>Capture 2: Graph</span></div>
-                <div class="q-card active"><i class="ph-bold ph-list-numbers"></i> <span>Capture 3: Choices (Ready)</span></div>
-                <div class="q-solve-indicator"><i class="ph-fill ph-lightning"></i> Alt + Enter &bull; Solving unified buffer...</div>
-              </div>
-              <div class="video-overlay-badge"><i class="ph-bold ph-stack"></i> Multi-Shot Image Queuing</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Workflow 3: Custom Engine & Model Switching -->
-        <div class="workflow-row">
-          <div class="workflow-info">
-            <div class="step-num">Workflow 03</div>
-            <h3>Custom AI Engine & Study Notes Injection</h3>
-            <p>
-              Connect directly to Gemini 1.5 Flash/Pro, Claude 3.5 Sonnet, GPT-4o, or OpenRouter. Inject specific classroom study notes and custom system instructions so the model reasons exactly according to your professor's syllabus.
-            </p>
-            <ul class="workflow-points">
-              <li><i class="ph-bold ph-check"></i> BYOK (Bring Your Own Key) zero-rate-limit support.</li>
-              <li><i class="ph-bold ph-check"></i> Dedicated System Prompt & Study Context Memory boxes.</li>
-              <li><i class="ph-bold ph-check"></i> Type custom model strings directly in manual input.</li>
-            </ul>
-            <div class="hotkey-pill"><i class="ph-bold ph-sliders"></i> Tab: <strong>Engine Settings</strong></div>
-          </div>
-          <div class="workflow-media">
-            <!-- CSS MOCKUP: Engine Config -->
-            <div class="mock-display-box">
-              <div class="mock-engine-box">
-                <div class="engine-row"><span class="engine-tag gemini active"><i class="ph-bold ph-sparkle"></i> Gemini 1.5 Pro</span> <span class="badge-status">Connected</span></div>
-                <div class="engine-row"><span class="engine-tag claude"><i class="ph-bold ph-atom"></i> Claude 3.5 Sonnet</span> <span class="badge-status">Ready</span></div>
-                <div class="engine-row"><span class="engine-tag gpt"><i class="ph-bold ph-cpu"></i> OpenAI GPT-4o</span> <span class="badge-status">Ready</span></div>
-                <div class="context-box-mock"><i class="ph-bold ph-notepad"></i> Injected Context: "Follow Calculus IV syllabus proof structures"</div>
-              </div>
-              <div class="video-overlay-badge"><i class="ph-bold ph-cpu"></i> BYOK Custom AI Engine</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Workflow 4: Stealth HUD & Text Only Mode -->
-        <div class="workflow-row reverse">
-          <div class="workflow-info">
-            <div class="step-num">Workflow 04</div>
-            <h3>Stealth HUD Opacity & "Show Text Only"</h3>
-            <p>
-              Make Loki blend completely into your wallpaper or exam browser. Dial the opacity slider from 100% to 0%, scale fonts from Small to Extra Large, toggle between White/Black high-contrast text, or eliminate window backgrounds entirely.
-            </p>
-            <ul class="workflow-points">
-              <li><i class="ph-bold ph-check"></i> <strong>Show Text Only</strong> removes bounding boxes.</li>
-              <li><i class="ph-bold ph-check"></i> <strong>HUD Opacity</strong> smoothly adjusts from 0% to 100%.</li>
-              <li><i class="ph-bold ph-check"></i> Hide action sidebar for an ultralight footprint.</li>
-            </ul>
-            <div class="hotkey-pill"><i class="ph-bold ph-eye-slash"></i> Shortcut: <strong>Alt + V (Hide/Show)</strong></div>
-          </div>
-          <div class="workflow-media">
-            <!-- CSS MOCKUP: Floating Transparent Text -->
-            <div class="mock-display-box stealth-glass-bg">
-              <div class="glass-text-only">
-                <div class="floating-proof-snippet">
-                  <div class="dot-live"></div>
-                  <strong>Ans: x = 4</strong> &bull; [Factor: (x-4)(x+1)=0]
-                </div>
-                <div class="stealth-indicator-pill"><i class="ph-bold ph-ghost"></i> 0% Opacity Borderless Text Mode</div>
-              </div>
-              <div class="video-overlay-badge"><i class="ph-bold ph-ghost"></i> Pure Glass Transparent HUD</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Workflow 5: Archiving & Question Review -->
-        <div class="workflow-row">
-          <div class="workflow-info">
-            <div class="step-num">Workflow 05</div>
-            <h3>Automated Offline Review Portfolios</h3>
-            <p>
-              Never lose a question you practiced. When enabled, Loki compiles all problems, your queued screenshots, and generated step-by-step proofs into timestamped HTML files stored directly on your machine.
-            </p>
-            <ul class="workflow-points">
-              <li><i class="ph-bold ph-check"></i> Stored at <code>C:\Users\Public\Documents\TFD_Review</code>.</li>
-              <li><i class="ph-bold ph-check"></i> Organized into clean date-stamped session folders.</li>
-              <li><i class="ph-bold ph-check"></i> Double-click any file to open interactive browser review sheets.</li>
-            </ul>
-            <div class="hotkey-pill"><i class="ph-bold ph-folder"></i> Path: <strong>TFD_Review</strong></div>
-          </div>
-          <div class="workflow-media">
-            <!-- CSS MOCKUP: Offline HTML Archive -->
-            <div class="mock-display-box">
-              <div class="mock-archive-tree">
-                <div class="tree-item folder"><i class="ph-bold ph-folder-open"></i> TFD_Review\Session_[07-06-2026]</div>
-                <div class="tree-item file active"><i class="ph-bold ph-file-html"></i> Question_14_Calculus_Integral.html</div>
-                <div class="tree-item file"><i class="ph-bold ph-file-html"></i> Question_15_Linear_Algebra.html</div>
-                <div class="tree-item-desc"><i class="ph-bold ph-hard-drive"></i> Offline HTML study dossiers saved locally</div>
-              </div>
-              <div class="video-overlay-badge"><i class="ph-bold ph-folder-star"></i> Auto Local Archiving</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
   <!-- Interactive Live Simulator Section -->
-  <section id="simulator" class="section section-dark">
+  <section id="simulator" class="section">
     <div class="container">
       <div class="section-header">
         <span class="pill-label">Interactive Playground</span>
@@ -547,7 +337,6 @@
       </div>
 
       <div class="sim-wrapper">
-        <!-- Control Dashboard for the Simulator -->
         <div class="sim-controls">
           <h4>Simulator Controls</h4>
           <div class="control-group">
@@ -590,10 +379,8 @@
           <button class="btn btn-outline btn-block" onclick="resetSimulator()">Reset Simulator Defaults</button>
         </div>
 
-        <!-- The Interactive Loki HUD Element -->
         <div class="sim-stage" id="simStage">
           <div class="loki-window" id="lokiWindow">
-            <!-- Sidebar -->
             <div class="loki-sidebar" id="lokiSidebar">
               <button class="loki-btn active-bolt" title="Send Request (Alt + Enter)" onclick="simSolve()">
                 <i class="ph-fill ph-lightning"></i>
@@ -616,20 +403,17 @@
               </button>
             </div>
 
-            <!-- Main Content Feed -->
             <div class="loki-body" id="lokiBody">
               <div class="loki-header-watermark">
                 <i class="ph-fill ph-lightning"></i> LOKI
               </div>
 
-              <!-- Content Feed View -->
               <div class="loki-feed" id="lokiFeed">
                 <div class="feed-message" id="feedMsg">
                   <p class="greeting-text">Hello! How can I assist you today? If you have a specific academic question, a math problem, or a writing assignment, queue a screenshot or send a request.</p>
                 </div>
               </div>
 
-              <!-- Sliding Input Box -->
               <div class="loki-input-area" id="lokiInputArea" style="display: none;">
                 <span class="input-label">User Input:</span>
                 <div class="input-row">
@@ -645,19 +429,19 @@
   </section>
 
   <!-- Complete Hotkey Cheat Sheet -->
-  <section id="keybinds" class="section">
+  <section id="keybinds" class="section section-dark">
     <div class="container">
       <div class="section-header">
         <span class="pill-label">Fast Execution</span>
         <h2 class="section-title">Default Keybind Matrix</h2>
-        <p class="section-desc">Every action can be triggered in a split second via custom rebindable global key combinations.</p>
+        <p class="section-desc">Trigger every action in a fraction of a second via fully rebindable global key combinations.</p>
       </div>
 
       <div class="hotkey-grid">
         <div class="hotkey-card">
           <div class="key-combo"><kbd>Hold RMB</kbd> <span>(3s)</span></div>
           <div class="key-desc">
-            <h4>Instant Screenshot & Solve</h4>
+            <h4>Instant Screenshot &amp; Solve</h4>
             <p>Captures the current active screen frame and instantly transmits it to the AI engine on mouse release.</p>
           </div>
         </div>
@@ -698,223 +482,7 @@
           <div class="key-combo"><kbd>Alt</kbd> + <kbd>O</kbd></div>
           <div class="key-desc">
             <h4>Open System Configuration</h4>
-            <p>Opens settings (General, Engine, Keybinds) and unlocks the bottom-right corner grip for resizing.</p>
-          </div>
-        </div>
-
-        <div class="hotkey-card">
-          <div class="key-combo"><kbd>Alt</kbd> + <kbd>V</kbd></div>
-          <div class="key-desc">
-            <h4>Show / Hide Window</h4>
-            <p>Instantly toggles the floating overlay in and out of sight to maintain a 100% clean desktop.</p>
-          </div>
-        </div>
-
-        <div class="hotkey-card">
-          <div class="key-combo"><kbd>Alt</kbd> + <kbd>F</kbd></div>
-          <div class="key-desc">
-            <h4>Rotate / Invert Images</h4>
-            <p>Flips mathematical formulas vertically to correct driver-related upside-down LaTeX renderings.</p>
-          </div>
-        </div>
-
-        <div class="hotkey-card">
-          <div class="key-combo"><kbd>Alt</kbd> + <kbd>End</kbd></div>
-          <div class="key-desc">
-            <h4>Exit Application</h4>
-            <p>Instantly terminates all background hooks and completely closes Loki safely.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Complete Documentation / Manual -->
-  <section id="documentation" class="section section-dark">
-    <div class="container">
-      <div class="section-header">
-        <span class="pill-label">Complete Manual</span>
-        <h2 class="section-title">Step-by-Step Knowledgebase</h2>
-        <p class="section-desc">Comprehensive instructions for mastering every system configuration and advanced mode in Loki.</p>
-      </div>
-
-      <div class="docs-accordion">
-        
-        <!-- System Requirements & OS Compatibility -->
-        <div class="doc-item active">
-          <div class="doc-trigger" onclick="toggleDoc(this)">
-            <div class="doc-meta">
-              <span class="step-tag">System Specs</span>
-              <h3>OS Requirements: Windows 11 Only (macOS In Development)</h3>
-            </div>
-            <i class="ph-bold ph-caret-down"></i>
-          </div>
-          <div class="doc-content">
-            <p><strong>Windows 11 (Strictly Required):</strong> Loki is currently available <em>exclusively for Windows 11</em>. Your PC must have the <strong>latest Windows 11 updates installed</strong>, as Loki utilizes modern OS window composition and capture exclusion APIs. Windows 10, Windows 8, and earlier versions are not supported.</p>
-            <p><strong>macOS Availability:</strong> Native macOS support is currently <strong>in active development</strong>. If you are on an Apple Mac, please join our Discord server for beta testing builds and release announcements.</p>
-            <p><strong>Strict Prohibited Use (College Board & Standardized Tests):</strong> Loki is built solely for homework, problem sets, and independent study. Loki <strong>does not work and is strictly prohibited</strong> on College Board platforms (Bluebook, SAT, AP Classroom, AP Exams), ACT, GRE, or any standardized/secure test environment. Attempting to run Loki on secure exam systems results in an immediate permanent ban with zero refund.</p>
-          </div>
-        </div>
-
-        <!-- Step 0 -->
-        <div class="doc-item">
-          <div class="doc-trigger" onclick="toggleDoc(this)">
-            <div class="doc-meta">
-              <span class="step-tag">Step 00</span>
-              <h3>Window Placement & Corner-Grip Resizing</h3>
-            </div>
-            <i class="ph-bold ph-caret-down"></i>
-          </div>
-          <div class="doc-content">
-            <p><strong>Positioning:</strong> Left-click and hold anywhere on the dark background of the main overlay window, then drag it to your preferred position on your monitor.</p>
-            <p><strong>Resizing:</strong> To prevent accidental resizing during examinations, the window border is locked by default. Open the System Configuration window (<kbd>Alt + O</kbd> or the Gear icon). Once open, hover over the bottom-right corner, click and drag the grip to your desired size, then click <em>Apply Changes</em>.</p>
-          </div>
-        </div>
-
-        <!-- Step 1 & 2 -->
-        <div class="doc-item">
-          <div class="doc-trigger" onclick="toggleDoc(this)">
-            <div class="doc-meta">
-              <span class="step-tag">Steps 01–03</span>
-              <h3>Capturing, Multi-Shot Queuing & Deletion</h3>
-            </div>
-            <i class="ph-bold ph-caret-down"></i>
-          </div>
-          <div class="doc-content">
-            <p><strong>Instant 3s Hold:</strong> Hold Right Mouse Button (RMB) anywhere for 3 seconds and release. It automatically snapshots and queries the AI immediately.</p>
-            <p><strong>Multi-Shot Queuing:</strong> For long questions with separate charts or spread-out options, press <kbd>Alt + C</kbd> up to 3 times to queue multiple screens. A red counter badge will appear over the trash icon. Press <kbd>Alt + Enter</kbd> to solve all frames together.</p>
-            <p><strong>Deleting Mis-captures:</strong> Press <kbd>Alt + Backspace</kbd> or click the Trash icon to remove the most recent capture.</p>
-          </div>
-        </div>
-
-        <!-- Step 8 & 9 -->
-        <div class="doc-item">
-          <div class="doc-trigger" onclick="toggleDoc(this)">
-            <div class="doc-meta">
-              <span class="step-tag">Steps 08–09</span>
-              <h3>Short Answers vs. Step-by-Step Proofs & Math Flipping</h3>
-            </div>
-            <i class="ph-bold ph-caret-down"></i>
-          </div>
-          <div class="doc-content">
-            <p><strong>Response Depth:</strong> Open Settings (<kbd>Alt + O</kbd>) &gt; General tab. Check <em>Short Answers</em> for rapid multiple-choice solutions. Uncheck it for deep, pedagogical, step-by-step mathematical proofs and reasoning.</p>
-            <p><strong>Upside Down Math Inversion:</strong> If virtual screen scaling renders LaTeX math upside down, click the Rotate icon or press <kbd>Alt + F</kbd> to invert equations vertically.</p>
-          </div>
-        </div>
-
-        <!-- Step 10 to 13 -->
-        <div class="doc-item">
-          <div class="doc-trigger" onclick="toggleDoc(this)">
-            <div class="doc-meta">
-              <span class="step-tag">Steps 10–13</span>
-              <h3>Stealth Modes, Text-Only & Visibility Customization</h3>
-            </div>
-            <i class="ph-bold ph-caret-down"></i>
-          </div>
-          <div class="doc-content">
-            <p><strong>HUD Opacity:</strong> Under General &gt; HUD Opacity, adjust the slider between 0% (glass-clear) and 100% (solid dark slate).</p>
-            <p><strong>Show Text Only:</strong> Checking <em>Show Text Only</em> completely removes the window's dark container, allowing the AI solution to float directly on your screen surface. Pair this with Black text for light backgrounds or White text for dark themes.</p>
-            <p><strong>Hide Sidebar:</strong> Uncheck <em>Show Sidebar Menu</em> to completely collapse the icon rail. You can continue triggering all actions via hotkeys.</p>
-          </div>
-        </div>
-
-        <!-- Step 14 & 15 -->
-        <div class="doc-item">
-          <div class="doc-trigger" onclick="toggleDoc(this)">
-            <div class="doc-meta">
-              <span class="step-tag">Steps 14–15</span>
-              <h3>Custom AI Engine & Keybind Remapping</h3>
-            </div>
-            <i class="ph-bold ph-caret-down"></i>
-          </div>
-          <div class="doc-content">
-            <p><strong>BYOK AI Engine:</strong> Open Settings &gt; Engine tab &gt; check <em>Enable Custom AI</em>. Choose your endpoint provider (Google Gemini, OpenAI GPT, Anthropic Claude, OpenRouter, Zhipu GLM) and paste your API key. You can also paste specific course notes into the <em>Study Notes / Context</em> box.</p>
-            <p><strong>Keybinds:</strong> Under the Keybinds tab, click any shortcut button (it will display <code>[Press a key...]</code>) and type your new single key or modifier combo (e.g. <code>Ctrl + Shift + S</code>), then hit <em>Apply Changes</em>.</p>
-          </div>
-        </div>
-
-        <!-- Step 17 & 18 -->
-        <div class="doc-item">
-          <div class="doc-trigger" onclick="toggleDoc(this)">
-            <div class="doc-meta">
-              <span class="step-tag">Steps 17–18</span>
-              <h3>Automated Archiving & Review Location</h3>
-            </div>
-            <i class="ph-bold ph-caret-down"></i>
-          </div>
-          <div class="doc-content">
-            <p><strong>Enable Archiving:</strong> Check <em>Save Questions</em> under General &gt; Archiving.</p>
-            <p><strong>Finding Your Questions:</strong> Open Windows File Explorer (<kbd>Win + E</kbd>) and paste the following path into the address bar:</p>
-            <div class="code-box">C:\Users\Public\Documents\TFD_Review</div>
-            <p>Files are automatically cataloged by date (e.g. <code>[07-06-2026]</code>) and question index (e.g. <code>Question_1.html</code>). Double-click any file to open a full offline review sheet in Chrome, Edge, or Firefox.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Discord Ticket & Support Section -->
-  <section id="support" class="section">
-    <div class="container">
-      <div class="support-card">
-        <div class="support-content">
-          <span class="pill-label"><i class="ph-bold ph-discord-logo"></i> 24/7 Discord Support</span>
-          <h2>Need Help or Have a Bug Report?</h2>
-          <p>
-            Our dedicated Discord bot automates instant, private 1-on-1 support tickets. Follow these 3 easy steps to open a ticket directly with our engineering team:
-          </p>
-
-          <div class="ticket-steps">
-            <div class="t-step">
-              <div class="t-badge">1</div>
-              <div>
-                <strong>Visit #support-ticket</strong>
-                <p>Join our Discord server and navigate to the <code>#support-ticket</code> channel.</p>
-              </div>
-            </div>
-            <div class="t-step">
-              <div class="t-badge">2</div>
-              <div>
-                <strong>Click "Open Ticket"</strong>
-                <p>Click the blue button. A private channel (e.g., <code>#ticket-0002</code>) is immediately created for you.</p>
-              </div>
-            </div>
-            <div class="t-step">
-              <div class="t-badge">3</div>
-              <div>
-                <strong>Select Category & Describe</strong>
-                <p>Pick <em>General/Help</em> or <em>Bug Report</em> to connect instantly with staff.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="support-cta">
-            <a href="https://discord.gg/fab9WUG39U" target="_blank" class="btn btn-discord btn-lg">
-              <i class="ph-bold ph-discord-logo"></i> Join Discord & Open Support Ticket
-            </a>
-          </div>
-        </div>
-
-        <div class="support-preview">
-          <div class="discord-mockup">
-            <div class="dc-header">
-              <i class="ph-bold ph-hash"></i> ticket-0002
-              <span class="dc-tag">Private</span>
-            </div>
-            <div class="dc-body">
-              <div class="dc-bot-msg">
-                <div class="dc-avatar"><i class="ph-fill ph-lightning"></i></div>
-                <div class="dc-text">
-                  <div class="dc-author">Loki Support Bot <span class="bot-badge">BOT</span></div>
-                  <p>Support Ticket <strong>#0002</strong> unlocked! Select a category below:</p>
-                  <div class="dc-buttons">
-                    <button class="dc-btn dc-btn-primary">General/Help</button>
-                    <button class="dc-btn dc-btn-danger">Bug Report</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <p>Opens settings and unlocks the corner grip handle to customize window dimensions.</p>
           </div>
         </div>
       </div>
@@ -937,14 +505,12 @@
         <a href="#stealth-demo">Stealth Proof</a>
         <a href="#pricing">Pricing</a>
         <a href="#features">Features</a>
-        <a href="#workflows">Workflows</a>
         <a href="#simulator">Live Simulator</a>
       </div>
 
       <div class="footer-links-group">
         <h4>Resources</h4>
-        <a href="#documentation">Step-by-Step Manual</a>
-        <a href="#support">Discord Ticket Help</a>
+        <a href="https://discord.gg/fab9WUG39U" target="_blank">Discord Ticket Help</a>
         <a href="https://discord.gg/fab9WUG39U" target="_blank">Join Community</a>
         <a href="affiliate.html" style="color: var(--accent-gold);"><i class="ph-bold ph-handshake"></i> Affiliate Program</a>
       </div>
@@ -952,17 +518,69 @@
     <div class="footer-bottom">
       <div class="container footer-bottom-flex">
         <p>&copy; 2026 Loki HUD Systems. All rights reserved.</p>
-        <p class="offline-tag"><i class="ph-bold ph-windows-logo" style="color: #38bdf8;"></i> Windows 11 Only (Latest Updates Required) &bull; <i class="ph-bold ph-apple-logo"></i> macOS In Development</p>
+        <p class="offline-tag"><i class="ph-bold ph-shield-check"></i> Hardware-level stealth &bull; Windows 11 &amp; macOS Universal</p>
       </div>
     </div>
   </footer>
 
+  <!-- ─── 🛡️ PRE-PURCHASE COMPLIANCE AGREEMENT MODAL ───────────── -->
+  <div id="complianceModal" class="compliance-modal-backdrop" style="display: none;">
+    <div class="compliance-modal-card">
+      <div class="modal-header-danger">
+        <div class="m-icon-wrap"><i class="ph-bold ph-warning-octagon"></i></div>
+        <div>
+          <h3>Terms of Use &amp; Prohibited Testing Policy</h3>
+          <span class="m-subtitle">Acknowledgment required before purchasing</span>
+        </div>
+      </div>
+
+      <div class="modal-body-content">
+        <div class="alert-box-red">
+          <strong>STRICT PROHIBITION:</strong> Loki strictly does <u>NOT</u> work inside secure lock-down browsers and is <strong>strictly forbidden</strong> from being used on any official standardized testing platforms.
+        </div>
+
+        <ul class="modal-checklist">
+          <li>
+            <i class="ph-bold ph-prohibit"></i>
+            <div><strong>No College Board Support:</strong> Strictly banned on Bluebook, Digital SAT, PSAT, AP Classroom, and AP Exams.</div>
+          </li>
+          <li>
+            <i class="ph-bold ph-prohibit"></i>
+            <div><strong>No Standardized Testing:</strong> Strictly prohibited on ACT, GRE, MCAT, LSAT, and civil service tests.</div>
+          </li>
+          <li>
+            <i class="ph-bold ph-shield-warning"></i>
+            <div><strong>Zero Refund &amp; Immediate Ban Policy:</strong> Any attempt to use Loki on protected testing platforms results in an automatic permanent license termination with <strong>zero refund</strong>.</div>
+          </li>
+          <li>
+            <i class="ph-bold ph-desktop"></i>
+            <div><strong>Single Machine HWID Lock:</strong> Your key locks automatically to the first computer you activate it on.</div>
+          </li>
+        </ul>
+
+        <div class="modal-os-confirmation">
+          Selected Platform: <strong id="modalSelectedOsDisplay" style="color: var(--accent-gold);">Windows 11</strong>
+        </div>
+      </div>
+
+      <div class="modal-actions-row">
+        <button class="btn btn-secondary" onclick="closeComplianceModal()">Cancel</button>
+        <button class="btn btn-primary btn-agree" id="modalAgreeBtn" onclick="confirmPurchase()">
+          <i class="ph-bold ph-check-circle"></i> I Understand &amp; Agree &mdash; Continue to Stripe
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Interactive Scripts -->
   <script>
-    // ⚙️ BACKEND API CONFIGURATION (Change to your server's live URL if hosted on a separate domain)
     const BACKEND_URL = "https://d1q4n4qb8q811f.cloudfront.net";
+    
+    // Platform State: 'win' or 'mac'
+    let selectedPlatform = 'win';
+    let pendingCheckoutDuration = null;
 
-    // ─── 0. AFFILIATE REFERRAL TRACKING ────────────────────────
+    // Capture Affiliate Ref
     (function captureAffiliateRef() {
       try {
         const urlParams = new URLSearchParams(window.location.search);
@@ -970,28 +588,59 @@
         if (ref) {
           const cleanRef = ref.trim().toLowerCase();
           localStorage.setItem('loki_affiliate_ref', cleanRef);
-
-          // Ping backend click tracker (non-blocking)
           fetch(`${BACKEND_URL}/api/affiliate/click`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ code: cleanRef })
           }).catch(() => {});
         }
-      } catch (e) {
-        console.warn("Affiliate ref capture error:", e);
-      }
+      } catch (e) {}
     })();
 
-    // ─── 1. STRIPE CHECKOUT TRIGGER (WITH AFFILIATE TAG) ────────
-    async function checkout(planName) {
-      const buyBtns = document.querySelectorAll('.btn-buy');
-      buyBtns.forEach(b => {
-        b.disabled = true;
-        b.style.opacity = '0.6';
-      });
+    // Platform Switcher
+    function setPlatform(platform) {
+      selectedPlatform = platform;
+      const btnWin = document.getElementById('btnOsWin');
+      const btnMac = document.getElementById('btnOsMac');
+      const displays = document.querySelectorAll('.os-display-name');
 
-      // Retrieve saved affiliate code from localStorage (if customer landed via affiliate link)
+      if (platform === 'mac') {
+        btnMac.classList.add('active');
+        btnWin.classList.remove('active');
+        displays.forEach(d => d.textContent = 'macOS Universal');
+      } else {
+        btnWin.classList.add('active');
+        btnMac.classList.remove('active');
+        displays.forEach(d => d.textContent = 'Windows 11');
+      }
+    }
+
+    // Modal Handlers
+    function openComplianceModal(duration) {
+      pendingCheckoutDuration = duration;
+      const osText = (selectedPlatform === 'mac') ? 'macOS (Apple Silicon & Intel DMG)' : 'Windows 11 (64-bit EXE)';
+      document.getElementById('modalSelectedOsDisplay').textContent = osText;
+      document.getElementById('complianceModal').style.display = 'flex';
+    }
+
+    function closeComplianceModal() {
+      document.getElementById('complianceModal').style.display = 'none';
+      pendingCheckoutDuration = null;
+    }
+
+    // Stripe Checkout Execution
+    async function confirmPurchase() {
+      if (!pendingCheckoutDuration) return;
+
+      const agreeBtn = document.getElementById('modalAgreeBtn');
+      agreeBtn.disabled = true;
+      agreeBtn.innerHTML = '<i class="ph-bold ph-spinner ph-spin"></i> Directing to Stripe...';
+
+      // Map duration + platform to backend PRODUCTS key
+      const planKey = (selectedPlatform === 'mac') 
+        ? `${pendingCheckoutDuration}_mac` 
+        : pendingCheckoutDuration;
+
       const savedRef = localStorage.getItem('loki_affiliate_ref') || '';
 
       try {
@@ -999,7 +648,7 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
-            plan: planName,
+            plan: planKey,
             ref: savedRef 
           })
         });
@@ -1009,45 +658,34 @@
           window.location.href = data.url;
         } else {
           alert("Checkout Error: " + (data.error || "Could not connect to payment gateway."));
-          buyBtns.forEach(b => {
-            b.disabled = false;
-            b.style.opacity = '1';
-          });
+          agreeBtn.disabled = false;
+          agreeBtn.innerHTML = '<i class="ph-bold ph-check-circle"></i> I Understand &amp; Agree &mdash; Continue to Stripe';
         }
       } catch (err) {
         console.error("Payment error:", err);
-        alert("Failed to initiate checkout. Please ensure your backend server is running.");
-        buyBtns.forEach(b => {
-          b.disabled = false;
-          b.style.opacity = '1';
-        });
+        alert("Failed to initiate checkout. Please ensure server is available.");
+        agreeBtn.disabled = false;
+        agreeBtn.innerHTML = '<i class="ph-bold ph-check-circle"></i> I Understand &amp; Agree &mdash; Continue to Stripe';
       }
     }
 
-    // ─── 2. STEALTH "WHAT I SEE VS WHAT THEY SEE" INTERACTIVE TOGGLE ───
-    function switchStealthView(view) {
-      const tabUser = document.getElementById('tabUserView');
-      const tabStream = document.getElementById('tabStreamView');
+    // Interactive Stealth Range Slider
+    function updateStealthSlider(val) {
       const overlay = document.getElementById('stealthLokiOverlay');
-      const streamNotice = document.getElementById('streamHiddenNotice');
-      const screen = document.getElementById('stealthSimScreen');
-
-      if (view === 'user') {
-        tabUser.classList.add('active');
-        tabStream.classList.remove('active');
-        overlay.classList.remove('hidden-on-stream');
-        streamNotice.style.display = 'none';
-        screen.classList.remove('stream-mode');
+      const badge = document.getElementById('streamHiddenNotice');
+      
+      const opacityFraction = val / 100;
+      overlay.style.opacity = opacityFraction;
+      
+      if (val < 25) {
+        badge.style.display = 'flex';
+        badge.style.opacity = (25 - val) / 25;
       } else {
-        tabStream.classList.add('active');
-        tabUser.classList.remove('active');
-        overlay.classList.add('hidden-on-stream');
-        streamNotice.style.display = 'flex';
-        screen.classList.add('stream-mode');
+        badge.style.display = 'none';
       }
     }
 
-    // ─── 3. SIMULATOR STATE & LOGIC ─────────────────────────────
+    // Simulator Logic
     let queueCount = 0;
     let isFlipped = false;
     let isShortMode = false;
@@ -1057,7 +695,6 @@
       const feed = document.getElementById('lokiFeed');
       feed.classList.remove('scale-small', 'scale-medium', 'scale-large');
       feed.classList.add('scale-' + scale);
-      
       document.querySelectorAll('.btn-toggle-group .toggle-btn').forEach(btn => {
         if(btn.innerText.toLowerCase().includes(scale.substring(0,3))) {
           btn.classList.add('active');
@@ -1071,7 +708,6 @@
       const body = document.getElementById('lokiBody');
       const whiteBtn = document.getElementById('textColorWhiteBtn');
       const blackBtn = document.getElementById('textColorBlackBtn');
-      
       if (color === 'black') {
         body.style.color = '#0f172a';
         whiteBtn.classList.remove('active');
@@ -1091,7 +727,7 @@
       opacitySlider.addEventListener('input', (e) => {
         const val = e.target.value;
         opacityVal.innerText = val + '%';
-        if(!isTextOnly) {
+        if (!isTextOnly) {
           lokiWindow.style.backgroundColor = `rgba(18, 24, 38, ${val / 100})`;
         }
       });
@@ -1099,7 +735,7 @@
 
     function toggleSimTextOnly(checked) {
       isTextOnly = checked;
-      if(checked) {
+      if (checked) {
         lokiWindow.classList.add('text-only-mode');
         document.getElementById('simStage').classList.add('light-pattern');
       } else {
@@ -1111,8 +747,7 @@
     }
 
     function toggleSimSidebar(checked) {
-      const sidebar = document.getElementById('lokiSidebar');
-      sidebar.style.display = checked ? 'flex' : 'none';
+      document.getElementById('lokiSidebar').style.display = checked ? 'flex' : 'none';
     }
 
     function toggleSimAnswerMode(checked) {
@@ -1135,12 +770,9 @@
       const badge = document.getElementById('simQueueBadge');
       if (queueCount > 0) {
         queueCount--;
-        if (queueCount === 0) {
-          badge.style.display = 'none';
-        } else {
-          badge.innerText = queueCount;
-        }
-        renderMessage(`🗑️ Last screenshot removed. Remaining queued: <strong>${queueCount}</strong>.`);
+        if (queueCount === 0) badge.style.display = 'none';
+        else badge.innerText = queueCount;
+        renderMessage(`🗑️ Last screenshot removed. Remaining: <strong>${queueCount}</strong>.`);
       } else {
         renderMessage(`ℹ️ Queue is currently empty.`);
       }
@@ -1149,14 +781,12 @@
     function simToggleInput() {
       const area = document.getElementById('lokiInputArea');
       area.style.display = area.style.display === 'none' ? 'block' : 'none';
-      if(area.style.display === 'block') {
-        document.getElementById('simTextInput').focus();
-      }
+      if (area.style.display === 'block') document.getElementById('simTextInput').focus();
     }
 
     function simSendText() {
       const input = document.getElementById('simTextInput');
-      if(input.value.trim() !== "") {
+      if (input.value.trim() !== "") {
         simSolve(input.value);
         input.value = "";
       }
@@ -1167,7 +797,7 @@
       const feed = document.getElementById('lokiFeed');
       if (isFlipped) {
         feed.classList.add('flipped-math');
-        renderMessage(`🔄 Equations & LaTeX rotated vertically (Alt + F correction applied).`);
+        renderMessage(`🔄 Equations rotated vertically (Alt + F correction applied).`);
       } else {
         feed.classList.remove('flipped-math');
         renderMessage(`🔄 Equations reverted to normal orientation.`);
@@ -1175,7 +805,7 @@
     }
 
     function simOpenSettings() {
-      renderMessage(`⚙️ <strong>System Configuration Opened</strong>: Corner-grip resize is now unlocked! (Alt + O)`);
+      renderMessage(`⚙️ <strong>System Configuration Opened</strong>: Corner-grip resize unlocked! (Alt + O)`);
     }
 
     function simSolve(customText = null) {
@@ -1216,6 +846,11 @@
       document.getElementById('feedMsg').innerHTML = `<p>${html}</p>`;
     }
 
+    function setPlatform(platform) {
+      if (platform === 'mac') return; // Enforce no-op for Mac
+      selectedPlatform = 'win';
+    }
+
     function resetSimulator() {
       queueCount = 0;
       isFlipped = false;
@@ -1234,16 +869,6 @@
       setSimTextColor('white');
       setSimScale('medium');
       renderMessage(`Hello! How can I assist you today? If you have a specific academic question, a math problem, or a writing assignment, queue a screenshot or send a request.`);
-    }
-
-    // Docs Accordion
-    function toggleDoc(trigger) {
-      const item = trigger.parentElement;
-      const isActive = item.classList.contains('active');
-      document.querySelectorAll('.doc-item').forEach(i => i.classList.remove('active'));
-      if (!isActive) {
-        item.classList.add('active');
-      }
     }
   </script>
 </body>
