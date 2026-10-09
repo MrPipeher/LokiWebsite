@@ -15,11 +15,6 @@
 </head>
 <body>
 
-  <!-- Ambient Background Glows -->
-  <div class="ambient-glow glow-1"></div>
-  <div class="ambient-glow glow-2"></div>
-  <div class="ambient-glow glow-3"></div>
-
   <!-- Navigation Bar -->
   <header class="navbar">
     <div class="nav-container">
@@ -31,21 +26,26 @@
         <span class="brand-badge">HUD</span>
       </a>
 
-      <nav class="nav-links">
+      <nav class="nav-links" id="navLinks">
         <a href="#stealth-demo">Stealth Proof</a>
         <a href="#features">Features</a>
+        <a href="#vouches">Vouches</a>
         <a href="#pricing">Pricing</a>
         <a href="affiliate.html" style="color: var(--accent-gold);"><i class="ph-bold ph-handshake"></i> Affiliates</a>
       </nav>
 
       <div class="nav-cta">
-        <a href="https://discord.gg/fab9WUG39U" target="_blank" class="btn btn-secondary btn-sm">
+        <a href="https://discord.gg/fab9WUG39U" target="_blank" class="btn btn-secondary btn-sm nav-discord-cta">
           <i class="ph-bold ph-discord-logo"></i> Discord Ticket
         </a>
         <a href="#pricing" class="btn btn-primary btn-sm">
           <i class="ph-bold ph-shopping-bag"></i> Get Access
         </a>
       </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" onclick="toggleNavMenu()">
+        <i class="ph-bold ph-list"></i>
+      </button>
     </div>
   </header>
 
@@ -99,70 +99,108 @@
       <div class="section-header">
         <span class="pill-label">Hardware Invisibility</span>
         <h2 class="section-title">What You See vs. What They See</h2>
-        <p class="section-desc">Drag the interactive slider below to see how hardware-level window exclusion renders Loki crystal clear on your screen while remaining 100% absent on screen shares, recordings, and capture cards.</p>
+        <p class="section-desc">Drag the divider across the live screenshot to see how hardware-level window exclusion keeps Loki crystal clear on your screen while staying 100% absent from screen shares, recordings, and capture cards.</p>
       </div>
 
-      <div class="comparison-container">
-        
-        <!-- Interactive Slider Control -->
-        <div class="stealth-slider-control-card">
-          <div class="slider-label-row">
-            <span class="s-label left"><i class="ph-bold ph-video-camera"></i> What They See (0% Opacity)</span>
-            <span class="s-label right"><i class="ph-bold ph-desktop"></i> What You See (100% Visibility)</span>
+      <div class="stealth-wrapper">
+        <div class="stealth-legend">
+          <span class="s-label left"><i class="ph-bold ph-video-camera"></i> What They See</span>
+          <span class="stealth-hint"><i class="ph-bold ph-arrows-horizontal"></i> Drag the line to reveal</span>
+          <span class="s-label right"><i class="ph-bold ph-desktop"></i> What You See</span>
+        </div>
+
+        <div class="stealth-stage" id="stealthStage">
+          <!-- Background screenshot — the raw captured screen -->
+          <div class="stealth-bg" style="background-image: url('assets/test-preview.png');"></div>
+
+          <!-- Loki HUD overlay layer — revealed to the right of the wipe line -->
+          <div class="stealth-hud-layer" id="stealthHudLayer">
+            <div class="loki-window stealth-hud-window" aria-hidden="true">
+              <div class="loki-sidebar">
+                <button class="loki-btn active-bolt" type="button" tabindex="-1"><i class="ph-fill ph-lightning"></i></button>
+                <button class="loki-btn" type="button" tabindex="-1"><i class="ph-bold ph-camera"></i></button>
+                <button class="loki-btn" type="button" tabindex="-1"><i class="ph-bold ph-pencil-simple"></i></button>
+                <button class="loki-btn" type="button" tabindex="-1"><i class="ph-bold ph-trash"></i></button>
+                <button class="loki-btn" type="button" tabindex="-1"><i class="ph-bold ph-arrows-clockwise"></i></button>
+                <button class="loki-btn" type="button" tabindex="-1"><i class="ph-bold ph-gear"></i></button>
+              </div>
+              <div class="loki-body">
+                <div class="loki-header-watermark"><i class="ph-fill ph-lightning"></i> LOKI</div>
+                <div class="loki-feed">
+                  <div class="feed-message">
+                    <p class="greeting-text">Reading the question and the four queued options…</p>
+                  </div>
+                  <div class="solution-box">
+                    <span class="sol-badge">Solved &bull; 240ms</span>
+                    <h4><strong>Answer: Option B</strong> &mdash; e<sup>x<sup>3</sup></sup> + C</h4>
+                    <p>u-substitution: let u = x<sup>3</sup>, so du = 3x<sup>2</sup> dx.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="slider-track-wrap">
-            <input type="range" id="stealthSlider" min="0" max="100" value="100" oninput="updateStealthSlider(this.value)">
+
+          <!-- Vertical wipe divider -->
+          <div class="stealth-divider" id="stealthDivider" role="slider" aria-label="Reveal Loki HUD overlay" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+            <span class="stealth-divider-line"></span>
+            <span class="stealth-divider-grip"><i class="ph-bold ph-arrows-horizontal"></i></span>
           </div>
         </div>
 
-        <!-- Simulated Monitor Screen -->
-        <div class="sim-screen" id="stealthSimScreen">
-          
-          <!-- Mock Desktop Background / Exam Browser Window -->
-          <div class="mock-browser">
-            <div class="browser-tab-bar">
-              <div class="window-dots">
-                <span></span><span></span><span></span>
-              </div>
-              <div class="browser-address"><i class="ph-bold ph-lock"></i> https://portal.homework-problem-set.edu/math/calculus-series</div>
-            </div>
-            <div class="browser-content">
-              <div class="exam-header-row">
-                <span class="exam-q-badge">Problem 14 of 30</span>
-                <span class="exam-timer"><i class="ph-bold ph-clock"></i> 48:12 elapsed</span>
-              </div>
-              <h3 class="exam-problem-title">Evaluate the indefinite integral:</h3>
-              <div class="exam-formula-box">
-                &int; (3x<sup>2</sup> &middot; e<sup>x<sup>3</sup></sup>) dx
-              </div>
-              <div class="exam-options-grid">
-                <div class="exam-option"><strong>A)</strong> 3e<sup>x<sup>3</sup></sup> + C</div>
-                <div class="exam-option opt-target"><strong>B)</strong> e<sup>x<sup>3</sup></sup> + C</div>
-                <div class="exam-option"><strong>C)</strong> x<sup>3</sup> &middot; e<sup>x<sup>2</sup></sup> + C</div>
-                <div class="exam-option"><strong>D)</strong> 9x &middot; e<sup>x<sup>3</sup></sup> + C</div>
-              </div>
-            </div>
-          </div>
+        <p class="stealth-caption"><i class="ph-bold ph-shield-check"></i> Hardware-level window exclusion keeps Loki invisible to screen shares, recordings, and capture cards.</p>
+      </div>
+    </div>
+  </section>
 
-          <!-- THE FLOATING LOKI HUD -->
-          <div class="stealth-loki-overlay" id="stealthLokiOverlay">
-            <div class="hud-mini-header">
-              <div class="hud-title"><i class="ph-fill ph-lightning"></i> LOKI REASONING ENGINE</div>
-              <span class="hud-status">SOLVED &bull; 240ms</span>
-            </div>
-            <div class="hud-mini-body">
-              <div class="hud-direct-ans">Answer: <strong>Option B</strong> [e<sup>x<sup>3</sup></sup> + C]</div>
-              <div class="hud-proof-step"><strong>u-substitution:</strong> Let u = x<sup>3</sup> &rArr; du = 3x<sup>2</sup> dx</div>
-              <div class="hud-proof-step">&int; e<sup>u</sup> du = e<sup>u</sup> + C = <strong>e<sup>x<sup>3</sup></sup> + C</strong></div>
-            </div>
-          </div>
+  <!-- Vouches / Customer Reviews -->
+  <section id="vouches" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="pill-label">Vouches</span>
+        <h2 class="section-title">Real Reviews From Real Users</h2>
+        <p class="section-desc">Don't just take our word for it. Here's what the community is saying &mdash; hop into the Discord and join the students already studying smarter with Loki.</p>
+      </div>
 
-          <!-- Status badge when fully hidden -->
-          <div class="stream-hidden-badge" id="streamHiddenNotice" style="display: none;">
-            <i class="ph-bold ph-shield-check"></i> Excluded from screen share / stream (0% Footprint)
+      <div class="vouch-showcase">
+        <div class="vouch-viewport" id="vouchViewport">
+          <div class="vouch-track" id="vouchTrack">
+            <img class="vouch-slide active" src="assets/reviews/Screenshot%202026-10-09%20043822.png" alt="Loki customer review 1" loading="eager" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20043831.png" alt="Loki customer review 2" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20043846.png" alt="Loki customer review 3" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20043853.png" alt="Loki customer review 4" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20043857.png" alt="Loki customer review 5" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20043902.png" alt="Loki customer review 6" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20043908.png" alt="Loki customer review 7" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20043915.png" alt="Loki customer review 8" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20043938.png" alt="Loki customer review 9" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20043942.png" alt="Loki customer review 10" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20043950.png" alt="Loki customer review 11" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044001.png" alt="Loki customer review 12" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044007.png" alt="Loki customer review 13" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044013.png" alt="Loki customer review 14" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044025.png" alt="Loki customer review 15" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044031.png" alt="Loki customer review 16" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044038.png" alt="Loki customer review 17" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044047.png" alt="Loki customer review 18" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044058.png" alt="Loki customer review 19" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044104.png" alt="Loki customer review 20" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044115.png" alt="Loki customer review 21" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044121.png" alt="Loki customer review 22" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044126.png" alt="Loki customer review 23" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044131.png" alt="Loki customer review 24" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044138.png" alt="Loki customer review 25" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044146.png" alt="Loki customer review 26" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044152.png" alt="Loki customer review 27" loading="lazy" decoding="async">
+            <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044201.png" alt="Loki customer review 28" loading="lazy" decoding="async">
           </div>
-
         </div>
+      </div>
+
+      <div class="vouch-cta">
+        <a href="https://discord.gg/fab9WUG39U" target="_blank" rel="noopener" class="btn btn-discord btn-lg">
+          <i class="ph-bold ph-discord-logo"></i> Join the Discord Community
+        </a>
+        <p class="vouch-cta-note">Real vouches, straight from our community members.</p>
       </div>
     </div>
   </section>
@@ -284,15 +322,15 @@
       <div class="grid-3">
         <div class="feature-card">
           <div class="card-icon"><i class="ph-bold ph-cursor-click"></i></div>
-          <h3>3-Second RMB Instant Capture</h3>
-          <p>Hold your Right Mouse Button for 3 seconds anywhere on screen. Loki captures the frame and queries your active model immediately upon release.</p>
-          <div class="card-tag">RMB Hold Shortcut</div>
+          <h3>Instant On-Screen Capture</h3>
+          <p>Grab any question straight from your active window and get an answer back in milliseconds — no window switching, no menus, no interruption to your workflow.</p>
+          <div class="card-tag">Instant Capture</div>
         </div>
 
         <div class="feature-card">
           <div class="card-icon"><i class="ph-bold ph-images-square"></i></div>
           <h3>Multi-Shot Diagram Queuing</h3>
-          <p>Queue up to 3 captures (prompt + chart + multiple choice options) using <kbd>Alt + C</kbd> and send them unified in one combined AI context window.</p>
+          <p>Queue up to 3 captures (prompt + chart + multiple choice options) and send them unified in one combined AI context window.</p>
           <div class="card-tag">Max 3 Screenshots</div>
         </div>
 
@@ -313,8 +351,8 @@
         <div class="feature-card">
           <div class="card-icon"><i class="ph-bold ph-arrows-clockwise"></i></div>
           <h3>Upside-Down Math Inverter</h3>
-          <p>Graphics driver scaling causing inverted equations? Press <kbd>Alt + F</kbd> to instantaneously flip mathematical formulas back into readable format.</p>
-          <div class="card-tag">Alt + F Auto-Invert</div>
+          <p>Graphics driver scaling causing inverted equations? Loki automatically flips affected mathematical formulas back into a clean, readable format.</p>
+          <div class="card-tag">Auto Math Correction</div>
         </div>
 
         <div class="feature-card">
@@ -382,23 +420,23 @@
         <div class="sim-stage" id="simStage">
           <div class="loki-window" id="lokiWindow">
             <div class="loki-sidebar" id="lokiSidebar">
-              <button class="loki-btn active-bolt" title="Send Request (Alt + Enter)" onclick="simSolve()">
+              <button class="loki-btn active-bolt" title="Send Request" onclick="simSolve()">
                 <i class="ph-fill ph-lightning"></i>
               </button>
-              <button class="loki-btn" title="Queue Screenshot (Alt + C)" onclick="simQueueScreenshot()">
+              <button class="loki-btn" title="Queue Screenshot" onclick="simQueueScreenshot()">
                 <i class="ph-bold ph-camera"></i>
                 <span class="badge" id="simQueueBadge" style="display:none;">0</span>
               </button>
-              <button class="loki-btn" title="Manual Input (Alt + X)" onclick="simToggleInput()">
+              <button class="loki-btn" title="Manual Input" onclick="simToggleInput()">
                 <i class="ph-bold ph-pencil-simple"></i>
               </button>
-              <button class="loki-btn" title="Delete Screenshot (Alt + Backspace)" onclick="simDeleteScreenshot()">
+              <button class="loki-btn" title="Delete Screenshot" onclick="simDeleteScreenshot()">
                 <i class="ph-bold ph-trash"></i>
               </button>
-              <button class="loki-btn" title="Rotate Images (Alt + F)" onclick="simFlipEquation()">
+              <button class="loki-btn" title="Rotate Images" onclick="simFlipEquation()">
                 <i class="ph-bold ph-arrows-clockwise"></i>
               </button>
-              <button class="loki-btn" title="Open Settings (Alt + O)" onclick="simOpenSettings()">
+              <button class="loki-btn" title="Open Settings" onclick="simOpenSettings()">
                 <i class="ph-bold ph-gear"></i>
               </button>
             </div>
@@ -428,63 +466,91 @@
     </div>
   </section>
 
-  <!-- Complete Hotkey Cheat Sheet -->
-  <section id="keybinds" class="section section-dark">
+  <!-- FAQ Section -->
+  <section id="faq" class="section section-dark">
     <div class="container">
       <div class="section-header">
-        <span class="pill-label">Fast Execution</span>
-        <h2 class="section-title">Default Keybind Matrix</h2>
-        <p class="section-desc">Trigger every action in a fraction of a second via fully rebindable global key combinations.</p>
+        <span class="pill-label">FAQ</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-desc">The quick answers before you get started. Still stuck on something? Our team is one message away on Discord.</p>
       </div>
 
-      <div class="hotkey-grid">
-        <div class="hotkey-card">
-          <div class="key-combo"><kbd>Hold RMB</kbd> <span>(3s)</span></div>
-          <div class="key-desc">
-            <h4>Instant Screenshot &amp; Solve</h4>
-            <p>Captures the current active screen frame and instantly transmits it to the AI engine on mouse release.</p>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>
+            <span>Which operating systems are supported?</span>
+            <i class="ph-bold ph-caret-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>Loki runs natively on <strong>Windows 11 (64-bit)</strong> and <strong>macOS</strong> (Apple Silicon &amp; Intel). Native builds mean no browser dependencies and no performance overhead.</p>
           </div>
-        </div>
+        </details>
 
-        <div class="hotkey-card">
-          <div class="key-combo"><kbd>Alt</kbd> + <kbd>Enter</kbd></div>
-          <div class="key-desc">
-            <h4>Send Request / Solve</h4>
-            <p>Triggers AI reasoning on all currently queued screenshots and manual input text buffers.</p>
+        <details class="faq-item">
+          <summary>
+            <span>Is Loki really invisible on screen shares and recordings?</span>
+            <i class="ph-bold ph-caret-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes. Loki uses hardware-level window exclusion, so the overlay renders on your display only. It is excluded from screen capture, screen sharing, Zoom, Teams, Discord streams, OBS, and capture cards.</p>
           </div>
-        </div>
+        </details>
 
-        <div class="hotkey-card">
-          <div class="key-combo"><kbd>Alt</kbd> + <kbd>C</kbd></div>
-          <div class="key-desc">
-            <h4>Queue Screenshot (1 to 3)</h4>
-            <p>Snapshots current screen and stages it into the multi-image queue without sending immediately.</p>
+        <details class="faq-item">
+          <summary>
+            <span>Do I need my own AI API key?</span>
+            <i class="ph-bold ph-caret-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>Loki is BYOK (Bring Your Own Key). You connect your own key from OpenAI, Google Gemini, Anthropic Claude, or OpenRouter, which keeps costs transparent and lets you pick the model that fits your subject and budget.</p>
           </div>
-        </div>
+        </details>
 
-        <div class="hotkey-card">
-          <div class="key-combo"><kbd>Alt</kbd> + <kbd>Backspace</kbd></div>
-          <div class="key-desc">
-            <h4>Delete Last Screenshot</h4>
-            <p>Removes the most recent screenshot from the staged queue and decrements the counter badge.</p>
+        <details class="faq-item">
+          <summary>
+            <span>Can I use one license on multiple computers?</span>
+            <i class="ph-bold ph-caret-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>Each license is personal and locked to a single machine. Your key automatically binds to the first computer it is activated on, which keeps licenses from being shared or resold.</p>
           </div>
-        </div>
+        </details>
 
-        <div class="hotkey-card">
-          <div class="key-combo"><kbd>Alt</kbd> + <kbd>X</kbd></div>
-          <div class="key-desc">
-            <h4>Toggle Manual Input Box</h4>
-            <p>Opens the sliding bottom text field to write custom prompts, queries, or provide extra context.</p>
+        <details class="faq-item">
+          <summary>
+            <span>Can I use Loki on exams or standardized tests?</span>
+            <i class="ph-bold ph-caret-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>No.</strong> Loki does not work inside secure, lock-down, or proctored browsers and is not permitted on official standardized testing platforms such as Bluebook, the Digital SAT, PSAT, AP Exams, ACT, GRE, MCAT, or LSAT. Always follow the rules of the platform you are using.</p>
           </div>
-        </div>
+        </details>
 
-        <div class="hotkey-card">
-          <div class="key-combo"><kbd>Alt</kbd> + <kbd>O</kbd></div>
-          <div class="key-desc">
-            <h4>Open System Configuration</h4>
-            <p>Opens settings and unlocks the corner grip handle to customize window dimensions.</p>
+        <details class="faq-item">
+          <summary>
+            <span>What happens when my plan ends?</span>
+            <i class="ph-bold ph-caret-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>Access simply expires at the end of your plan. You can renew at any time from the pricing section, and every session you have already archived stays saved locally on your machine.</p>
           </div>
-        </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            <span>How do I get support?</span>
+            <i class="ph-bold ph-caret-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p>Join the Discord community and open a priority support ticket. Setup help, model configuration, and troubleshooting are all handled there.</p>
+          </div>
+        </details>
+      </div>
+
+      <div class="faq-cta">
+        <a href="https://discord.gg/fab9WUG39U" target="_blank" rel="noopener" class="btn btn-discord">
+          <i class="ph-bold ph-discord-logo"></i> Still have questions? Ask in Discord
+        </a>
       </div>
     </div>
   </section>
@@ -505,6 +571,7 @@
         <a href="#stealth-demo">Stealth Proof</a>
         <a href="#pricing">Pricing</a>
         <a href="#features">Features</a>
+        <a href="#vouches">Vouches</a>
         <a href="#simulator">Live Simulator</a>
       </div>
 
@@ -523,50 +590,58 @@
     </div>
   </footer>
 
-  <!-- ─── 🛡️ PRE-PURCHASE COMPLIANCE AGREEMENT MODAL ───────────── -->
-  <div id="complianceModal" class="compliance-modal-backdrop" style="display: none;">
-    <div class="compliance-modal-card">
-      <div class="modal-header-danger">
-        <div class="m-icon-wrap"><i class="ph-bold ph-warning-octagon"></i></div>
-        <div>
-          <h3>Terms of Use &amp; Prohibited Testing Policy</h3>
-          <span class="m-subtitle">Acknowledgment required before purchasing</span>
+  <!-- ─── 📄 TERMS OF SERVICE MODAL ───────────── -->
+  <div id="complianceModal" class="tos-modal-backdrop" style="display: none;">
+    <div class="tos-modal-card" role="dialog" aria-modal="true" aria-labelledby="tosTitle">
+      <div class="tos-modal-header">
+        <div class="tos-icon-wrap"><i class="ph-bold ph-file-text"></i></div>
+        <div class="tos-header-text">
+          <h3 id="tosTitle">Terms of Service &amp; Acceptable Use</h3>
+          <span class="tos-subtitle">Please review and accept to continue to checkout.</span>
         </div>
+        <button class="tos-close-btn" type="button" onclick="closeComplianceModal()" aria-label="Close"><i class="ph-bold ph-x"></i></button>
       </div>
 
-      <div class="modal-body-content">
-        <div class="alert-box-red">
-          <strong>STRICT PROHIBITION:</strong> Loki strictly does <u>NOT</u> work inside secure lock-down browsers and is <strong>strictly forbidden</strong> from being used on any official standardized testing platforms.
-        </div>
+      <div class="tos-scroll" tabindex="0">
+        <p class="tos-intro">Welcome to Loki. By continuing you agree to the terms below. Loki is a fast, private study companion &mdash; please read what is and isn't supported before you purchase.</p>
 
-        <ul class="modal-checklist">
-          <li>
-            <i class="ph-bold ph-prohibit"></i>
-            <div><strong>No College Board Support:</strong> Strictly banned on Bluebook, Digital SAT, PSAT, AP Classroom, and AP Exams.</div>
-          </li>
-          <li>
-            <i class="ph-bold ph-prohibit"></i>
-            <div><strong>No Standardized Testing:</strong> Strictly prohibited on ACT, GRE, MCAT, LSAT, and civil service tests.</div>
-          </li>
-          <li>
-            <i class="ph-bold ph-shield-warning"></i>
-            <div><strong>Zero Refund &amp; Immediate Ban Policy:</strong> Any attempt to use Loki on protected testing platforms results in an automatic permanent license termination with <strong>zero refund</strong>.</div>
-          </li>
-          <li>
-            <i class="ph-bold ph-desktop"></i>
-            <div><strong>Single Machine HWID Lock:</strong> Your key locks automatically to the first computer you activate it on.</div>
-          </li>
+        <h4>1. Acceptable Use</h4>
+        <p>Loki is a desktop study and productivity companion intended for personal learning, homework practice, tutoring, and research. You are responsible for how you use the software and for following the rules of any platform you use it with.</p>
+
+        <h4>2. Prohibited Environments &amp; Standardized Testing</h4>
+        <p>Loki does <strong>not</strong> operate inside secure, lock-down, or proctored browsers and is <strong>not permitted</strong> on official standardized testing platforms. This includes, but is not limited to:</p>
+        <ul class="tos-list">
+          <li>College Board platforms &mdash; Bluebook, Digital SAT, PSAT, AP Classroom, and AP Exams.</li>
+          <li>Standardized admissions and licensing tests &mdash; ACT, GRE, MCAT, LSAT, and civil service exams.</li>
+          <li>Any exam environment that prohibits third-party software or screen overlays.</li>
         </ul>
 
-        <div class="modal-os-confirmation">
-          Selected Platform: <strong id="modalSelectedOsDisplay" style="color: var(--accent-gold);">Windows 11</strong>
-        </div>
+        <h4>3. License &amp; Single-Machine Activation</h4>
+        <p>Each license is personal and non-transferable, and is locked to a single machine. Your key automatically binds to the first computer on which it is activated. Sharing, reselling, or redistributing licenses is not allowed.</p>
+
+        <h4>4. Refunds &amp; Termination</h4>
+        <p>Because access is delivered instantly in digital form, all sales are final. Attempting to use Loki in a prohibited or locked-down examination environment may result in immediate, permanent termination of your license without a refund.</p>
+
+        <h4>5. Third-Party AI Providers (BYOK)</h4>
+        <p>Loki can connect to third-party model providers (such as OpenAI, Google Gemini, Anthropic Claude, or OpenRouter) using your own API key. Your use of those services is governed by their respective terms and privacy policies.</p>
+
+        <h4>6. No Warranty</h4>
+        <p>Loki is provided &ldquo;as is&rdquo; without warranties of any kind. Responses are generated by AI and may contain errors &mdash; always verify important results independently.</p>
       </div>
 
-      <div class="modal-actions-row">
-        <button class="btn btn-secondary" onclick="closeComplianceModal()">Cancel</button>
-        <button class="btn btn-primary btn-agree" id="modalAgreeBtn" onclick="confirmPurchase()">
-          <i class="ph-bold ph-check-circle"></i> I Understand &amp; Agree &mdash; Continue to Stripe
+      <label class="tos-agree-row">
+        <input type="checkbox" id="tosAgreeCheck" onchange="toggleTosAgree(this.checked)">
+        <span>I have read and agree to the <strong>Terms of Service</strong> and <strong>Acceptable Use Policy</strong>.</span>
+      </label>
+
+      <div class="tos-os-line">
+        Selected Platform: <strong id="modalSelectedOsDisplay">Windows 11</strong>
+      </div>
+
+      <div class="tos-actions-row">
+        <button class="btn btn-secondary" type="button" onclick="closeComplianceModal()">Cancel</button>
+        <button class="btn btn-primary btn-agree" id="modalAgreeBtn" type="button" onclick="confirmPurchase()" disabled>
+          <i class="ph-bold ph-arrow-right"></i> Continue to Checkout
         </button>
       </div>
     </div>
@@ -620,17 +695,64 @@
       pendingCheckoutDuration = duration;
       const osText = (selectedPlatform === 'mac') ? 'macOS (Apple Silicon & Intel DMG)' : 'Windows 11 (64-bit EXE)';
       document.getElementById('modalSelectedOsDisplay').textContent = osText;
+
+      // Always start with the agreement unchecked and the CTA locked
+      const check = document.getElementById('tosAgreeCheck');
+      if (check) check.checked = false;
+      const agreeBtn = document.getElementById('modalAgreeBtn');
+      if (agreeBtn) {
+        agreeBtn.disabled = true;
+        agreeBtn.innerHTML = '<i class="ph-bold ph-arrow-right"></i> Continue to Checkout';
+      }
+
       document.getElementById('complianceModal').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
     }
 
     function closeComplianceModal() {
       document.getElementById('complianceModal').style.display = 'none';
+      document.body.style.overflow = '';
       pendingCheckoutDuration = null;
     }
+
+    // Unlock the checkout CTA once the terms are accepted
+    function toggleTosAgree(checked) {
+      const agreeBtn = document.getElementById('modalAgreeBtn');
+      if (agreeBtn) agreeBtn.disabled = !checked;
+    }
+
+    // Mobile navigation menu
+    function toggleNavMenu() {
+      const nav = document.getElementById('navLinks');
+      const toggle = document.getElementById('navToggle');
+      if (!nav) return;
+      const isOpen = nav.classList.toggle('open');
+      if (toggle) {
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        toggle.innerHTML = isOpen ? '<i class="ph-bold ph-x"></i>' : '<i class="ph-bold ph-list"></i>';
+      }
+    }
+    document.querySelectorAll('#navLinks a').forEach(link => {
+      link.addEventListener('click', () => {
+        const nav = document.getElementById('navLinks');
+        const toggle = document.getElementById('navToggle');
+        if (nav && nav.classList.contains('open')) {
+          nav.classList.remove('open');
+          if (toggle) {
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.innerHTML = '<i class="ph-bold ph-list"></i>';
+          }
+        }
+      });
+    });
 
     // Stripe Checkout Execution
     async function confirmPurchase() {
       if (!pendingCheckoutDuration) return;
+
+      // Safety: require the terms checkbox before any checkout attempt
+      const check = document.getElementById('tosAgreeCheck');
+      if (check && !check.checked) return;
 
       const agreeBtn = document.getElementById('modalAgreeBtn');
       agreeBtn.disabled = true;
@@ -659,31 +781,130 @@
         } else {
           alert("Checkout Error: " + (data.error || "Could not connect to payment gateway."));
           agreeBtn.disabled = false;
-          agreeBtn.innerHTML = '<i class="ph-bold ph-check-circle"></i> I Understand &amp; Agree &mdash; Continue to Stripe';
+          agreeBtn.innerHTML = '<i class="ph-bold ph-arrow-right"></i> Continue to Checkout';
         }
       } catch (err) {
         console.error("Payment error:", err);
         alert("Failed to initiate checkout. Please ensure server is available.");
         agreeBtn.disabled = false;
-        agreeBtn.innerHTML = '<i class="ph-bold ph-check-circle"></i> I Understand &amp; Agree &mdash; Continue to Stripe';
+        agreeBtn.innerHTML = '<i class="ph-bold ph-arrow-right"></i> Continue to Checkout';
       }
     }
 
-    // Interactive Stealth Range Slider
-    function updateStealthSlider(val) {
-      const overlay = document.getElementById('stealthLokiOverlay');
-      const badge = document.getElementById('streamHiddenNotice');
-      
-      const opacityFraction = val / 100;
-      overlay.style.opacity = opacityFraction;
-      
-      if (val < 25) {
-        badge.style.display = 'flex';
-        badge.style.opacity = (25 - val) / 25;
-      } else {
-        badge.style.display = 'none';
+    // ── Stealth showcase: draggable vertical wipe divider ──
+    function initStealthWipe() {
+      const stage = document.getElementById('stealthStage');
+      const divider = document.getElementById('stealthDivider');
+      const hudLayer = document.getElementById('stealthHudLayer');
+      if (!stage || !divider || !hudLayer) return;
+
+      let dragging = false;
+
+      function setWipe(percent) {
+        const p = Math.max(0, Math.min(100, percent));
+        divider.style.left = p + '%';
+        // HUD stays visible to the right of the line; the left side shows the raw capture
+        hudLayer.style.clipPath = `inset(0 0 0 ${p}%)`;
+        divider.setAttribute('aria-valuenow', Math.round(p));
       }
+
+      function positionFromX(clientX) {
+        const rect = stage.getBoundingClientRect();
+        if (!rect.width) return 50;
+        return ((clientX - rect.left) / rect.width) * 100;
+      }
+
+      function onDown(e) {
+        dragging = true;
+        stage.classList.add('is-dragging');
+        try { stage.setPointerCapture(e.pointerId); } catch (err) {}
+        setWipe(positionFromX(e.clientX));
+      }
+      function onMove(e) {
+        if (!dragging) return;
+        setWipe(positionFromX(e.clientX));
+      }
+      function onUp() {
+        dragging = false;
+        stage.classList.remove('is-dragging');
+      }
+
+      stage.addEventListener('pointerdown', onDown);
+      stage.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
+      window.addEventListener('pointercancel', onUp);
+
+      // Keyboard accessibility on the divider handle
+      divider.addEventListener('keydown', (e) => {
+        const current = parseFloat(divider.style.left) || 50;
+        if (e.key === 'ArrowLeft') { setWipe(current - 4); e.preventDefault(); }
+        if (e.key === 'ArrowRight') { setWipe(current + 4); e.preventDefault(); }
+      });
+
+      setWipe(50);
     }
+    initStealthWipe();
+
+    // ── Vouches: auto-advancing single-image review carousel ──
+    function initVouchCarousel() {
+      const viewport = document.getElementById('vouchViewport');
+      const track = document.getElementById('vouchTrack');
+      if (!viewport || !track) return;
+
+      const slides = Array.from(track.querySelectorAll('.vouch-slide'));
+      const total = slides.length;
+      if (!total) return;
+
+      const INTERVAL = 3400;
+      let index = 0;
+      let timer = null;
+
+      function fitHeight() {
+        const maxH = Math.min(window.innerHeight * 0.72, 620);
+        const slide = slides[index];
+        let h = maxH;
+        if (slide && slide.naturalWidth) {
+          h = (viewport.clientWidth / slide.naturalWidth) * slide.naturalHeight;
+        }
+        viewport.style.height = Math.max(90, Math.min(h, maxH)) + 'px';
+      }
+
+      function show(next) {
+        index = (next + total) % total;
+        slides.forEach((s, i) => s.classList.toggle('active', i === index));
+        fitHeight();
+      }
+
+      function start() {
+        stop();
+        timer = setInterval(() => show(index + 1), INTERVAL);
+      }
+      function stop() {
+        if (timer) { clearInterval(timer); timer = null; }
+      }
+
+      // Re-fit once the active image reports its natural size
+      slides.forEach((s, i) => {
+        if (!s.complete) {
+          s.addEventListener('load', () => { if (i === index) fitHeight(); }, { once: true });
+        }
+      });
+
+      // Pause while hovering / touching, and when the tab is hidden
+      viewport.addEventListener('mouseenter', stop);
+      viewport.addEventListener('mouseleave', start);
+      viewport.addEventListener('touchstart', stop, { passive: true });
+      viewport.addEventListener('touchend', start, { passive: true });
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) { stop(); } else { start(); }
+      });
+
+      window.addEventListener('resize', fitHeight);
+
+      show(0);
+      start();
+    }
+    initVouchCarousel();
 
     // Simulator Logic
     let queueCount = 0;
@@ -762,7 +983,7 @@
         badge.innerText = queueCount;
         renderMessage(`📸 Screenshot staged! Queued images: <strong>${queueCount}/3</strong>. Press ⚡ to solve.`);
       } else {
-        renderMessage(`⚠️ Queue limit reached (3/3). Press ⚡ or Alt + Enter to solve.`);
+        renderMessage(`⚠️ Queue limit reached (3/3). Press ⚡ to solve.`);
       }
     }
 
@@ -797,7 +1018,7 @@
       const feed = document.getElementById('lokiFeed');
       if (isFlipped) {
         feed.classList.add('flipped-math');
-        renderMessage(`🔄 Equations rotated vertically (Alt + F correction applied).`);
+        renderMessage(`🔄 Equations rotated vertically (math correction applied).`);
       } else {
         feed.classList.remove('flipped-math');
         renderMessage(`🔄 Equations reverted to normal orientation.`);
@@ -805,7 +1026,7 @@
     }
 
     function simOpenSettings() {
-      renderMessage(`⚙️ <strong>System Configuration Opened</strong>: Corner-grip resize unlocked! (Alt + O)`);
+      renderMessage(`⚙️ <strong>System Configuration Opened</strong>: Corner-grip resize unlocked!`);
     }
 
     function simSolve(customText = null) {
