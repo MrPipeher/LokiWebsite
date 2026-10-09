@@ -21,6 +21,11 @@
       --text-muted: #94a3b8;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      overflow-x: clip;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
     body {
       background-color: var(--bg-primary);
       color: var(--text-main);
@@ -35,8 +40,8 @@
     }
     .ambient-glow {
       position: absolute;
-      width: 600px;
-      height: 600px;
+      width: min(600px, 100vw);
+      height: min(600px, 100vw);
       border-radius: 50%;
       filter: blur(140px);
       pointer-events: none;
@@ -174,6 +179,19 @@
       margin: 0 auto 20px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+    /* Mobile polish: card, key row and steps stay readable and in-frame */
+    @media (max-width: 560px) {
+      .success-card { padding: 28px 18px; }
+      h1 { font-size: 1.6rem; }
+      .status-icon-success { width: 64px; height: 64px; font-size: 1.9rem; margin-bottom: 16px; }
+      .credentials-box { padding: 14px; }
+      .key-display { font-size: 0.88rem; padding: 9px 10px; }
+      .btn-copy { padding: 9px 12px; font-size: 0.82rem; }
+      .passcode-pill { font-size: 0.95rem; padding: 5px 12px; }
+      .instructions-list { padding: 14px; }
+      .instructions-list ol { font-size: 0.82rem; padding-left: 18px; }
+      .btn { padding: 13px 18px; }
+    }
   </style>
 </head>
 <body>

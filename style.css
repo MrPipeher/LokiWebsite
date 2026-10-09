@@ -35,16 +35,30 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 84px;
   font-family: 'Plus Jakarta Sans', sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-main);
   line-height: 1.6;
+  /* Keep the page strictly vertical: never allow sideways scrolling.
+     `clip` (unlike `hidden`) does not create a scroll container, so the
+     sticky navbar keeps working. */
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
-  overflow-x: hidden;
   position: relative;
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
+  overflow-x: clip;
+}
+
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
 }
 
 .container {
@@ -836,18 +850,22 @@ p {
 .stealth-hud-layer .loki-header-watermark { font-size: 0.68rem; }
 .stealth-hud-layer .solution-box { padding: 10px; }
 
-/* Draggable vertical wipe divider */
+/* Draggable vertical wipe divider (48px hit area for comfortable touch drags) */
 .stealth-divider {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 50%;
-  width: 2px;
-  transform: translateX(-50%);
+  width: 48px;
+  margin-left: -24px;
   z-index: 6;
   cursor: ew-resize;
   touch-action: none;
   outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
 }
 .stealth-divider-line {
   position: absolute;
@@ -1988,6 +2006,88 @@ p {
   color: var(--text-muted);
 }
 
+/* Tap-to-zoom hint (phones only) + full-size review reader */
+.vouch-hint {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 12px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.vouch-hint i { color: var(--accent-gold); }
+.vouch-viewport { cursor: zoom-in; }
+
+.vouch-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(3, 5, 8, 0.97);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: fadeIn 0.2s ease;
+}
+.vouch-lightbox[hidden] { display: none; }
+.vouch-lightbox-scroll {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  text-align: center;
+  padding: 64px 16px 28px;
+}
+.vouch-lightbox-scroll img {
+  display: inline-block;
+  width: auto;
+  max-width: none;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--border-color);
+  background: #0d121d;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
+}
+.vouch-lightbox-close,
+.vouch-lightbox-nav {
+  position: fixed;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(15, 20, 32, 0.9);
+  border: 1px solid var(--border-color);
+  color: #ffffff;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.vouch-lightbox-close:hover,
+.vouch-lightbox-nav:hover {
+  background: rgba(245, 158, 11, 0.9);
+  color: #000;
+}
+.vouch-lightbox-close { top: 14px; right: 14px; }
+.vouch-lightbox-nav { top: 50%; transform: translateY(-50%); }
+.vouch-lightbox-nav.prev { left: 10px; }
+.vouch-lightbox-nav.next { right: 10px; }
+.vouch-lightbox-tip {
+  position: fixed;
+  top: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+/* Lock the page behind the reader without disturbing the sticky navbar */
+html.lb-open,
+html.lb-open body { overflow: hidden; }
+
 /* ==========================================================================
    FAQ ACCORDION
    ========================================================================== */
@@ -2023,6 +2123,7 @@ p {
   user-select: none;
 }
 .faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::marker { content: ""; }
 .faq-item summary i {
   color: var(--accent-gold);
   font-size: 1.1rem;
@@ -2398,3 +2499,179 @@ p {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
 }
+
+/* ==========================================================================
+   MOBILE POLISH PASS
+   Phone-first legibility, spacing and touch targets. These blocks live at the
+   end of the file on purpose so they win over the earlier @media rules.
+   ========================================================================== */
+
+/* ---- Tablets & large phones ---- */
+@media (max-width: 900px) {
+  html { scroll-padding-top: 78px; }
+  .nav-container { padding: 0 16px; }
+  .nav-links {
+    max-height: calc(100vh - 76px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-links a { padding: 15px 0; }
+  .nav-toggle { flex-shrink: 0; }
+  .brand-name { font-size: 1.15rem; }
+
+  /* Stealth HUD: compact overlay that never fights the wipe line */
+  .stealth-hud-layer .loki-sidebar { display: none; }
+  .stealth-hud-layer .feed-message { display: none; }
+  .stealth-hud-layer .loki-body { padding: 12px 12px 14px; }
+  .stealth-hud-layer .loki-header-watermark { top: 10px; right: 12px; font-size: 0.62rem; }
+  .stealth-hud-layer .loki-window h4 { font-size: 0.9rem; line-height: 1.35; }
+  .stealth-hud-layer .solution-box { padding: 10px; }
+  .stealth-hud-layer .solution-box p { font-size: 0.72rem; line-height: 1.45; }
+  .stealth-hud-layer .sol-badge { font-size: 0.6rem; margin-bottom: 3px; }
+}
+
+/* ---- Phones ---- */
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .hero-section { padding: 44px 0 34px; }
+  .hero-badge { font-size: 0.78rem; padding: 6px 14px; margin-bottom: 18px; }
+  .hero-title { font-size: clamp(1.72rem, 7.4vw, 2.1rem); line-height: 1.2; margin-bottom: 16px; }
+  .hero-subtitle { font-size: 0.97rem; margin-bottom: 26px; }
+  .hero-actions { margin-bottom: 30px; gap: 10px; }
+  .section { padding: 56px 0; }
+  .section-header { margin: 0 auto 34px; }
+  .section-title { font-size: clamp(1.5rem, 6.4vw, 1.95rem); }
+  .section-desc { font-size: 0.94rem; }
+  .pill-label { font-size: 0.74rem; margin-bottom: 8px; }
+  .feature-strip { padding: 16px; gap: 14px; }
+  .strip-item { font-size: 0.86rem; }
+  .strip-item i { font-size: 1.15rem; }
+
+  /* Stealth showcase: portrait stage with the HUD locked into the right half */
+  .stealth-stage { aspect-ratio: 3 / 4; min-height: 0; }
+  .stealth-hud-layer .loki-window {
+    width: 46%;
+    right: 4%;
+    top: 6%;
+    min-height: 0;
+    border-radius: 12px;
+  }
+  .stealth-legend { gap: 8px; margin-bottom: 12px; font-size: 0.82rem; }
+  .stealth-legend .s-label { gap: 5px; }
+  .stealth-legend .stealth-hint { font-size: 0.74rem; }
+  .stealth-caption { margin-top: 14px; font-size: 0.78rem; }
+  .stealth-divider-grip { width: 44px; height: 44px; font-size: 1.05rem; }
+
+  /* Vouches */
+  .vouch-showcase { max-width: 100%; }
+  .vouch-cta { margin-top: 26px; }
+  .vouch-cta .btn { width: 100%; }
+  .vouch-cta-note { font-size: 0.78rem; }
+
+  /* Pricing */
+  .pricing-grid { gap: 26px; }
+  .pricing-card { padding: 26px 20px; }
+  .plan-header { margin-bottom: 18px; }
+  .plan-header h3 { font-size: 1.45rem; }
+  .plan-header p { min-height: 0; font-size: 0.86rem; }
+  .plan-price { margin-bottom: 22px; }
+  .plan-price .amount { font-size: 2.85rem; }
+  .plan-features { gap: 12px; margin-bottom: 24px; }
+  .pricing-footer-guarantee { display: block; line-height: 1.7; font-size: 0.78rem; }
+  .pricing-footer-guarantee i { margin-right: 6px; vertical-align: -2px; }
+
+  /* Features */
+  .grid-3 { gap: 18px; }
+  .feature-card { padding: 24px 20px; }
+
+  /* Simulator */
+  .sim-wrapper { padding: 16px; gap: 18px; }
+  .sim-controls { padding: 16px; gap: 16px; }
+  .sim-stage { min-height: 320px; padding: 14px; }
+  .loki-window { width: 100%; max-width: 100%; min-height: 0; }
+
+  /* FAQ */
+  .faq-item summary { padding: 16px 15px; font-size: 0.94rem; gap: 12px; }
+  .faq-answer { padding: 14px 15px 18px; font-size: 0.9rem; }
+  .faq-cta { margin-top: 26px; }
+  .faq-cta .btn { width: 100%; }
+
+  /* Footer */
+  .footer { padding: 48px 0 0; }
+  .footer-container { gap: 26px; padding-bottom: 30px; }
+  .footer-brand p { max-width: 100%; }
+  .footer-bottom-flex { gap: 6px; }
+
+  /* Review reader */
+  .vouch-lightbox-tip { top: 20px; font-size: 0.68rem; }
+  .vouch-lightbox-scroll { padding: 56px 12px 24px; }
+}
+
+/* ---- Handheld breakpoint that matches the vouch carousel JS ---- */
+@media (max-width: 820px) {
+  .vouch-hint { display: flex; }
+  .vouch-showcase { max-width: 100%; }
+}
+
+/* Touch devices: gentle pulsing ring on the wipe handle so it reads as draggable */
+@media (hover: none) and (pointer: coarse) {
+  .stealth-divider-grip { animation: gripHint 2.6s ease-in-out infinite; }
+  @keyframes gripHint {
+    0%, 100% { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 0 0 rgba(245, 158, 11, 0.35); }
+    50% { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 0 12px rgba(245, 158, 11, 0); }
+  }
+}
+
+/* ---- Small phones ---- */
+@media (max-width: 560px) {
+  .brand-badge { display: none; }
+  .nav-cta { gap: 8px; }
+  .nav-cta .btn { padding: 10px 13px; font-size: 0.85rem; min-height: 40px; }
+  .hero-title { font-size: 1.68rem; }
+  .hero-subtitle { font-size: 0.93rem; }
+  .section { padding: 50px 0; }
+  .btn-lg { padding: 15px 22px; min-height: 50px; font-size: 1rem; }
+
+  /* Pricing: row-style OS switch keeps the section compact */
+  .os-toggle-container { flex-direction: column; gap: 10px; padding: 8px; }
+  .os-toggle-btn {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    text-align: left;
+  }
+  .os-toggle-btn i { font-size: 1.4rem; }
+  .os-toggle-btn span { font-size: 0.95rem; }
+  .os-toggle-btn .os-tag { margin-left: auto; font-size: 0.62rem; }
+  .plan-price .amount { font-size: 2.5rem; }
+  .plan-price .currency { font-size: 1.3rem; }
+  .plan-price .period { font-size: 0.88rem; }
+  .plan-features li { font-size: 0.87rem; gap: 8px; }
+  .plan-features li i { font-size: 1rem; }
+
+  /* Features & FAQ */
+  .feature-card h3 { font-size: 1.15rem; }
+  .card-icon { width: 44px; height: 44px; font-size: 1.35rem; margin-bottom: 16px; }
+  .faq-item summary { padding: 15px 14px; font-size: 0.9rem; }
+  .footer-links-group a { font-size: 0.82rem; }
+
+  /* Review reader */
+  .vouch-lightbox-nav { width: 40px; height: 40px; }
+  .vouch-lightbox-nav.prev { left: 6px; }
+  .vouch-lightbox-nav.next { right: 6px; }
+}
+
+/* ---- Very narrow phones (iPhone SE / small Androids) ---- */
+@media (max-width: 420px) {
+  .container { padding: 0 14px; }
+  .hero-title { font-size: 1.56rem; }
+  .hero-badge { font-size: 0.72rem; padding: 5px 12px; }
+  .section-title { font-size: 1.42rem; }
+  .btn { padding: 12px 16px; font-size: 0.94rem; }
+  .btn-sm { padding: 9px 12px; font-size: 0.82rem; }
+  .nav-cta .btn { padding: 9px 11px; font-size: 0.82rem; }
+  .plan-price .amount { font-size: 2.3rem; }
+  .vouch-lightbox-tip { display: none; }
+}
+

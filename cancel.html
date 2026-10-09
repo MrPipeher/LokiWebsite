@@ -21,6 +21,11 @@
       --text-muted: #94a3b8;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html {
+      overflow-x: clip;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
     body {
       background-color: var(--bg-primary);
       color: var(--text-main);
@@ -36,8 +41,8 @@
     }
     .ambient-glow {
       position: absolute;
-      width: 500px;
-      height: 500px;
+      width: min(500px, 100vw);
+      height: min(500px, 100vw);
       border-radius: 50%;
       filter: blur(140px);
       pointer-events: none;
@@ -130,6 +135,22 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
+    }
+    /* Mobile polish: everything stays inside the viewport and stacks cleanly */
+    @media (max-width: 560px) {
+      .mandatory-notice-banner {
+        position: static !important;
+        padding: 12px 14px !important;
+      }
+      .mandatory-notice-banner > div {
+        flex-direction: column !important;
+        gap: 8px !important;
+      }
+      .status-card { padding: 30px 20px; }
+      h1 { font-size: 1.5rem; }
+      p { font-size: 0.9rem; margin-bottom: 26px; }
+      .btn { padding: 13px 18px; }
+      .cancel-notice { font-size: 0.74rem; }
     }
   </style>
 </head>

@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=20261009" />
 
   <style>
     .portal-section {
@@ -195,6 +195,15 @@
     }
     @media (max-width: 860px) {
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .portal-card { padding: 24px 18px; }
+      .portal-tabs { gap: 6px; }
+      .p-tab { min-width: 0; padding: 10px 8px; font-size: 0.85rem; gap: 6px; }
+      .ref-link-box { padding: 18px; }
+      .ref-link-text { font-size: 0.92rem; }
+      .sales-table-card { padding: 16px; }
+      .portal-table th, .portal-table td { padding: 10px 10px; }
     }
     @media (max-width: 520px) {
       .stats-grid { grid-template-columns: 1fr; }

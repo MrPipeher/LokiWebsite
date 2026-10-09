@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=20261009" />
 </head>
 <body>
 
@@ -162,7 +162,7 @@
       </div>
 
       <div class="vouch-showcase">
-        <div class="vouch-viewport" id="vouchViewport">
+        <div class="vouch-viewport" id="vouchViewport" role="button" tabindex="0" aria-label="Open the full-size customer review">
           <div class="vouch-track" id="vouchTrack">
             <img class="vouch-slide active" src="assets/reviews/Screenshot%202026-10-09%20043822.png" alt="Loki customer review 1" loading="eager" decoding="async">
             <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20043831.png" alt="Loki customer review 2" loading="lazy" decoding="async">
@@ -194,6 +194,7 @@
             <img class="vouch-slide" src="assets/reviews/Screenshot%202026-10-09%20044201.png" alt="Loki customer review 28" loading="lazy" decoding="async">
           </div>
         </div>
+        <p class="vouch-hint"><i class="ph-bold ph-magnifying-glass-plus"></i> Tap a vouch to read it full-size</p>
       </div>
 
       <div class="vouch-cta">
@@ -647,6 +648,17 @@
     </div>
   </div>
 
+  <!-- Full-size vouch reader -->
+  <div class="vouch-lightbox" id="vouchLightbox" hidden role="dialog" aria-modal="true" aria-label="Customer review">
+    <span class="vouch-lightbox-tip">Swipe to pan &bull; Pinch to zoom</span>
+    <button class="vouch-lightbox-close" id="vouchLightboxClose" type="button" aria-label="Close review"><i class="ph-bold ph-x"></i></button>
+    <button class="vouch-lightbox-nav prev" id="vouchLightboxPrev" type="button" aria-label="Previous review"><i class="ph-bold ph-caret-left"></i></button>
+    <button class="vouch-lightbox-nav next" id="vouchLightboxNext" type="button" aria-label="Next review"><i class="ph-bold ph-caret-right"></i></button>
+    <div class="vouch-lightbox-scroll" id="vouchLightboxScroll">
+      <img id="vouchLightboxImg" src="" alt="Loki customer review">
+    </div>
+  </div>
+
   <!-- Interactive Scripts -->
   <script>
     const BACKEND_URL = "https://d1q4n4qb8q811f.cloudfront.net";
@@ -799,6 +811,9 @@
       if (!stage || !divider || !hudLayer) return;
 
       let dragging = false;
+      let pending = false;
+      let startX = 0;
+      let startY = 0;
 
       function setWipe(percent) {
         const p = Math.max(0, Math.min(100, percent));
@@ -814,17 +829,40 @@
         return ((clientX - rect.left) / rect.width) * 100;
       }
 
-      function onDown(e) {
+      function beginDrag(e) {
         dragging = true;
+        pending = false;
         stage.classList.add('is-dragging');
-        try { stage.setPointerCapture(e.pointerId); } catch (err) {}
-        setWipe(positionFromX(e.clientX));
+        if (e.pointerType === 'mouse') {
+          try { stage.setPointerCapture(e.pointerId); } catch (err) {}
+        }
+      }
+
+      function onDown(e) {
+        startX = e.clientX;
+        startY = e.clientY;
+        pending = true;
+        // Mouse users get an instant jump; touch users keep the page scrollable
+        // until the gesture is clearly horizontal.
+        if (e.pointerType === 'mouse') {
+          beginDrag(e);
+          setWipe(positionFromX(e.clientX));
+        }
       }
       function onMove(e) {
+        if (pending && !dragging) {
+          const dx = Math.abs(e.clientX - startX);
+          const dy = Math.abs(e.clientY - startY);
+          if (dy > 12 && dy > dx) { pending = false; return; } // vertical scroll wins
+          if (dx < 8) return;                                   // small deadzone
+          beginDrag(e);
+        }
         if (!dragging) return;
         setWipe(positionFromX(e.clientX));
       }
       function onUp() {
+        pending = false;
+        if (!dragging) return;
         dragging = false;
         stage.classList.remove('is-dragging');
       }
@@ -859,28 +897,85 @@
       let index = 0;
       let timer = null;
 
+      const isNarrow = () => window.innerWidth <= 820;
+
       function fitHeight() {
-        const maxH = Math.min(window.innerHeight * 0.72, 620);
+        // Phones get a calmer box; desktop keeps the roomier one
+        const maxH = isNarrow()
+          ? Math.min(window.innerHeight * 0.52, 380)
+          : Math.min(window.innerHeight * 0.72, 620);
+        const minH = isNarrow() ? 168 : 90;
         const slide = slides[index];
         let h = maxH;
         if (slide && slide.naturalWidth) {
           h = (viewport.clientWidth / slide.naturalWidth) * slide.naturalHeight;
         }
-        viewport.style.height = Math.max(90, Math.min(h, maxH)) + 'px';
+        viewport.style.height = Math.max(minH, Math.min(h, maxH)) + 'px';
       }
 
       function show(next) {
         index = (next + total) % total;
         slides.forEach((s, i) => s.classList.toggle('active', i === index));
         fitHeight();
+        syncLightbox();
       }
 
       function start() {
         stop();
+        if (lb && !lb.hidden) return; // never advance behind the open reader
         timer = setInterval(() => show(index + 1), INTERVAL);
       }
       function stop() {
         if (timer) { clearInterval(timer); timer = null; }
+      }
+
+      // ── Full-size reader: tap / click a vouch to read it at full resolution ──
+      const lb = document.getElementById('vouchLightbox');
+      const lbImg = document.getElementById('vouchLightboxImg');
+      const lbScroll = document.getElementById('vouchLightboxScroll');
+
+      function syncLightbox() {
+        if (!lb || lb.hidden || !lbImg) return;
+        const src = slides[index].currentSrc || slides[index].src;
+        if (lbImg.getAttribute('src') !== src) {
+          lbImg.setAttribute('src', src);
+          lbScroll.scrollTop = 0;
+          lbScroll.scrollLeft = 0;
+        }
+      }
+
+      if (lb && lbImg && lbScroll) {
+        const openLightbox = () => {
+          lbImg.setAttribute('src', slides[index].currentSrc || slides[index].src);
+          lb.hidden = false;
+          document.documentElement.classList.add('lb-open');
+          lbScroll.scrollTop = 0;
+          lbScroll.scrollLeft = 0;
+          stop();
+          const closeBtn = document.getElementById('vouchLightboxClose');
+          if (closeBtn) closeBtn.focus();
+        };
+        const closeLightbox = () => {
+          lb.hidden = true;
+          lbImg.removeAttribute('src');
+          document.documentElement.classList.remove('lb-open');
+          start();
+        };
+
+        viewport.addEventListener('click', openLightbox);
+        viewport.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(); }
+        });
+        document.getElementById('vouchLightboxClose').addEventListener('click', closeLightbox);
+        document.getElementById('vouchLightboxPrev').addEventListener('click', (e) => { e.stopPropagation(); show(index - 1); });
+        document.getElementById('vouchLightboxNext').addEventListener('click', (e) => { e.stopPropagation(); show(index + 1); });
+        lb.addEventListener('click', (e) => { if (e.target === lb || e.target === lbScroll) closeLightbox(); });
+        document.addEventListener('keydown', (e) => {
+          if (lb.hidden) return;
+          if (e.key === 'Escape') closeLightbox();
+          else if (e.key === 'ArrowRight') show(index + 1);
+          else if (e.key === 'ArrowLeft') show(index - 1);
+        });
       }
 
       // Re-fit once the active image reports its natural size
