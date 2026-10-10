@@ -217,15 +217,15 @@
 
       <!-- 💻 OS SELECTOR SWITCH -->
       <div class="os-toggle-container">
-        <button class="os-toggle-btn active" id="btnOsWin" onclick="setPlatform('win')" style="cursor: default;">
+        <button class="os-toggle-btn active" id="btnOsWin" onclick="setPlatform('win')" style="cursor: pointer;">
           <i class="ph-bold ph-windows-logo"></i>
           <span>Windows 11</span>
           <span class="os-tag win">Instant Setup (.exe)</span>
         </button>
-        <button class="os-toggle-btn" id="btnOsMac" disabled style="opacity: 0.5; cursor: not-allowed;" title="macOS build releasing soon">
+        <button class="os-toggle-btn" id="btnOsMac" onclick="setPlatform('mac')" style="cursor: pointer;">
           <i class="ph-bold ph-apple-logo"></i>
           <span>macOS Universal</span>
-          <span class="os-tag mac" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">Coming Soon</span>
+          <span class="os-tag mac">Instant Setup (.dmg)</span>
         </button>
       </div>
 
@@ -255,9 +255,8 @@
           </button>
         </div>
 
-        <!-- 7-Day Pass (Featured) -->
-        <div class="pricing-card featured">
-          <div class="featured-ribbon">Most Popular</div>
+        <!-- 7-Day Pass -->
+        <div class="pricing-card">
           <div class="plan-header">
             <span class="plan-badge gold">Exam Week</span>
             <h3>7-Day Pass</h3>
@@ -275,13 +274,14 @@
             <li><i class="ph-bold ph-check"></i> Bring Your Own Key (BYOK)</li>
             <li><i class="ph-bold ph-check"></i> 24/7 Priority Discord Support</li>
           </ul>
-          <button class="btn btn-primary btn-block btn-buy" onclick="openComplianceModal('7days')">
+          <button class="btn btn-outline btn-block btn-buy" onclick="openComplianceModal('7days')">
             <i class="ph-bold ph-lightning"></i> Get 7-Day Pass ($35)
           </button>
         </div>
 
-        <!-- 30-Day Monthly Pass -->
-        <div class="pricing-card">
+        <!-- 30-Day Monthly Pass (Featured) -->
+        <div class="pricing-card featured">
+          <div class="featured-ribbon">Best Value</div>
           <div class="plan-header">
             <span class="plan-badge cyan">Semester Pack</span>
             <h3>30-Day Pass</h3>
@@ -289,7 +289,7 @@
           </div>
           <div class="plan-price">
             <span class="currency">$</span>
-            <span class="amount">89</span>
+            <span class="amount">50</span>
             <span class="period">/ 30 days</span>
           </div>
           <ul class="plan-features">
@@ -299,8 +299,8 @@
             <li><i class="ph-bold ph-check"></i> Full BYOK System Prompt Injection</li>
             <li><i class="ph-bold ph-check"></i> VIP Discord Role &amp; Support</li>
           </ul>
-          <button class="btn btn-outline btn-block btn-buy" onclick="openComplianceModal('30days')">
-            <i class="ph-bold ph-lightning"></i> Get 30-Day Pass ($89)
+          <button class="btn btn-primary btn-block btn-buy" onclick="openComplianceModal('30days')">
+            <i class="ph-bold ph-lightning"></i> Get 30-Day Pass ($50)
           </button>
         </div>
 
@@ -1160,11 +1160,6 @@
 
     function renderMessage(html) {
       document.getElementById('feedMsg').innerHTML = `<p>${html}</p>`;
-    }
-
-    function setPlatform(platform) {
-      if (platform === 'mac') return; // Enforce no-op for Mac
-      selectedPlatform = 'win';
     }
 
     function resetSimulator() {
