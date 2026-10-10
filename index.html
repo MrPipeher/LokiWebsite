@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-  <link rel="stylesheet" href="style.css?v=20261009" />
+  <link rel="stylesheet" href="style.css?v=20261010" />
 </head>
 <body>
 
@@ -36,7 +36,7 @@
 
       <div class="nav-cta">
         <a href="https://discord.gg/fab9WUG39U" target="_blank" class="btn btn-secondary btn-sm nav-discord-cta">
-          <i class="ph-bold ph-discord-logo"></i> Discord Ticket
+          <i class="ph-bold ph-discord-logo"></i> Community
         </a>
         <a href="#pricing" class="btn btn-primary btn-sm">
           <i class="ph-bold ph-shopping-bag"></i> Get Access
@@ -88,6 +88,36 @@
         <div class="strip-item">
           <i class="ph-bold ph-devices" style="color: #38bdf8;"></i>
           <span>Windows 11 &amp; macOS Ready</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 📊 LIVE NETWORK STATS -->
+  <section id="stats" class="stats-band-section">
+    <div class="container">
+      <div class="stats-band">
+        <div class="stats-band-head">
+          <span class="stats-live-pill"><span class="dot-live"></span> Live Network Activity</span>
+          <h2 class="stats-band-title">Trusted by students worldwide</h2>
+        </div>
+        <div class="stats-band-grid">
+          <div class="stats-band-cell">
+            <div class="stats-band-number"><span class="stats-band-count" data-count="120" data-suffix="+">0</span></div>
+            <div class="stats-band-label">Community Members</div>
+          </div>
+          <div class="stats-band-cell">
+            <div class="stats-band-number"><span class="stats-band-count" data-count="50000" data-suffix="+">0</span></div>
+            <div class="stats-band-label">Queries Processed</div>
+          </div>
+          <div class="stats-band-cell">
+            <div class="stats-band-number"><span class="stats-band-count" data-count="4.9" data-decimals="1">0</span><span class="stats-band-star">★</span></div>
+            <div class="stats-band-label">Community Rating</div>
+          </div>
+          <div class="stats-band-cell">
+            <div class="stats-band-number">24/7</div>
+            <div class="stats-band-label">Live Support &amp; Updates</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1181,6 +1211,41 @@
       setSimScale('medium');
       renderMessage(`Hello! How can I assist you today? If you have a specific academic question, a math problem, or a writing assignment, queue a screenshot or send a request.`);
     }
+
+    // Animated live stats count-up
+    (function initStatsBand() {
+      const counters = document.querySelectorAll('.stats-band-count[data-count]');
+      if (!counters.length) return;
+
+      const run = (el) => {
+        if (el.dataset.done) return;
+        el.dataset.done = '1';
+        const target = parseFloat(el.dataset.count) || 0;
+        const decimals = parseInt(el.dataset.decimals || '0', 10);
+        const suffix = el.dataset.suffix || '';
+        const duration = 1500;
+        const startTime = performance.now();
+        const tick = (now) => {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const value = target * eased;
+          el.textContent = (decimals > 0 ? value.toFixed(decimals) : Math.floor(value).toLocaleString('en-US')) + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      };
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) { run(entry.target); observer.unobserve(entry.target); }
+          });
+        }, { threshold: 0.4 });
+        counters.forEach((c) => observer.observe(c));
+      } else {
+        counters.forEach(run);
+      }
+    })();
   </script>
 </body>
 </html>
