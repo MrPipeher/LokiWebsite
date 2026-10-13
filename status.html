@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loki Status — Live Proctoring Service Availability</title>
+  <meta name="description" content="Live status for every proctoring service Loki supports on Windows and macOS. Updated by our team whenever something breaks or a fix ships." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <link rel="stylesheet" href="style.css?v=20261013" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">
+          <i class="ph-fill ph-lightning"></i>
+        </div>
+        <span class="brand-name">LOKI</span>
+        <span class="brand-badge">HUD</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html#stealth-demo">Stealth Proof</a>
+        <a href="index.html#features">Features</a>
+        <a href="index.html#vouches">Vouches</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="status.html" class="nav-active"><span class="nav-status-dot"></span> Status</a>
+        <a href="affiliate.html" style="color: var(--accent-gold);"><i class="ph-bold ph-handshake"></i> Affiliates</a>
+      </nav>
+
+      <div class="nav-cta">
+        <a href="https://discord.gg/fab9WUG39U" target="_blank" class="btn btn-secondary btn-sm nav-discord-cta">
+          <i class="ph-bold ph-discord-logo"></i> Community
+        </a>
+        <a href="index.html#pricing" class="btn btn-primary btn-sm">
+          <i class="ph-bold ph-shopping-bag"></i> Get Access
+        </a>
+      </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false" onclick="toggleNavMenu()">
+        <i class="ph-bold ph-list"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Status Section -->
+  <section id="status-section" class="section section-dark">
+    <div class="container">
+
+      <div class="section-header">
+        <span class="pill-label">Live Status</span>
+        <h1 class="section-title">Loki Status</h1>
+        <p class="section-desc">Live status for every proctoring service Loki supports. Updated by our team when something breaks or a fix ships.</p>
+      </div>
+
+      <!-- Platform Tabs (Windows first, macOS second) -->
+      <div class="status-tabs" role="tablist" aria-label="Choose your operating system">
+        <button type="button" class="status-tab active" id="statusTabWin" role="tab" aria-selected="true" aria-controls="statusPanel" onclick="setStatusPlatform('win')">
+          <i class="ph-bold ph-windows-logo"></i>
+          <span>Windows</span>
+        </button>
+        <button type="button" class="status-tab" id="statusTabMac" role="tab" aria-selected="false" aria-controls="statusPanel" onclick="setStatusPlatform('mac')">
+          <i class="ph-bold ph-apple-logo"></i>
+          <span>macOS</span>
+        </button>
+      </div>
+
+      <!-- Summary Banner -->
+      <div class="status-summary all-good" id="statusSummary" role="status" aria-live="polite">
+        <span class="status-summary-dot"></span>
+        <span id="statusSummaryText">Checking current status&hellip;</span>
+      </div>
+
+      <!-- Platform Panel -->
+      <div class="status-group" id="statusPanel" role="tabpanel" aria-labelledby="statusTabWin" tabindex="0">
+        <div class="status-group-head">
+          <div>
+            <h2 class="status-group-title" id="statusGroupTitle">Loki for Windows</h2>
+            <p class="status-group-sub" id="statusGroupSub">Every supported proctoring service running on the Loki Windows engine (.exe).</p>
+          </div>
+          <span class="status-group-count" id="statusGroupCount">0 services</span>
+        </div>
+
+        <div class="status-grid" id="statusGrid">
+          <div class="status-loading">Loading live status&hellip;</div>
+        </div>
+      </div>
+
+      <p class="status-footnote">
+        <i class="ph-bold ph-sliders-horizontal"></i>
+        Statuses are verified by our team against the latest build of each proctoring service.
+        Last checked <strong id="statusLastChecked">&mdash;</strong>.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <div class="brand">
+          <div class="brand-icon"><i class="ph-fill ph-lightning"></i></div>
+          <span class="brand-name">LOKI</span>
+        </div>
+        <p>The ultra-lightweight, customizable desktop AI HUD designed for high-performance learning and immediate precision.</p>
+      </div>
+
+      <div class="footer-links-group">
+        <h4>Navigation</h4>
+        <a href="index.html#stealth-demo">Stealth Proof</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="index.html#features">Features</a>
+        <a href="index.html#vouches">Vouches</a>
+        <a href="index.html#simulator">Live Simulator</a>
+        <a href="status.html">Service Status</a>
+      </div>
+
+      <div class="footer-links-group">
+        <h4>Resources</h4>
+        <a href="https://discord.gg/fab9WUG39U" target="_blank">Discord Ticket Help</a>
+        <a href="https://discord.gg/fab9WUG39U" target="_blank">Join Community</a>
+        <a href="affiliate.html" style="color: var(--accent-gold);"><i class="ph-bold ph-handshake"></i> Affiliate Program</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-flex">
+        <p>&copy; 2026 Loki HUD Systems. All rights reserved.</p>
+        <p class="offline-tag"><i class="ph-bold ph-shield-check"></i> Hardware-level stealth &bull; Windows 11 &amp; macOS Universal</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Live Status Scripts -->
+  <script>
+    /* ------------------------------------------------------------------
+       SINGLE SOURCE OF TRUTH
+       Edit a service here and both the tabs, the counters and the summary
+       banner update automatically.
+       status: 'operational' | 'coming' | 'degraded' | 'down'
+    ------------------------------------------------------------------ */
+    const STATUS_PLATFORMS = {
+      win: {
+        tabLabel: 'Windows',
+        groupTitle: 'Loki for Windows',
+        groupSub: 'Every supported proctoring service running on the Loki Windows engine (.exe).',
+        services: [
+          { name: 'Respondus LockDown Browser', version: '2.1.6.02', note: '(Latest)', status: 'operational' },
+          { name: 'Honorlock', version: 'Latest', status: 'operational' },
+          { name: 'Safe Exam Browser', version: 'Latest', status: 'operational' },
+          { name: 'ATI Secure Browser', version: 'Latest', status: 'operational' },
+          { name: 'Proctorio', version: 'Latest', status: 'operational' },
+          { name: 'Pearson OnVUE', version: 'Latest', status: 'operational' },
+          { name: 'ProctorU', version: 'Latest', status: 'operational' },
+          { name: 'Honorlock Extension', version: 'Latest', status: 'operational' },
+          { name: 'CoderPad', version: 'Latest', status: 'operational' },
+          { name: 'HackerRank', version: 'Latest', status: 'operational' },
+          { name: 'CodeSignal', version: 'Latest', status: 'operational' },
+          { name: 'Zoom / Teams Screensharing', version: 'Latest', status: 'operational' }
+        ]
+      },
+      mac: {
+        tabLabel: 'macOS',
+        groupTitle: 'Loki for macOS',
+        groupSub: 'Every supported proctoring service running on the universal Loki macOS engine (.dmg).',
+        services: [
+          { name: 'Respondus LockDown Browser', version: '2.1.6.01', note: '(Latest)', status: 'coming', link: true },
+          { name: 'Honorlock Desktop', version: 'Latest', status: 'operational' },
+          { name: 'Safe Exam Browser', version: 'Latest', status: 'operational' },
+          { name: 'ATI Secure Browser', version: 'Latest', status: 'operational' },
+          { name: 'Proctorio', version: 'Latest', status: 'operational' },
+          { name: 'Pearson OnVUE', version: 'Latest', status: 'operational' },
+          { name: 'ProctorU / Guardian Browser', version: 'Latest', status: 'operational' },
+          { name: 'Honorlock Extension', version: 'Latest', status: 'operational' },
+          { name: 'CoderPad', version: 'Latest', status: 'operational' },
+          { name: 'HackerRank', version: 'Latest', status: 'operational' },
+          { name: 'CodeSignal', version: 'Latest', status: 'operational' },
+          { name: 'Zoom / Teams Screensharing', version: 'Latest', status: 'operational' }
+        ]
+      }
+    };
+
+    /* Human-readable label + colour class for every status value */
+    const STATUS_META = {
+      operational: { label: 'Operational', cls: 'operational' },
+      coming:      { label: 'Solution coming soon', cls: 'coming' },
+      degraded:    { label: 'Degraded', cls: 'degraded' },
+      down:        { label: 'Outage', cls: 'down' }
+    };
+
+    const STATUS_SUPPORT_URL = 'https://discord.gg/fab9WUG39U';
+    let currentStatusPlatform = 'win';
+
+    /* ---- Switch platform tab (Windows is the default) ---- */
+    function setStatusPlatform(platform) {
+      if (!STATUS_PLATFORMS[platform]) return;
+      currentStatusPlatform = platform;
+
+      const isWin = platform === 'win';
+      const btnWin = document.getElementById('statusTabWin');
+      const btnMac = document.getElementById('statusTabMac');
+      const panel = document.getElementById('statusPanel');
+
+      btnWin.classList.toggle('active', isWin);
+      btnMac.classList.toggle('active', !isWin);
+      btnWin.setAttribute('aria-selected', isWin ? 'true' : 'false');
+      btnMac.setAttribute('aria-selected', isWin ? 'false' : 'true');
+      if (panel) panel.setAttribute('aria-labelledby', isWin ? 'statusTabWin' : 'statusTabMac');
+
+      renderStatus(platform);
+    }
+
+    /* ---- Render the cards, counter and summary banner ---- */
+    function renderStatus(platform) {
+      const data = STATUS_PLATFORMS[platform];
+      const services = data.services;
+
+      document.getElementById('statusGroupTitle').textContent = data.groupTitle;
+      document.getElementById('statusGroupSub').textContent = data.groupSub;
+      document.getElementById('statusGroupCount').textContent =
+        services.length + (services.length === 1 ? ' service' : ' services');
+
+      document.getElementById('statusGrid').innerHTML = services.map(function (service) {
+        const meta = STATUS_META[service.status] || STATUS_META.operational;
+        const note = service.note ? ' <span class="status-note">' + service.note + '</span>' : '';
+        const details = service.link
+          ? '<a class="status-details" href="' + STATUS_SUPPORT_URL + '" target="_blank" rel="noopener">Details</a>'
+          : '';
+
+        return '<div class="status-card">' +
+                 '<div class="status-state ' + meta.cls + '">' +
+                   '<span class="status-state-dot"></span>' + meta.label +
+                 '</div>' +
+                 '<div class="status-name">' + service.name + '</div>' +
+                 '<div class="status-version">' + service.version + note + '</div>' +
+                 details +
+               '</div>';
+      }).join('');
+
+      const needsAttention = services.filter(function (service) {
+        return service.status !== 'operational';
+      }).length;
+
+      const summary = document.getElementById('statusSummary');
+      const summaryText = document.getElementById('statusSummaryText');
+
+      if (needsAttention === 0) {
+        summary.classList.remove('attention');
+        summary.classList.add('all-good');
+        summaryText.textContent =
+          'All ' + services.length + ' bypasses operational on ' + data.tabLabel + '.';
+      } else {
+        summary.classList.remove('all-good');
+        summary.classList.add('attention');
+        summaryText.textContent =
+          needsAttention + ' of ' + services.length + ' bypasses need attention on ' + data.tabLabel + '.';
+      }
+    }
+
+    /* ---- "Last checked" stamp ---- */
+    function stampLastChecked() {
+      const el = document.getElementById('statusLastChecked');
+      if (!el) return;
+      el.textContent = new Date().toLocaleDateString(undefined, {
+        year: 'numeric', month: 'short', day: 'numeric'
+      });
+    }
+
+    /* ---- Mobile navigation menu (same behaviour as the main site) ---- */
+    function toggleNavMenu() {
+      const nav = document.getElementById('navLinks');
+      const toggle = document.getElementById('navToggle');
+      if (!nav) return;
+      const isOpen = nav.classList.toggle('open');
+      if (toggle) {
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        toggle.innerHTML = isOpen ? '<i class="ph-bold ph-x"></i>' : '<i class="ph-bold ph-list"></i>';
+      }
+    }
+    document.querySelectorAll('#navLinks a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        const nav = document.getElementById('navLinks');
+        const toggle = document.getElementById('navToggle');
+        if (nav && nav.classList.contains('open')) {
+          nav.classList.remove('open');
+          if (toggle) {
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.innerHTML = '<i class="ph-bold ph-list"></i>';
+          }
+        }
+      });
+    });
+
+    /* ---- Left / right arrow keys flip between the two tabs ---- */
+    document.addEventListener('keydown', function (event) {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      const active = document.activeElement;
+      if (!active || !active.classList || !active.classList.contains('status-tab')) return;
+      event.preventDefault();
+      setStatusPlatform(currentStatusPlatform === 'win' ? 'mac' : 'win');
+      document.getElementById(currentStatusPlatform === 'win' ? 'statusTabWin' : 'statusTabMac').focus();
+    });
+
+    /* ---- Boot: Windows first unless a platform is deep-linked ---- */
+    function requestedStatusPlatform() {
+      try {
+        const query = new URLSearchParams(window.location.search).get('os');
+        if (query === 'win' || query === 'mac') return query;
+        const hash = String(window.location.hash || '').replace('#', '').toLowerCase();
+        if (hash === 'win' || hash === 'mac') return hash;
+      } catch (err) {
+        /* file:// or older browsers - just fall back to Windows */
+      }
+      return 'win';
+    }
+
+    stampLastChecked();
+    setStatusPlatform(requestedStatusPlatform());
+  </script>
+
+</body>
+</html>
