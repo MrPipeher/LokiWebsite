@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-  <link rel="stylesheet" href="style.css?v=20261013" />
+  <link rel="stylesheet" href="style.css?v=20261020" />
 </head>
 <body>
 
@@ -260,78 +260,107 @@
         </button>
       </div>
 
-      <div class="pricing-grid">
+      <div class="pricing-grid four-up">
         
-        <!-- 1-Day Pass -->
+        <!-- 1-Day Test Key -->
         <div class="pricing-card">
           <div class="plan-header">
-            <span class="plan-badge">Sprint Access</span>
+            <span class="plan-badge">Test Key</span>
             <h3>1-Day Pass</h3>
-            <p>Perfect for crunch sessions and fast revision sets.</p>
+            <p>A true test key: 30 AI queries, 1 screenshot, and 24 hours of access. See exactly how Loki works before committing to a full plan.</p>
           </div>
           <div class="plan-price">
             <span class="currency">$</span>
-            <span class="amount">10</span>
+            <span class="amount">20</span>
             <span class="period">/ 24 hours</span>
           </div>
           <ul class="plan-features">
             <li><i class="ph-bold ph-check"></i> <strong class="os-display-name">Windows 11</strong> Native App</li>
             <li><i class="ph-bold ph-check"></i> <strong>24 Hours</strong> Full Access</li>
-            <li><i class="ph-bold ph-check"></i> 50 AI Engine Queries</li>
+            <li><i class="ph-bold ph-check"></i> 30 AI Engine Queries</li>
+            <li><i class="ph-bold ph-check"></i> 1 Screenshot Limit</li>
             <li><i class="ph-bold ph-check"></i> Single Machine Lock</li>
             <li><i class="ph-bold ph-check"></i> Screen Capture Invisibility</li>
+            <li><i class="ph-bold ph-check"></i> Show Text Only &amp; HUD Opacity</li>
           </ul>
           <button class="btn btn-outline btn-block btn-buy" onclick="openComplianceModal('1day')">
-            <i class="ph-bold ph-lightning"></i> Get 1-Day Pass ($10)
+            <i class="ph-bold ph-lightning"></i> Get 1-Day Pass ($20)
           </button>
         </div>
 
-        <!-- 7-Day Pass -->
+        <!-- 7-Day Pro -->
         <div class="pricing-card">
           <div class="plan-header">
             <span class="plan-badge gold">Exam Week</span>
             <h3>7-Day Pass</h3>
-            <p>The standard choice for midterm and final study weeks.</p>
+            <p>The exam-week workhorse: 300 AI queries, 3 screenshots, and priority Discord support.</p>
           </div>
           <div class="plan-price">
             <span class="currency">$</span>
-            <span class="amount">35</span>
+            <span class="amount">50</span>
             <span class="period">/ 7 days</span>
           </div>
           <ul class="plan-features">
             <li><i class="ph-bold ph-check"></i> <strong class="os-display-name">Windows 11</strong> Native App</li>
             <li><i class="ph-bold ph-check"></i> <strong>7 Full Days</strong> Access</li>
             <li><i class="ph-bold ph-check"></i> <strong>300 AI Queries</strong> Limit</li>
+            <li><i class="ph-bold ph-check"></i> 3 Screenshot Limit</li>
             <li><i class="ph-bold ph-check"></i> Bring Your Own Key (BYOK)</li>
             <li><i class="ph-bold ph-check"></i> 24/7 Priority Discord Support</li>
           </ul>
           <button class="btn btn-outline btn-block btn-buy" onclick="openComplianceModal('7days')">
-            <i class="ph-bold ph-lightning"></i> Get 7-Day Pass ($35)
+            <i class="ph-bold ph-lightning"></i> Get 7-Day Pass ($50)
           </button>
         </div>
 
-        <!-- 30-Day Monthly Pass (Featured) -->
+        <!-- 30-Day Pro (Featured) -->
         <div class="pricing-card featured">
           <div class="featured-ribbon">Best Value</div>
           <div class="plan-header">
             <span class="plan-badge cyan">Semester Pack</span>
             <h3>30-Day Pass</h3>
-            <p>Unrestricted full-month access for demanding course loads.</p>
+            <p>The best value: 1,000 AI queries, 5 screenshots, VIP Discord role, and priority support.</p>
           </div>
           <div class="plan-price">
             <span class="currency">$</span>
-            <span class="amount">50</span>
+            <span class="amount">100</span>
             <span class="period">/ 30 days</span>
           </div>
           <ul class="plan-features">
             <li><i class="ph-bold ph-check"></i> <strong class="os-display-name">Windows 11</strong> Native App</li>
             <li><i class="ph-bold ph-check"></i> <strong>30 Full Days</strong> Access</li>
             <li><i class="ph-bold ph-check"></i> <strong>1,000 AI Queries</strong> Limit</li>
+            <li><i class="ph-bold ph-check"></i> 5 Screenshot Limit</li>
             <li><i class="ph-bold ph-check"></i> Full BYOK System Prompt Injection</li>
             <li><i class="ph-bold ph-check"></i> VIP Discord Role &amp; Support</li>
           </ul>
           <button class="btn btn-primary btn-block btn-buy" onclick="openComplianceModal('30days')">
-            <i class="ph-bold ph-lightning"></i> Get 30-Day Pass ($50)
+            <i class="ph-bold ph-lightning"></i> Get 30-Day Pass ($100)
+          </button>
+        </div>
+
+        <!-- Lifetime Founder -->
+        <div class="pricing-card founder">
+          <div class="featured-ribbon founder-ribbon">Founder</div>
+          <div class="plan-header">
+            <span class="plan-badge founder-badge">Lifetime</span>
+            <h3>Lifetime Founder</h3>
+            <p>Permanent access for the long haul.</p>
+          </div>
+          <div class="plan-price">
+            <span class="currency">$</span>
+            <span class="amount">500</span>
+            <span class="period">/ lifetime</span>
+          </div>
+          <ul class="plan-features">
+            <li><i class="ph-bold ph-check"></i> <strong class="os-display-name">Windows 11</strong> Native App</li>
+            <li><i class="ph-bold ph-check"></i> <strong>Permanent License</strong></li>
+            <li><i class="ph-bold ph-check"></i> <strong>2,000 AI Queries / Month</strong></li>
+            <li><i class="ph-bold ph-check"></i> <strong>5 Screenshot Limit</strong></li>
+            <li><i class="ph-bold ph-check"></i> VIP Discord Role &amp; Priority Support</li>
+          </ul>
+          <button class="btn btn-primary btn-block btn-buy" onclick="openComplianceModal('lifetime')">
+            <i class="ph-bold ph-lightning"></i> Get Lifetime Access ($500)
           </button>
         </div>
 
@@ -362,8 +391,8 @@
         <div class="feature-card">
           <div class="card-icon"><i class="ph-bold ph-images-square"></i></div>
           <h3>Multi-Shot Diagram Queuing</h3>
-          <p>Queue up to 3 captures (prompt + chart + multiple choice options) and send them unified in one combined AI context window.</p>
-          <div class="card-tag">Max 3 Screenshots</div>
+          <p>Queue up to 3 captures on 7-Day, and up to 5 on 30-Day or Lifetime. Send a prompt, chart, and multiple choice options in one combined AI context window.</p>
+          <div class="card-tag">Up to 5 Screenshots</div>
         </div>
 
         <div class="feature-card">
@@ -564,7 +593,7 @@
             <i class="ph-bold ph-caret-down"></i>
           </summary>
           <div class="faq-answer">
-            <p>Access simply expires at the end of your plan. You can renew at any time from the pricing section, and every session you have already archived stays saved locally on your machine.</p>
+            <p>Timed plans simply expire at the end of their term and you can renew at any time from the pricing section. The Lifetime Founder license never expires and stays active permanently. Either way, every session you have already archived stays saved locally on your machine.</p>
           </div>
         </details>
 
@@ -662,6 +691,23 @@
         <p>Loki is provided &ldquo;as is&rdquo; without warranties of any kind. Responses are generated by AI and may contain errors &mdash; always verify important results independently.</p>
       </div>
 
+      <div class="legacy-discount-box" id="legacyDiscountBox">
+        <div class="legacy-discount-head">
+          <span class="legacy-discount-badge">Previous customer?</span>
+          <strong>30% off 7-day or longer</strong>
+        </div>
+        <p class="legacy-discount-copy">
+          Are you a previous customer? Enter your old key below &mdash; or the email you used &mdash; and we&rsquo;ll apply your legacy discount automatically at checkout.
+        </p>
+        <label for="legacyKeyInput">Old license key</label>
+        <input id="legacyKeyInput" type="text" inputmode="text" autocomplete="off" spellcheck="false" placeholder="Paste your old key">
+        <label for="legacyEmailInput">or the email you used</label>
+        <input id="legacyEmailInput" type="email" autocomplete="email" placeholder="you@example.com">
+        <p class="legacy-discount-note">
+          One-time use. 30% off 7-Day, 30-Day, or Lifetime. Not valid on the 1-Day trial.
+        </p>
+      </div>
+
       <label class="tos-agree-row">
         <input type="checkbox" id="tosAgreeCheck" onchange="toggleTosAgree(this.checked)">
         <span>I have read and agree to the <strong>Terms of Service</strong> and <strong>Acceptable Use Policy</strong>.</span>
@@ -740,6 +786,18 @@
       const osText = (selectedPlatform === 'mac') ? 'macOS (Apple Silicon & Intel DMG)' : 'Windows 11 (64-bit EXE)';
       document.getElementById('modalSelectedOsDisplay').textContent = osText;
 
+      // Legacy discount is only offered on 7-day, 30-day and lifetime plans
+      const legacyBox = document.getElementById('legacyDiscountBox');
+      if (legacyBox) {
+        legacyBox.style.display = duration === '1day' ? 'none' : 'block';
+      }
+
+      // Never carry old values between checkout attempts
+      const legacyKeyInput = document.getElementById('legacyKeyInput');
+      const legacyEmailInput = document.getElementById('legacyEmailInput');
+      if (legacyKeyInput) legacyKeyInput.value = '';
+      if (legacyEmailInput) legacyEmailInput.value = '';
+
       // Always start with the agreement unchecked and the CTA locked
       const check = document.getElementById('tosAgreeCheck');
       if (check) check.checked = false;
@@ -809,18 +867,31 @@
 
       const savedRef = localStorage.getItem('loki_affiliate_ref') || '';
 
+      // Legacy 30% discount fields (server validates; empty values are simply omitted)
+      const legacyEligible = pendingCheckoutDuration !== '1day';
+      const legacyKey = legacyEligible
+        ? (document.getElementById('legacyKeyInput')?.value || '').trim()
+        : '';
+      const legacyEmail = legacyEligible
+        ? (document.getElementById('legacyEmailInput')?.value || '').trim()
+        : '';
+
+      const payload = { plan: planKey, ref: savedRef };
+      if (legacyKey) payload.legacyKey = legacyKey;
+      if (legacyEmail) payload.legacyEmail = legacyEmail;
+
       try {
         const response = await fetch(`${BACKEND_URL}/api/stripe/create-checkout-session`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            plan: planKey,
-            ref: savedRef 
-          })
+          body: JSON.stringify(payload)
         });
 
         const data = await response.json();
         if (data.url) {
+          if (data.legacyDiscount) {
+            agreeBtn.innerHTML = '<i class="ph-bold ph-check"></i> Legacy discount applied — redirecting...';
+          }
           window.location.href = data.url;
         } else {
           alert("Checkout Error: " + (data.error || "Could not connect to payment gateway."));

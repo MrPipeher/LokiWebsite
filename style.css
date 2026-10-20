@@ -930,6 +930,35 @@ p {
   align-items: stretch;
   margin-bottom: 40px;
 }
+
+/* Four-plan ladder (1-Day / 7-Day / 30-Day / Lifetime) */
+.pricing-grid.four-up {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: stretch;
+}
+.pricing-grid.four-up .pricing-card {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 22px;
+}
+.pricing-grid.four-up .plan-price .amount { font-size: 3rem; }
+.pricing-grid.four-up .plan-price .period { font-size: 0.88rem; margin-left: 6px; }
+.pricing-grid.four-up .btn-buy { margin-top: auto; }
+
+@media (max-width: 1280px) {
+  .pricing-grid.four-up { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pricing-grid.four-up .pricing-card { padding: 34px 28px; }
+  .pricing-grid.four-up .plan-price .amount { font-size: 3.4rem; }
+  /* Keep the featured card inside its grid cell once the ladder wraps */
+  .pricing-grid.four-up .pricing-card.featured { transform: none; }
+  .pricing-grid.four-up .pricing-card.featured:hover { transform: translateY(-4px); }
+}
+
+@media (max-width: 720px) {
+  .pricing-grid.four-up { grid-template-columns: 1fr; }
+  .pricing-grid.four-up .pricing-card { padding: 28px 22px; }
+  .pricing-grid.four-up .plan-price .amount { font-size: 2.85rem; }
+}
 .pricing-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -958,8 +987,8 @@ p {
 }
 
 .pricing-card.founder {
-  background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), rgba(18, 24, 38, 0.85));
-  border-color: rgba(56, 189, 248, 0.4);
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.08), rgba(18, 24, 38, 0.7) 45%);
+  border-color: rgba(245, 158, 11, 0.5);
 }
 
 .featured-ribbon {
@@ -976,6 +1005,12 @@ p {
   padding: 4px 16px;
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.founder-ribbon {
+  background: var(--accent-gold);
+  color: #0b1220;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
 }
 
 .scarcity-pill {
@@ -1018,6 +1053,11 @@ p {
 .plan-badge.cyan {
   background: rgba(56, 189, 248, 0.15);
   color: var(--accent-cyan);
+}
+.plan-badge.founder-badge {
+  background: rgba(245, 158, 11, 0.14);
+  color: var(--accent-gold);
+  border: 1px solid rgba(245, 158, 11, 0.35);
 }
 .plan-header h3 {
   font-size: 1.6rem;
@@ -1072,7 +1112,7 @@ p {
   flex-shrink: 0;
 }
 .pricing-card.founder .plan-features li i {
-  color: var(--accent-cyan);
+  color: var(--accent-gold);
 }
 .founder-btn:hover {
   border-color: var(--accent-cyan);
@@ -2427,7 +2467,7 @@ html.lb-open body { overflow: hidden; }
   padding: 22px 24px;
   overflow-y: auto;
   flex: 1 1 auto;
-  min-height: 0;
+  min-height: 150px; /* keeps the legal text readable when the legacy box is shown */
   font-size: 0.9rem;
   color: var(--text-muted);
   line-height: 1.65;
@@ -2481,6 +2521,113 @@ html.lb-open body { overflow: hidden; }
   flex-shrink: 0;
 }
 .tos-os-line strong { color: var(--accent-gold); }
+
+/* ---- Optional legacy customer discount (7-Day / 30-Day / Lifetime only) ---- */
+.legacy-discount-box {
+  flex-shrink: 0;
+  margin: 18px 24px 6px;
+  padding: 14px 16px;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 12px;
+  background: rgba(245, 158, 11, 0.06);
+}
+
+.legacy-discount-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.legacy-discount-head strong {
+  font-size: 0.86rem;
+  color: #e2e8f0;
+}
+
+.legacy-discount-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.16);
+  color: var(--accent-gold);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.legacy-discount-copy {
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text-muted, #94a3b8);
+}
+
+.legacy-discount-box label {
+  display: block;
+  margin: 8px 0 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-main, #e2e8f0);
+}
+
+.legacy-discount-box input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: rgba(2, 6, 23, 0.45);
+  color: var(--text-main, #e2e8f0);
+  font: inherit;
+  font-size: 13px;
+}
+
+.legacy-discount-box input:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+}
+
+.legacy-discount-note {
+  margin: 8px 0 0;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--text-muted, #94a3b8);
+}
+
+/* Declared after the base rules so the compact mobile spacing actually wins */
+@media (max-width: 768px) {
+  .legacy-discount-box { margin: 14px 18px 4px; padding: 12px 14px; }
+  .legacy-discount-copy { font-size: 12.5px; }
+  .legacy-discount-box input { font-size: 16px; } /* prevents iOS zoom-on-focus */
+}
+
+/* Short viewports: shrink the box so the ToS panel and CTA stay usable */
+@media (max-height: 900px) {
+  /* One scroll container (the card) instead of a nested one, with the CTA pinned */
+  .tos-modal-card { overflow-y: auto; }
+  .tos-scroll {
+    flex: 0 0 auto;
+    overflow: visible;
+    min-height: 0;
+    overscroll-behavior: auto;
+  }
+  .tos-actions-row {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+  }
+  .legacy-discount-box { margin: 12px 24px 4px; padding: 10px 14px; }
+  .legacy-discount-copy { font-size: 12px; line-height: 1.35; margin-bottom: 6px; }
+  .legacy-discount-box label { margin: 6px 0 3px; }
+  .legacy-discount-box input { padding: 8px 10px; }
+  .legacy-discount-note { margin-top: 6px; }
+}
 
 .tos-actions-row {
   display: flex;
