@@ -1119,6 +1119,31 @@ p {
   color: var(--accent-cyan);
 }
 
+.pricing-clarifier {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  max-width: 760px;
+  margin: 0 auto 18px;
+  padding: 16px 20px;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+  text-align: left;
+  background: rgba(56, 189, 248, 0.07);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 12px;
+}
+.pricing-clarifier i {
+  color: var(--accent-cyan);
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.pricing-clarifier p { margin: 0; }
+.pricing-clarifier strong { color: #ffffff; }
+
 .pricing-footer-guarantee {
   text-align: center;
   font-size: 0.85rem;
@@ -2726,6 +2751,7 @@ html.lb-open body { overflow: hidden; }
   .plan-features { gap: 12px; margin-bottom: 24px; }
   .pricing-footer-guarantee { display: block; line-height: 1.7; font-size: 0.78rem; }
   .pricing-footer-guarantee i { margin-right: 6px; vertical-align: -2px; }
+  .pricing-clarifier { padding: 14px 16px; font-size: 0.82rem; gap: 8px; }
 
   /* Features */
   .grid-3 { gap: 18px; }

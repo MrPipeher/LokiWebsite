@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-  <link rel="stylesheet" href="style.css?v=20261020" />
+  <link rel="stylesheet" href="style.css?v=20261101" />
 </head>
 <body>
 
@@ -243,7 +243,7 @@
       <div class="section-header">
         <span class="pill-label">Transparent Access</span>
         <h2 class="section-title">Choose Your License Plan</h2>
-        <p class="section-desc">Select your operating system and plan duration for immediate on-screen key delivery and instant access.</p>
+        <p class="section-desc">Select your operating system and plan duration for immediate on-screen key delivery and instant access. Screenshot allowances are <strong>per question</strong> &mdash; never a cap on your whole plan.</p>
       </div>
 
       <!-- 💻 OS SELECTOR SWITCH -->
@@ -267,7 +267,7 @@
           <div class="plan-header">
             <span class="plan-badge">Test Key</span>
             <h3>1-Day Pass</h3>
-            <p>A true test key: 30 AI queries, 1 screenshot, and 24 hours of access. See exactly how Loki works before committing to a full plan.</p>
+            <p>A true test key: 30 AI queries, 1 screenshot per question, and 24 hours of access. See how Loki works before committing.</p>
           </div>
           <div class="plan-price">
             <span class="currency">$</span>
@@ -278,7 +278,7 @@
             <li><i class="ph-bold ph-check"></i> <strong class="os-display-name">Windows 11</strong> Native App</li>
             <li><i class="ph-bold ph-check"></i> <strong>24 Hours</strong> Full Access</li>
             <li><i class="ph-bold ph-check"></i> 30 AI Engine Queries</li>
-            <li><i class="ph-bold ph-check"></i> 1 Screenshot Limit</li>
+            <li><i class="ph-bold ph-check"></i> <span><strong>1 Screenshot</strong> per Question</span></li>
             <li><i class="ph-bold ph-check"></i> Single Machine Lock</li>
             <li><i class="ph-bold ph-check"></i> Screen Capture Invisibility</li>
             <li><i class="ph-bold ph-check"></i> Show Text Only &amp; HUD Opacity</li>
@@ -293,7 +293,7 @@
           <div class="plan-header">
             <span class="plan-badge gold">Exam Week</span>
             <h3>7-Day Pass</h3>
-            <p>The exam-week workhorse: 300 AI queries, 3 screenshots, and priority Discord support.</p>
+            <p>The exam-week workhorse: 300 AI queries, 3 screenshots per question, and priority Discord support.</p>
           </div>
           <div class="plan-price">
             <span class="currency">$</span>
@@ -304,7 +304,7 @@
             <li><i class="ph-bold ph-check"></i> <strong class="os-display-name">Windows 11</strong> Native App</li>
             <li><i class="ph-bold ph-check"></i> <strong>7 Full Days</strong> Access</li>
             <li><i class="ph-bold ph-check"></i> <strong>300 AI Queries</strong> Limit</li>
-            <li><i class="ph-bold ph-check"></i> 3 Screenshot Limit</li>
+            <li><i class="ph-bold ph-check"></i> <span><strong>3 Screenshots</strong> per Question</span></li>
             <li><i class="ph-bold ph-check"></i> Bring Your Own Key (BYOK)</li>
             <li><i class="ph-bold ph-check"></i> 24/7 Priority Discord Support</li>
           </ul>
@@ -319,7 +319,7 @@
           <div class="plan-header">
             <span class="plan-badge cyan">Semester Pack</span>
             <h3>30-Day Pass</h3>
-            <p>The best value: 1,000 AI queries, 5 screenshots, VIP Discord role, and priority support.</p>
+            <p>The best value: 1,000 AI queries, 5 screenshots per question, VIP Discord role, and priority support.</p>
           </div>
           <div class="plan-price">
             <span class="currency">$</span>
@@ -330,7 +330,7 @@
             <li><i class="ph-bold ph-check"></i> <strong class="os-display-name">Windows 11</strong> Native App</li>
             <li><i class="ph-bold ph-check"></i> <strong>30 Full Days</strong> Access</li>
             <li><i class="ph-bold ph-check"></i> <strong>1,000 AI Queries</strong> Limit</li>
-            <li><i class="ph-bold ph-check"></i> 5 Screenshot Limit</li>
+            <li><i class="ph-bold ph-check"></i> <span><strong>5 Screenshots</strong> per Question</span></li>
             <li><i class="ph-bold ph-check"></i> Full BYOK System Prompt Injection</li>
             <li><i class="ph-bold ph-check"></i> VIP Discord Role &amp; Support</li>
           </ul>
@@ -345,7 +345,7 @@
           <div class="plan-header">
             <span class="plan-badge founder-badge">Lifetime</span>
             <h3>Lifetime Founder</h3>
-            <p>Permanent access for the long haul.</p>
+            <p>Permanent access for the long haul: 2,000 AI queries a month and 5 screenshots per question.</p>
           </div>
           <div class="plan-price">
             <span class="currency">$</span>
@@ -356,7 +356,7 @@
             <li><i class="ph-bold ph-check"></i> <strong class="os-display-name">Windows 11</strong> Native App</li>
             <li><i class="ph-bold ph-check"></i> <strong>Permanent License</strong></li>
             <li><i class="ph-bold ph-check"></i> <strong>2,000 AI Queries / Month</strong></li>
-            <li><i class="ph-bold ph-check"></i> <strong>5 Screenshot Limit</strong></li>
+            <li><i class="ph-bold ph-check"></i> <span><strong>5 Screenshots</strong> per Question</span></li>
             <li><i class="ph-bold ph-check"></i> VIP Discord Role &amp; Priority Support</li>
           </ul>
           <button class="btn btn-primary btn-block btn-buy" onclick="openComplianceModal('lifetime')">
@@ -364,6 +364,11 @@
           </button>
         </div>
 
+      </div>
+
+      <div class="pricing-clarifier">
+        <i class="ph-bold ph-info"></i>
+        <p><strong>&ldquo;5 screenshots&rdquo; is not a total cap.</strong> The screenshot allowance applies to <strong>each question</strong>, not to your whole plan. A 30-question exam is 30 separate questions &mdash; each one can include up to 5 screenshots on 30-Day or Lifetime (3 on 7-Day, 1 on 1-Day). Your AI query count is the only plan-wide meter.</p>
       </div>
 
       <div class="pricing-footer-guarantee">
@@ -391,8 +396,8 @@
         <div class="feature-card">
           <div class="card-icon"><i class="ph-bold ph-images-square"></i></div>
           <h3>Multi-Shot Diagram Queuing</h3>
-          <p>Queue up to 3 captures on 7-Day, and up to 5 on 30-Day or Lifetime. Send a prompt, chart, and multiple choice options in one combined AI context window.</p>
-          <div class="card-tag">Up to 5 Screenshots</div>
+          <p>Every question gets its own screenshot allowance: queue up to 3 captures per question on 7-Day, and up to 5 on 30-Day or Lifetime. The limit resets with each new question, so long exams are never capped. Send a prompt, chart, and multiple-choice options in one combined AI context window.</p>
+          <div class="card-tag">Up to 5 Per Question</div>
         </div>
 
         <div class="feature-card">
@@ -537,6 +542,16 @@
       </div>
 
       <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>
+            <span>Does &ldquo;5 screenshots&rdquo; mean 5 screenshots for my entire plan?</span>
+            <i class="ph-bold ph-caret-down"></i>
+          </summary>
+          <div class="faq-answer">
+            <p><strong>No &mdash; the screenshot allowance is per question, not per plan.</strong> A 30-question exam is 30 separate questions, and each question can include up to the number your plan allows: 1 on the 1-Day Pass, 3 on the 7-Day Pass, and 5 on the 30-Day Pass or Lifetime Founder. Sending a question uses your AI query balance; it never uses up a plan-wide pool of screenshots.</p>
+          </div>
+        </details>
+
         <details class="faq-item">
           <summary>
             <span>Which operating systems are supported?</span>
@@ -1105,6 +1120,8 @@
     initVouchCarousel();
 
     // Simulator Logic
+    // Demo mirrors the 7-Day queue cap: up to 3 captures per question
+    const SIM_QUEUE_LIMIT = 3;
     let queueCount = 0;
     let isFlipped = false;
     let isShortMode = false;
@@ -1174,14 +1191,14 @@
     }
 
     function simQueueScreenshot() {
-      if (queueCount < 3) {
+      if (queueCount < SIM_QUEUE_LIMIT) {
         queueCount++;
         const badge = document.getElementById('simQueueBadge');
         badge.style.display = 'block';
         badge.innerText = queueCount;
-        renderMessage(`📸 Screenshot staged! Queued images: <strong>${queueCount}/3</strong>. Press ⚡ to solve.`);
+        renderMessage(`📸 Screenshot staged! Queued for this question: <strong>${queueCount}/${SIM_QUEUE_LIMIT}</strong>. Press ⚡ to solve.`);
       } else {
-        renderMessage(`⚠️ Queue limit reached (3/3). Press ⚡ to solve.`);
+        renderMessage(`⚠️ Per-question limit reached (${SIM_QUEUE_LIMIT}/${SIM_QUEUE_LIMIT}). Press ⚡ to solve, then the next question starts a fresh queue.`);
       }
     }
 
