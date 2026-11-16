@@ -3340,3 +3340,38 @@ html.lb-open body { overflow: hidden; }
   .req-head { font-size: 0.92rem; }
 }
 .req-head .req-sub { font-weight: 400; color: #94a3b8; font-size: 0.88rem; }
+
+/* Screenshot allowance "?" popover on the plan cards */
+.shot-help {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  background: transparent;
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.shot-help:hover, .shot-help:focus-visible { color: #ffffff; border-color: #ffffff; outline: none; }
+.shot-help-pop {
+  position: absolute;
+  z-index: 1200;
+  padding: 12px 14px;
+  background: #0b1220;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+}
+.shot-help-pop strong { color: #ffffff; }
+@media (max-width: 640px) { .shot-help-pop { font-size: 0.8rem; } }

@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-  <link rel="stylesheet" href="style.css?v=20261116b" />
+  <link rel="stylesheet" href="style.css?v=20261116c" />
 </head>
 <body>
 
@@ -294,10 +294,11 @@
             <span class="period">/ 24 hours</span>
           </div>
           <ul class="plan-features">
-            <li><i class="ph-bold ph-check"></i> <strong class="os-display-name">Windows 11</strong> Native App</li>
+            <li><i class="ph-bold ph-check"></i> <span>Required: <strong class="os-req-os">Windows 11</strong></span></li>
+            <li><i class="ph-bold ph-check"></i> <span>Required: <strong>Admin Access</strong></span></li>
             <li><i class="ph-bold ph-check"></i> <strong>24 Hours</strong> Full Access</li>
             <li><i class="ph-bold ph-check"></i> 30 AI Engine Queries</li>
-            <li><i class="ph-bold ph-check"></i> <span><strong>1 Screenshot</strong> per Question</span></li>
+            <li><i class="ph-bold ph-check"></i> <span><strong>1 Screenshot</strong> per Question <button type="button" class="shot-help" aria-label="How the screenshot limit works" onclick="toggleShotHelp(event)">?</button></span></li>
             <li><i class="ph-bold ph-check"></i> Single Machine Lock</li>
             <li><i class="ph-bold ph-check"></i> Screen Capture Invisibility</li>
             <li><i class="ph-bold ph-check"></i> Show Text Only &amp; HUD Opacity</li>
@@ -320,10 +321,11 @@
             <span class="period">/ 7 days</span>
           </div>
           <ul class="plan-features">
-            <li><i class="ph-bold ph-check"></i> <strong class="os-display-name">Windows 11</strong> Native App</li>
+            <li><i class="ph-bold ph-check"></i> <span>Required: <strong class="os-req-os">Windows 11</strong></span></li>
+            <li><i class="ph-bold ph-check"></i> <span>Required: <strong>Admin Access</strong></span></li>
             <li><i class="ph-bold ph-check"></i> <strong>7 Full Days</strong> Access</li>
             <li><i class="ph-bold ph-check"></i> <strong>300 AI Queries</strong> Limit</li>
-            <li><i class="ph-bold ph-check"></i> <span><strong>3 Screenshots</strong> per Question</span></li>
+            <li><i class="ph-bold ph-check"></i> <span><strong>3 Screenshots</strong> per Question <button type="button" class="shot-help" aria-label="How the screenshot limit works" onclick="toggleShotHelp(event)">?</button></span></li>
             <li><i class="ph-bold ph-check"></i> Bring Your Own Key (BYOK)</li>
             <li><i class="ph-bold ph-check"></i> 24/7 Priority Discord Support</li>
           </ul>
@@ -346,10 +348,11 @@
             <span class="period">/ 30 days</span>
           </div>
           <ul class="plan-features">
-            <li><i class="ph-bold ph-check"></i> <strong class="os-display-name">Windows 11</strong> Native App</li>
+            <li><i class="ph-bold ph-check"></i> <span>Required: <strong class="os-req-os">Windows 11</strong></span></li>
+            <li><i class="ph-bold ph-check"></i> <span>Required: <strong>Admin Access</strong></span></li>
             <li><i class="ph-bold ph-check"></i> <strong>30 Full Days</strong> Access</li>
             <li><i class="ph-bold ph-check"></i> <strong>1,000 AI Queries</strong> Limit</li>
-            <li><i class="ph-bold ph-check"></i> <span><strong>5 Screenshots</strong> per Question</span></li>
+            <li><i class="ph-bold ph-check"></i> <span><strong>5 Screenshots</strong> per Question <button type="button" class="shot-help" aria-label="How the screenshot limit works" onclick="toggleShotHelp(event)">?</button></span></li>
             <li><i class="ph-bold ph-check"></i> Full BYOK System Prompt Injection</li>
             <li><i class="ph-bold ph-check"></i> VIP Discord Role &amp; Support</li>
           </ul>
@@ -368,11 +371,6 @@
           <div class="req-item no"><i class="ph-bold ph-x-circle"></i><span><strong>School or work-managed laptops</strong> block the required changes — Loki cannot run there</span></div>
           <div class="req-item warn"><i class="ph-bold ph-warning"></i><span><strong>Third-party antivirus</strong> can block installation; Windows Defender is fully supported</span></div>
         </div>
-      </div>
-
-      <div class="pricing-clarifier">
-        <i class="ph-bold ph-info"></i>
-        <p><strong>&ldquo;5 screenshots&rdquo; is not a total cap.</strong> The screenshot allowance applies to <strong>each question</strong>, not to your whole plan. A 30-question exam is 30 separate questions &mdash; each one can include up to 5 screenshots on 30-Day or Lifetime (3 on 7-Day, 1 on 1-Day). Your AI query count is the only plan-wide meter.</p>
       </div>
 
       <div class="lifetime-band">
@@ -797,17 +795,43 @@
       const btnWin = document.getElementById('btnOsWin');
       const btnMac = document.getElementById('btnOsMac');
       const displays = document.querySelectorAll('.os-display-name');
+      const osReqs = document.querySelectorAll('.os-req-os');
 
       if (platform === 'mac') {
         btnMac.classList.add('active');
         btnWin.classList.remove('active');
         displays.forEach(d => d.textContent = 'macOS Universal');
+        osReqs.forEach(d => d.textContent = 'macOS 15+');
       } else {
         btnWin.classList.add('active');
         btnMac.classList.remove('active');
         displays.forEach(d => d.textContent = 'Windows 11');
+        osReqs.forEach(d => d.textContent = 'Windows 11');
       }
     }
+
+    function toggleShotHelp(ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      const pop = document.getElementById('shotHelpPopover');
+      if (!pop) return;
+      if (!pop.hidden) { pop.hidden = true; return; }
+
+      const btn = ev.currentTarget;
+      const r = btn.getBoundingClientRect();
+      const width = Math.min(300, window.innerWidth - 24);
+      pop.hidden = false;
+      pop.style.width = width + 'px';
+      pop.style.left = Math.max(12, Math.min(window.innerWidth - width - 12, r.left + r.width / 2 - width / 2)) + 'px';
+      pop.style.top = (r.bottom + window.scrollY + 10) + 'px';
+    }
+
+    document.addEventListener('click', function (e) {
+      const pop = document.getElementById('shotHelpPopover');
+      if (!pop || pop.hidden) return;
+      if (e.target.closest('.shot-help') || e.target.closest('#shotHelpPopover')) return;
+      pop.hidden = true;
+    });
 
     // Modal Handlers
     function openComplianceModal(duration) {
@@ -1351,5 +1375,9 @@
       }
     })();
   </script>
+
+  <div id="shotHelpPopover" class="shot-help-pop" role="tooltip" hidden>
+    <strong>Per question, not per plan.</strong> A 30-question exam is 30 separate questions &mdash; each one can include up to your plan's limit: 1 screenshot on the 1-Day Pass, 3 on the 7-Day Pass, 5 on the 30-Day Pass. Your AI query count is the only plan-wide limit.
+  </div>
 </body>
 </html>
