@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-  <link rel="stylesheet" href="style.css?v=20261115a" />
+  <link rel="stylesheet" href="style.css?v=20261116b" />
 </head>
 <body>
 
@@ -262,7 +262,7 @@
       <div class="section-header">
         <span class="pill-label">Transparent Access</span>
         <h2 class="section-title">Choose Your License Plan</h2>
-        <p class="section-desc">Select your operating system and plan duration for immediate on-screen key delivery and instant access. Screenshot allowances are <strong>per question</strong> &mdash; never a cap on your whole plan.</p>
+        <p class="section-desc">Select your operating system and plan duration for immediate on-screen key delivery and instant access. Screenshot allowances are <strong>per question</strong> &mdash; never a cap on your whole plan. Requires <strong>Windows 11 24H2+</strong> or <strong>macOS 15+</strong>, on a computer you own with <strong>administrator access</strong>.</p>
       </div>
 
       <!-- 💻 OS SELECTOR SWITCH -->
@@ -358,6 +358,16 @@
           </button>
         </div>
 
+      </div>
+
+      <div class="req-band">
+        <div class="req-head"><i class="ph-bold ph-warning-circle"></i> <strong>Before you buy</strong></div>
+        <div class="req-grid">
+          <div class="req-item ok"><i class="ph-bold ph-check-circle"></i><span><strong>Windows 11 24H2+</strong> (64-bit) or <strong>macOS 15+</strong> (Apple Silicon or Intel)</span></div>
+          <div class="req-item ok"><i class="ph-bold ph-check-circle"></i><span>You <strong>own the computer</strong> and have <strong>administrator access</strong></span></div>
+          <div class="req-item no"><i class="ph-bold ph-x-circle"></i><span><strong>School or work-managed laptops</strong> block the required changes — Loki cannot run there</span></div>
+          <div class="req-item warn"><i class="ph-bold ph-warning"></i><span><strong>Third-party antivirus</strong> can block installation; Windows Defender is fully supported</span></div>
+        </div>
       </div>
 
       <div class="pricing-clarifier">
@@ -558,11 +568,11 @@
 
         <details class="faq-item">
           <summary>
-            <span>Which operating systems are supported?</span>
+            <span>What are the requirements?</span>
             <i class="ph-bold ph-caret-down"></i>
           </summary>
           <div class="faq-answer">
-            <p>Loki runs natively on <strong>Windows 11 (64-bit)</strong> and <strong>macOS</strong> (Apple Silicon &amp; Intel). Native builds mean no browser dependencies and no performance overhead.</p>
+            <p>Loki runs natively on <strong>Windows 11 24H2 or newer (64-bit)</strong> and <strong>macOS 15+</strong> (Apple Silicon &amp; Intel). You must <strong>own the computer</strong> and have <strong>administrator access</strong> &mdash; school or employer-managed laptops block the system changes the installer needs, so it cannot run on those. Windows Defender is fully supported; third-party antivirus suites can block installation.</p>
           </div>
         </details>
 
@@ -729,7 +739,7 @@
 
       <label class="tos-agree-row">
         <input type="checkbox" id="tosAgreeCheck" onchange="toggleTosAgree(this.checked)">
-        <span>I have read and agree to the <strong>Terms of Service</strong> and <strong>Acceptable Use Policy</strong>.</span>
+        <span>I have read and agree to the <strong>Terms of Service</strong> and <strong>Acceptable Use Policy</strong>. I confirm I <strong>own this device</strong> and have <strong>administrator access</strong>.</span>
       </label>
 
       <div class="tos-os-line">
