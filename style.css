@@ -2564,11 +2564,6 @@ html.lb-open body { overflow: hidden; }
     background: var(--bg-secondary);
     border-top: 1px solid var(--border-color);
   }
-  .legacy-discount-box { margin: 12px 24px 4px; padding: 10px 14px; }
-  .legacy-discount-copy { font-size: 12px; line-height: 1.35; margin-bottom: 6px; }
-  .legacy-discount-box label { margin: 6px 0 3px; }
-  .legacy-discount-box input { padding: 8px 10px; }
-  .legacy-discount-note { margin-top: 6px; }
 }
 
 .tos-actions-row {
