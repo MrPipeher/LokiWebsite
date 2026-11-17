@@ -193,7 +193,8 @@
       .btn { padding: 13px 18px; }
     }
 
-    .save-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 14px; }
+    .save-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+    .save-row .btn { width: 100%; padding: 12px 8px; font-size: 0.8rem; white-space: nowrap; }
     .btn-ghost {
       background: transparent;
       border: 1px solid var(--border-color);
@@ -218,7 +219,11 @@
     .upgrade-card .upgrade-title { color: #fff; font-size: 0.98rem; font-weight: 700; margin-bottom: 4px; }
     .upgrade-card .upgrade-sub { color: var(--text-muted); font-size: 0.82rem; line-height: 1.5; }
     .upgrade-card .btn { white-space: nowrap; }
-    @media (max-width: 540px) { .upgrade-card { flex-direction: column; align-items: stretch; text-align: center; } }
+    @media (max-width: 540px) {
+      .save-row { grid-template-columns: 1fr; }
+      .save-row .btn { white-space: normal; }
+      .upgrade-card { flex-direction: column; align-items: stretch; text-align: center; }
+    }
   </style>
 </head>
 <body>
