@@ -2492,7 +2492,7 @@ html.lb-open body { overflow: hidden; }
   padding: 22px 24px;
   overflow-y: auto;
   flex: 1 1 auto;
-  min-height: 150px; /* keeps the legal text readable when the legacy box is shown */
+  min-height: 150px; /* keeps the legal text readable */
   font-size: 0.9rem;
   color: var(--text-muted);
   line-height: 1.65;
@@ -2546,89 +2546,6 @@ html.lb-open body { overflow: hidden; }
   flex-shrink: 0;
 }
 .tos-os-line strong { color: var(--accent-gold); }
-
-/* ---- Optional legacy customer discount (7-Day / 30-Day / Lifetime only) ---- */
-.legacy-discount-box {
-  flex-shrink: 0;
-  margin: 18px 24px 6px;
-  padding: 14px 16px;
-  border: 1px solid rgba(245, 158, 11, 0.35);
-  border-radius: 12px;
-  background: rgba(245, 158, 11, 0.06);
-}
-
-.legacy-discount-head {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 6px;
-}
-
-.legacy-discount-head strong {
-  font-size: 0.86rem;
-  color: #e2e8f0;
-}
-
-.legacy-discount-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: rgba(245, 158, 11, 0.16);
-  color: var(--accent-gold);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.legacy-discount-copy {
-  margin: 0 0 10px;
-  font-size: 13px;
-  line-height: 1.45;
-  color: var(--text-muted, #94a3b8);
-}
-
-.legacy-discount-box label {
-  display: block;
-  margin: 8px 0 4px;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-main, #e2e8f0);
-}
-
-.legacy-discount-box input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid rgba(148, 163, 184, 0.28);
-  background: rgba(2, 6, 23, 0.45);
-  color: var(--text-main, #e2e8f0);
-  font: inherit;
-  font-size: 13px;
-}
-
-.legacy-discount-box input:focus {
-  outline: none;
-  border-color: var(--accent-gold);
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
-}
-
-.legacy-discount-note {
-  margin: 8px 0 0;
-  font-size: 11px;
-  line-height: 1.4;
-  color: var(--text-muted, #94a3b8);
-}
-
-/* Declared after the base rules so the compact mobile spacing actually wins */
-@media (max-width: 768px) {
-  .legacy-discount-box { margin: 14px 18px 4px; padding: 12px 14px; }
-  .legacy-discount-copy { font-size: 12.5px; }
-  .legacy-discount-box input { font-size: 16px; } /* prevents iOS zoom-on-focus */
-}
 
 /* Short viewports: shrink the box so the ToS panel and CTA stay usable */
 @media (max-height: 900px) {
