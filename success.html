@@ -192,6 +192,33 @@
       .instructions-list ol { font-size: 0.82rem; padding-left: 18px; }
       .btn { padding: 13px 18px; }
     }
+
+    .save-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 14px; }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      box-shadow: none;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.05); transform: translateY(-1px); }
+    .license-note { color: var(--text-muted); font-size: 0.82rem; margin-top: 12px; line-height: 1.55; }
+    .plan-line { color: var(--text-muted); font-size: 0.82rem; margin-top: 10px; }
+    .upgrade-card {
+      margin-top: 22px;
+      padding: 18px;
+      border: 1px solid rgba(245, 158, 11, 0.28);
+      border-radius: 16px;
+      background: rgba(245, 158, 11, 0.06);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-align: left;
+    }
+    .upgrade-card .upgrade-copy { flex: 1; }
+    .upgrade-card .upgrade-title { color: #fff; font-size: 0.98rem; font-weight: 700; margin-bottom: 4px; }
+    .upgrade-card .upgrade-sub { color: var(--text-muted); font-size: 0.82rem; line-height: 1.5; }
+    .upgrade-card .btn { white-space: nowrap; }
+    @media (max-width: 540px) { .upgrade-card { flex-direction: column; align-items: stretch; text-align: center; } }
   </style>
 </head>
 <body>
@@ -211,8 +238,8 @@
         <i class="ph-bold ph-check"></i>
       </div>
 
-      <h1>Payment Confirmed!</h1>
-      <p class="subtitle">Your access credentials have been minted and are ready below.</p>
+      <h1 id="successTitle">Payment Confirmed!</h1>
+      <p class="subtitle" id="successSubtitle">Your access credentials have been minted and are ready below.</p>
 
       <div class="credentials-box">
         <div class="cred-group">
@@ -229,6 +256,30 @@
           <div class="cred-label"><i class="ph-bold ph-lock-key"></i> Calculator Passcode</div>
           <div class="passcode-pill" id="passcodeText">3636=</div>
         </div>
+      </div>
+
+      <div class="save-row">
+        <button class="btn btn-ghost" id="downloadKeyBtn" onclick="downloadKey()">
+          <i class="ph-bold ph-download-simple"></i> Download key (.txt)
+        </button>
+        <a class="btn btn-ghost" href="manage.html" id="manageLink">
+          <i class="ph-bold ph-key"></i> Manage or upgrade
+        </a>
+        <a class="btn btn-ghost" id="guideLink" href="https://d1q4n4qb8q811f.cloudfront.net/file/guide/windows" download>
+          <i class="ph-bold ph-file-text"></i> Windows install guide
+        </a>
+      </div>
+      <div class="license-note" id="licenseNote">
+        Save this key - it is your licence on any device. You can manage or upgrade it later with the same key.
+      </div>
+      <div class="plan-line" id="planText"></div>
+
+      <div id="upgradeCard" class="upgrade-card" hidden>
+        <div class="upgrade-copy">
+          <div class="upgrade-title" id="upgradeTitle"></div>
+          <div class="upgrade-sub" id="upgradeSub"></div>
+        </div>
+        <button class="btn btn-primary" id="upgradeBtn" onclick="startUpgrade()">Upgrade</button>
       </div>
 
       <div class="instructions-list">
@@ -264,6 +315,12 @@
 
   <script>
     const BACKEND_URL = "https://d1q4n4qb8q811f.cloudfront.net";
+    let currentKey = '';
+    let currentUpgrade = null;
+    let currentProgram = 'TFD';
+    let currentPasscode = '3636=';
+
+    const PLAN_LABEL = { '1day': '1-Day', '7days': '7-Day', '30days': '30-Day', 'lifetime': 'Lifetime' };
 
     async function loadSession() {
       const urlParams = new URLSearchParams(window.location.search);
@@ -279,9 +336,25 @@
         const data = await response.json();
 
         if (response.ok && data.success) {
+          currentKey = data.key;
+          currentProgram = data.program || 'TFD';
+          currentUpgrade = data.upgrade || null;
+          if (data.upgraded) {
+            document.getElementById('successTitle').textContent = 'Upgrade Confirmed!';
+            document.getElementById('successSubtitle').textContent = 'Your existing key is now on the longer plan - no reinstall needed.';
+          }
           document.getElementById('keyText').innerText = data.key;
           const rawCode = data.passcode || '3636=';
-          document.getElementById('passcodeText').innerText = rawCode.endsWith('=') ? rawCode : rawCode + '=';
+          currentPasscode = rawCode.endsWith('=') ? rawCode : rawCode + '=';
+          document.getElementById('passcodeText').innerText = currentPasscode;
+          try { sessionStorage.setItem('loki_key', data.key); } catch (_) {}
+          document.getElementById('planText').innerText = data.duration
+            ? `${PLAN_LABEL[data.duration] || data.duration} licence${data.maxScreenshots ? ` · ${data.maxScreenshots} screenshot${data.maxScreenshots === 1 ? '' : 's'} per question` : ''}`
+            : '';
+          if (currentProgram === 'TFDMAC') {
+            document.getElementById('guideLink').style.display = 'none';
+          }
+          renderUpgrade();
           
           const downloadBtn = document.getElementById('downloadBtn');
           if (data.downloadUrl) {
@@ -303,6 +376,68 @@
         console.error("Fetch error:", err);
         showError("Network error checking payment status.");
       }
+    }
+
+    function renderUpgrade() {
+      const card = document.getElementById('upgradeCard');
+      if (!currentUpgrade) { card.hidden = true; return; }
+      card.hidden = false;
+      const price = `$${(currentUpgrade.priceCents / 100).toFixed(0)}`;
+      const fmt = (n) => Number(n).toLocaleString('en-US');
+      document.getElementById('upgradeTitle').innerText = `Upgrade to ${currentUpgrade.label} Pro - ${price}`;
+      document.getElementById('upgradeSub').innerText = `Keep the same key and HWID. You get ${fmt(currentUpgrade.queries)} queries and ${currentUpgrade.screenshots} screenshots per question, with no reinstall.`;
+      document.getElementById('upgradeBtn').innerText = `Upgrade - ${price}`;
+    }
+
+    async function startUpgrade() {
+      if (!currentKey || !currentUpgrade) return;
+      const btn = document.getElementById('upgradeBtn');
+      btn.disabled = true;
+      btn.innerText = 'Opening checkout...';
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/stripe/create-upgrade-session`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: currentKey }),
+        });
+        const data = await response.json();
+        if (data.url) { window.location.href = data.url; return; }
+        alert(data.error || 'Could not start the upgrade.');
+      } catch (_) {
+        alert('Could not start the upgrade. Please try again.');
+      }
+      btn.disabled = false;
+      renderUpgrade();
+    }
+
+    function downloadKey() {
+      if (!currentKey) return;
+      const plan = document.getElementById('planText').innerText || '';
+      const text = [
+        'LOKI HUD - LICENSE',
+        '==================',
+        '',
+        `License key: ${currentKey}`,
+        `Plan: ${plan}`,
+        `Calculator passcode: ${currentPasscode}`,
+        '',
+        'Manage or upgrade this license:',
+        'https://loki.live/manage',
+        '',
+        'Windows install guide:',
+        `${BACKEND_URL}/file/guide/windows`,
+        '',
+        'Keep this file private. Your key is your license.',
+      ].join('\n');
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Loki-License-Key.txt';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
     }
 
     function copyKey() {

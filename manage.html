@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage License — Loki HUD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    :root {
+      --bg-primary: #07090e;
+      --bg-card: rgba(18, 24, 38, 0.88);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --accent-gold: #f59e0b;
+      --accent-gold-glow: rgba(245, 158, 11, 0.25);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --green: #4ade80;
+      --red: #f87171;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(900px 500px at 50% -10%, rgba(245,158,11,0.08), transparent 60%), var(--bg-primary);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 32px 18px 60px;
+    }
+    a { color: inherit; }
+    .shell { width: 100%; max-width: 720px; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; letter-spacing: 0.06em; font-size: 0.9rem; }
+    .brand-icon {
+      width: 30px; height: 30px; border-radius: 9px;
+      display: grid; place-items: center;
+      background: linear-gradient(145deg, #f59e0b, #d97706);
+      color: #120b00; font-size: 0.95rem;
+    }
+    .brand small { color: var(--text-muted); font-weight: 500; letter-spacing: 0.02em; margin-left: 2px; }
+    .back-link { color: var(--text-muted); font-size: 0.82rem; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+    .back-link:hover { color: #fff; }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 22px;
+      padding: 34px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.55);
+    }
+    h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 6px; }
+    .sub { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 24px; }
+    .key-row { display: flex; gap: 10px; }
+    .key-row input {
+      flex: 1;
+      min-width: 0;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid var(--border-color);
+      color: #fff;
+      border-radius: 12px;
+      padding: 13px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88rem;
+      outline: none;
+    }
+    .key-row input:focus { border-color: rgba(245,158,11,0.55); box-shadow: 0 0 0 3px rgba(245,158,11,0.12); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      border: 1px solid transparent; border-radius: 12px;
+      padding: 12px 18px;
+      font-family: inherit; font-size: 0.88rem; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      transition: transform 0.12s, background 0.12s, border-color 0.12s;
+    }
+    .btn-primary { background: linear-gradient(135deg, #f59e0b, #d97706); color: #120b00; box-shadow: 0 4px 20px var(--accent-gold-glow); }
+    .btn-primary:hover { transform: translateY(-1px); }
+    .btn-ghost { background: transparent; border-color: var(--border-color); color: var(--text-main); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.05); }
+    .btn-discord { background: #5865f2; color: #fff; }
+    .btn-discord:hover { background: #4752c4; }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+    .error { color: var(--red); font-size: 0.85rem; min-height: 20px; margin-top: 10px; }
+    .result { margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--border-color); }
+    .plan-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .plan-name { font-size: 1.15rem; font-weight: 700; }
+    .plan-program { color: var(--text-muted); font-size: 0.8rem; margin-top: 3px; }
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: 999px; padding: 4px 10px;
+      font-size: 0.72rem; font-weight: 700; text-transform: capitalize;
+      border: 1px solid var(--border-color); color: var(--text-muted);
+    }
+    .status-pill.active { color: var(--green); border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.08); }
+    .status-pill.expired, .status-pill.disabled { color: var(--red); border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.08); }
+    .status-pill.unused { color: #93c5fd; border-color: rgba(147,197,253,0.3); background: rgba(147,197,253,0.08); }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 20px; }
+    @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } .card { padding: 24px; } .key-row { flex-direction: column; } }
+    .cell { background: rgba(0,0,0,0.25); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px 14px; }
+    .cell .k { color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em; }
+    .cell .v { margin-top: 4px; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace; word-break: break-word; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .upgrade {
+      margin-top: 20px; padding: 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(245,158,11,0.28);
+      background: rgba(245,158,11,0.06);
+      display: flex; align-items: center; gap: 16px;
+      flex-wrap: wrap;
+    }
+    .upgrade .copy { flex: 1; min-width: 220px; }
+    .upgrade .title { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+    .upgrade .sub { color: var(--text-muted); font-size: 0.82rem; line-height: 1.5; margin: 0; }
+    .note { color: var(--text-muted); font-size: 0.8rem; line-height: 1.6; margin-top: 22px; }
+    .note a { color: var(--accent-gold); }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <a class="brand" href="/"><span class="brand-icon"><i class="ph-fill ph-lightning"></i></span>LOKI <small>HUD</small></a>
+      <a class="back-link" href="/"><i class="ph-bold ph-arrow-left"></i> Back to site</a>
+    </div>
+
+    <div class="card">
+      <h1>Manage License</h1>
+      <p class="sub">Paste your license key to see its status, download it again, or upgrade it. No account needed - your key is your license.</p>
+
+      <div class="key-row">
+        <input id="keyInput" type="text" spellcheck="false" autocomplete="off" placeholder="Paste your 32-character license key" aria-label="License key">
+        <button class="btn btn-primary" id="lookupBtn" onclick="lookup()">Open</button>
+      </div>
+      <div class="error" id="errorLine"></div>
+
+      <div class="result" id="result" hidden>
+        <div class="plan-head">
+          <div>
+            <div class="plan-name" id="planName"></div>
+            <div class="plan-program" id="planProgram"></div>
+          </div>
+          <span class="status-pill" id="statusPill"></span>
+        </div>
+
+        <div class="grid">
+          <div class="cell"><div class="k">Expires</div><div class="v" id="expires"></div></div>
+          <div class="cell"><div class="k">Queries left</div><div class="v" id="queries"></div></div>
+          <div class="cell"><div class="k">Screenshots per question</div><div class="v" id="shots"></div></div>
+          <div class="cell"><div class="k">Bound hardware</div><div class="v" id="hwid"></div></div>
+          <div class="cell"><div class="k">Purchase email</div><div class="v" id="email"></div></div>
+          <div class="cell"><div class="k">Discord role</div><div class="v" id="role"></div></div>
+        </div>
+
+        <div class="upgrade" id="upgradeBox" hidden>
+          <div class="copy">
+            <div class="title" id="upgradeTitle"></div>
+            <p class="sub" id="upgradeSub"></p>
+          </div>
+          <button class="btn btn-primary" id="upgradeBtn" onclick="startUpgrade()">Upgrade</button>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-ghost" onclick="downloadKey()"><i class="ph-bold ph-download-simple"></i> Download key (.txt)</button>
+          <a class="btn btn-ghost" id="guideLink" href="https://d1q4n4qb8q811f.cloudfront.net/file/guide/windows" download><i class="ph-bold ph-file-text"></i> Windows install guide</a>
+          <a class="btn btn-discord" href="https://discord.gg/fab9WUG39U" target="_blank"><i class="ph-bold ph-discord-logo"></i> Support</a>
+        </div>
+      </div>
+
+      <p class="note">
+        Lost your key? Open a <a href="https://discord.gg/fab9WUG39U" target="_blank">Discord ticket</a> with the email you used at checkout - we can look it up.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const BACKEND_URL = "https://d1q4n4qb8q811f.cloudfront.net";
+    const PLAN_LABEL = { '1day': '1-Day', '7days': '7-Day', '30days': '30-Day', 'lifetime': 'Lifetime' };
+    let current = null;
+
+    function formatDate(value) {
+      if (!value) return 'Not activated yet';
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return '—';
+      return date.toLocaleString(undefined, { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' });
+    }
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value == null || value === '' ? '—' : String(value);
+    }
+
+    async function lookup() {
+      const input = document.getElementById('keyInput');
+      const key = input.value.trim().toLowerCase();
+      const errorLine = document.getElementById('errorLine');
+      const btn = document.getElementById('lookupBtn');
+      errorLine.textContent = '';
+      if (!/^[a-f0-9]{32}$/.test(key)) {
+        errorLine.textContent = 'That does not look like a Loki license key.';
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = 'Opening...';
+      try {
+        const response = await fetch(`${BACKEND_URL}/license/manage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key }),
+        });
+        const data = await response.json();
+        if (!response.ok || !data.success) {
+          document.getElementById('result').hidden = true;
+          errorLine.textContent = data.error || 'License not found.';
+          return;
+        }
+        current = data;
+        try { sessionStorage.setItem('loki_key', key); } catch (_) {}
+        render(data);
+      } catch (_) {
+        errorLine.textContent = 'Could not reach the license service. Try again.';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Open';
+      }
+    }
+
+    function render(data) {
+      const licence = data.licence;
+      document.getElementById('result').hidden = false;
+      setText('planName', licence.plan.name);
+      setText('planProgram', `${licence.plan.program || ''} • ${PLAN_LABEL[licence.plan.duration] || licence.plan.duration || ''}`);
+      setText('expires', formatDate(licence.expiresAt));
+      const fmt = (n) => Number(n).toLocaleString('en-US');
+      setText('queries', licence.usage.remaining == null ? (licence.plan.queries || '—') : `${fmt(licence.usage.remaining)} left${licence.usage.limit ? ` of ${fmt(licence.usage.limit)}` : ''}`);
+      setText('shots', licence.plan.screenshots == null ? '—' : `${licence.plan.screenshots} per question`);
+      setText('hwid', licence.hwid || 'Not bound yet');
+      setText('email', licence.email || '—');
+      setText('role', licence.plan.discordRole || 'Standard');
+
+      const pill = document.getElementById('statusPill');
+      pill.className = `status-pill ${licence.status}`;
+      pill.textContent = licence.status === 'unused' ? 'not activated' : licence.status;
+      if (licence.disabledReason && licence.status === 'disabled') {
+        document.getElementById('errorLine').textContent = licence.disabledReason;
+      }
+
+      if (data.licence.plan.program === 'TFDMAC') {
+        document.getElementById('guideLink').style.display = 'none';
+      }
+
+      const box = document.getElementById('upgradeBox');
+      if (data.upgrade) {
+        const price = `$${(data.upgrade.priceCents / 100).toFixed(0)}`;
+        box.hidden = false;
+        setText('upgradeTitle', `Upgrade to ${data.upgrade.label} Pro - ${price}`);
+        setText('upgradeSub', `Same key and HWID. ${Number(data.upgrade.queries).toLocaleString('en-US')} queries and ${data.upgrade.screenshots} screenshots per question, no reinstall.`);
+        document.getElementById('upgradeBtn').textContent = `Upgrade - ${price}`;
+      } else {
+        box.hidden = true;
+      }
+    }
+
+    async function startUpgrade() {
+      if (!current || !current.upgrade) return;
+      const btn = document.getElementById('upgradeBtn');
+      btn.disabled = true;
+      btn.textContent = 'Opening checkout...';
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/stripe/create-upgrade-session`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ key: document.getElementById('keyInput').value.trim() }),
+        });
+        const data = await response.json();
+        if (data.url) { window.location.href = data.url; return; }
+        document.getElementById('errorLine').textContent = data.error || 'Could not start the upgrade.';
+      } catch (_) {
+        document.getElementById('errorLine').textContent = 'Could not start the upgrade. Try again.';
+      }
+      btn.disabled = false;
+      if (current && current.upgrade) btn.textContent = `Upgrade - $${(current.upgrade.priceCents / 100).toFixed(0)}`;
+    }
+
+    function downloadKey() {
+      if (!current) return;
+      const licence = current.licence;
+      const key = document.getElementById('keyInput').value.trim();
+      const text = [
+        'LOKI HUD - LICENSE',
+        '==================',
+        '',
+        `License key: ${key}`,
+        `Plan: ${licence.plan.name}`,
+        `Status: ${licence.status}`,
+        `Expires: ${formatDate(licence.expiresAt)}`,
+        '',
+        'Manage or upgrade this license:',
+        'https://loki.live/manage',
+        '',
+        'Windows install guide:',
+        `${BACKEND_URL}/file/guide/windows`,
+        '',
+        'Keep this file private. Your key is your license.',
+      ].join('\n');
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Loki-License-Key.txt';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    }
+
+    document.getElementById('keyInput').addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') lookup();
+    });
+
+    const saved = sessionStorage.getItem('loki_key');
+    if (saved) {
+      document.getElementById('keyInput').value = saved;
+      lookup();
+    }
+  </script>
+</body>
+</html>
