@@ -193,7 +193,8 @@
       .btn { padding: 13px 18px; }
     }
 
-    .save-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+    .download-app-btn { width: 100%; margin-top: 14px; }
+    .save-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
     .save-row .btn { width: 100%; padding: 12px 8px; font-size: 0.8rem; white-space: nowrap; }
     .btn-ghost {
       background: transparent;
@@ -263,6 +264,10 @@
         </div>
       </div>
 
+      <a id="downloadBtn" href="#" class="btn btn-primary download-app-btn" download>
+        <i class="ph-bold ph-download-simple"></i> Download App
+      </a>
+
       <div class="save-row">
         <button class="btn btn-ghost" id="downloadKeyBtn" onclick="downloadKey()">
           <i class="ph-bold ph-download-simple"></i> Download key (.txt)
@@ -297,14 +302,9 @@
         </ol>
       </div>
 
-      <div class="action-buttons-grid">
-        <a id="downloadBtn" href="#" class="btn btn-primary" download>
-          <i class="ph-bold ph-download-simple"></i> Download App
-        </a>
-        <a href="https://discord.gg/fab9WUG39U" target="_blank" class="btn btn-discord">
-          <i class="ph-bold ph-discord-logo"></i> Join VIP Discord
-        </a>
-      </div>
+      <a href="https://discord.gg/fab9WUG39U" target="_blank" class="btn btn-discord btn-block" style="margin-top: 18px;">
+        <i class="ph-bold ph-discord-logo"></i> Join VIP Discord
+      </a>
     </div>
 
     <div id="errorView" style="display: none; padding: 30px 10px;">
