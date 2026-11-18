@@ -325,6 +325,7 @@
             </button>
           </div>
         </div>
+        <div id="payoutNote" style="margin-top: 8px; font-size: 0.82rem; color: var(--text-muted);"></div>
 
         <!-- Referral Link Banner -->
         <div class="ref-link-box">
@@ -400,6 +401,8 @@
   <script>
     const BACKEND_URL = "https://d1q4n4qb8q811f.cloudfront.net";
     let currentAuth = null;
+    let payoutMinimumUsd = 50;
+    let currentUnpaidUsd = 0;
 
     // Tab Switcher
     function switchTab(tab) {
@@ -506,6 +509,10 @@
           document.getElementById('statUnpaid').innerText = `$${aff.unpaidCommissionUsd}`;
           document.getElementById('statPaid').innerText = `$${aff.paidCommissionUsd}`;
 
+          currentUnpaidUsd = Number(aff.unpaidCommissionUsd) || 0;
+          payoutMinimumUsd = Number(aff.minimumPayoutUsd) || 50;
+          updatePayoutButton();
+
           // Populate Sales
           const tbody = document.getElementById('salesTableBody');
           const sales = data.sales || [];
@@ -543,8 +550,28 @@
       }
     }
 
+    function updatePayoutButton() {
+      const btn = document.getElementById('payoutBtn');
+      const note = document.getElementById('payoutNote');
+      if (!btn) return;
+      const eligible = currentUnpaidUsd >= payoutMinimumUsd;
+      btn.disabled = !eligible;
+      btn.innerHTML = eligible
+        ? '<i class="ph-bold ph-hand-coins"></i> Request Payout'
+        : `$${currentUnpaidUsd.toFixed(2)} / $${payoutMinimumUsd.toFixed(2)}`;
+      if (note) {
+        note.textContent = eligible
+          ? `Minimum payout: $${payoutMinimumUsd.toFixed(2)}.`
+          : `$${Math.max(0, payoutMinimumUsd - currentUnpaidUsd).toFixed(2)} more to unlock payout (minimum $${payoutMinimumUsd.toFixed(2)}).`;
+      }
+    }
+
     // Request Payout
     async function requestPayout() {
+      if (currentUnpaidUsd < payoutMinimumUsd) {
+        alert(`Minimum payout is $${payoutMinimumUsd.toFixed(2)}. You have $${currentUnpaidUsd.toFixed(2)}; $${(payoutMinimumUsd - currentUnpaidUsd).toFixed(2)} to go.`);
+        return;
+      }
       if (!confirm("Submit payout request to the admin for your unpaid balance?")) return;
 
       const btn = document.getElementById('payoutBtn');
@@ -567,8 +594,7 @@
       } catch (err) {
         alert('Network error submitting request.');
       } finally {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="ph-bold ph-hand-coins"></i> Request Payout';
+        updatePayoutButton();
       }
     }
 
