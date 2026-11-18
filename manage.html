@@ -162,6 +162,7 @@
         </div>
 
         <div class="actions">
+          <a class="btn btn-primary" id="downloadAppBtn" href="#" download><i class="ph-bold ph-download-simple"></i> Download App</a>
           <button class="btn btn-ghost" onclick="downloadKey()"><i class="ph-bold ph-download-simple"></i> Download key (.txt)</button>
           <a class="btn btn-ghost" id="guideLink" href="https://d1q4n4qb8q811f.cloudfront.net/file/guide/windows" download><i class="ph-bold ph-file-text"></i> Windows install guide</a>
           <a class="btn btn-discord" href="https://discord.gg/fab9WUG39U" target="_blank"><i class="ph-bold ph-discord-logo"></i> Support</a>
@@ -246,7 +247,15 @@
         document.getElementById('errorLine').textContent = licence.disabledReason;
       }
 
-      if (data.licence.plan.program === 'TFDMAC') {
+      const appBtn = document.getElementById('downloadAppBtn');
+      if (data.downloads) {
+        const isMac = licence.plan.program === 'TFDMAC';
+        appBtn.href = isMac ? data.downloads.mac : data.downloads.windows;
+        appBtn.innerHTML = isMac
+          ? '<i class="ph-bold ph-apple-logo"></i> Download for Mac (.dmg)'
+          : '<i class="ph-bold ph-windows-logo"></i> Download for Windows (.exe)';
+      }
+      if (licence.plan.program === 'TFDMAC') {
         document.getElementById('guideLink').style.display = 'none';
       }
 
