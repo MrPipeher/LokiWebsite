@@ -114,6 +114,26 @@
     .upgrade .copy { flex: 1; min-width: 220px; }
     .upgrade .title { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
     .upgrade .sub { color: var(--text-muted); font-size: 0.82rem; line-height: 1.5; margin: 0; }
+    .install-guide { margin-top: 24px; }
+    .install-guide h4 {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .tutorial-video {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+      background: #000;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+    }
+    @media (max-width: 560px) { .install-guide { margin-top: 20px; } }
     .note { color: var(--text-muted); font-size: 0.8rem; line-height: 1.6; margin-top: 22px; }
     .note a { color: var(--accent-gold); }
   </style>
@@ -166,6 +186,13 @@
           <button class="btn btn-ghost" onclick="downloadKey()"><i class="ph-bold ph-download-simple"></i> Download key (.txt)</button>
           <a class="btn btn-ghost" id="guideLink" href="https://d1q4n4qb8q811f.cloudfront.net/file/guide/windows" download><i class="ph-bold ph-file-text"></i> Windows install help</a>
           <a class="btn btn-discord" href="https://discord.gg/fab9WUG39U" target="_blank"><i class="ph-bold ph-discord-logo"></i> Support</a>
+        </div>
+
+        <div class="install-guide">
+          <h4><i class="ph-bold ph-play-circle"></i> Install Guide</h4>
+          <video class="tutorial-video" id="tutorialVideo" controls preload="metadata" playsinline width="1280" height="720">
+            Your browser cannot play this video.
+          </video>
         </div>
       </div>
 
@@ -227,6 +254,13 @@
       }
     }
 
+    function setTutorial(isMac) {
+      const base = isMac ? 'assets/tutorial-mac' : 'assets/tutorial-windows';
+      const video = document.getElementById('tutorialVideo');
+      video.poster = `${base}-poster.jpg`;
+      video.src = `${base}.mp4`;
+    }
+
     function render(data) {
       const licence = data.licence;
       document.getElementById('result').hidden = false;
@@ -258,6 +292,7 @@
       if (licence.plan.program === 'TFDMAC') {
         document.getElementById('guideLink').style.display = 'none';
       }
+      setTutorial(licence.plan.program === 'TFDMAC');
 
       const box = document.getElementById('upgradeBox');
       if (data.upgrade) {
