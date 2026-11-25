@@ -138,17 +138,6 @@
       display: inline-block;
       font-weight: 700;
     }
-    .instructions-list {
-      text-align: left;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 24px;
-    }
-    .instructions-list h4 { font-size: 0.9rem; margin-bottom: 8px; color: #fff; }
-    .instructions-list ol { padding-left: 20px; font-size: 0.85rem; color: var(--text-muted); }
-    .instructions-list li { margin-bottom: 4px; }
     .action-buttons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     @media (max-width: 540px) { .action-buttons-grid { grid-template-columns: 1fr; } }
     .btn {
@@ -188,23 +177,29 @@
       .key-display { font-size: 0.88rem; padding: 9px 10px; }
       .btn-copy { padding: 9px 12px; font-size: 0.82rem; }
       .passcode-pill { font-size: 0.95rem; padding: 5px 12px; }
-      .instructions-list { padding: 14px; }
-      .instructions-list ol { font-size: 0.82rem; padding-left: 18px; }
       .btn { padding: 13px 18px; }
     }
 
-    .download-app-btn { width: 100%; margin-top: 14px; }
-    .save-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
-    .save-row .btn { width: 100%; padding: 12px 8px; font-size: 0.8rem; white-space: nowrap; }
-    .btn-ghost {
-      background: transparent;
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      box-shadow: none;
+    .download-app-btn { width: 100%; margin-top: 14px; white-space: nowrap; }
+    .install-guide { margin-top: 24px; text-align: left; }
+    .install-guide h4 {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      color: #fff;
+      margin-bottom: 8px;
     }
-    .btn-ghost:hover { background: rgba(255,255,255,0.05); transform: translateY(-1px); }
-    .license-note { color: var(--text-muted); font-size: 0.82rem; margin-top: 12px; line-height: 1.55; }
-    .plan-line { color: var(--text-muted); font-size: 0.82rem; margin-top: 10px; }
+    .tutorial-video {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+      background: #000;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+    }
     .upgrade-card {
       margin-top: 22px;
       padding: 18px;
@@ -216,78 +211,27 @@
       gap: 16px;
       text-align: left;
     }
+    .upgrade-card[hidden] { display: none; }
+    .upgrade-kicker {
+      color: var(--accent-gold);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
     .upgrade-card .upgrade-copy { flex: 1; }
     .upgrade-card .upgrade-title { color: #fff; font-size: 0.98rem; font-weight: 700; margin-bottom: 4px; }
     .upgrade-card .upgrade-sub { color: var(--text-muted); font-size: 0.82rem; line-height: 1.5; }
     .upgrade-card .btn { white-space: nowrap; }
     @media (max-width: 540px) {
-      .save-row { grid-template-columns: 1fr; }
-      .save-row .btn { white-space: normal; }
+      .install-guide { margin-top: 20px; }
       .upgrade-card { flex-direction: column; align-items: stretch; text-align: center; }
     }
-
-    /* Tutorial: a compact row that expands in place, so the key and download stay above the fold */
-    .tutorial-block { margin-top: 12px; text-align: left; }
-    .tutorial-cta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      width: 100%;
-      padding: 10px 12px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      color: var(--text-main);
-      font: inherit;
-      text-align: left;
-      cursor: pointer;
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
-    .tutorial-cta:hover { background: rgba(245, 158, 11, 0.06); border-color: rgba(245, 158, 11, 0.45); }
-    .tutorial-cta:focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 2px; }
-    .tutorial-thumb {
-      position: relative;
-      flex: 0 0 96px;
-      width: 96px;
-      aspect-ratio: 16 / 9;
-      border-radius: 7px;
-      overflow: hidden;
-      background: #000;
-    }
-    .tutorial-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
-    .tutorial-thumb-play {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.35rem;
-      color: #fff;
-      background: rgba(0, 0, 0, 0.22);
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
-    }
-    .tutorial-cta-copy { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-    .tutorial-cta-title { font-size: 0.92rem; font-weight: 700; color: #fff; }
-    .tutorial-cta-sub { font-size: 0.76rem; color: var(--text-muted); line-height: 1.4; }
-    .tutorial-caret { flex: 0 0 auto; color: var(--text-muted); transition: transform 0.2s ease; }
-    .tutorial-cta[aria-expanded="true"] .tutorial-caret { transform: rotate(180deg); }
-    .tutorial-panel { margin-top: 10px; }
-    .tutorial-panel[hidden] { display: none; }
-    .tutorial-video {
-      display: block;
-      width: 100%;
-      height: auto;
-      aspect-ratio: 16 / 9;
-      object-fit: contain;
-      background: #000;
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-    }
-    @media (max-width: 560px) {
-      .tutorial-cta { padding: 9px 10px; gap: 10px; }
-      .tutorial-thumb { flex-basis: 80px; width: 80px; }
-      .tutorial-cta-title { font-size: 0.88rem; }
-      .tutorial-cta-sub { font-size: 0.72rem; }
+    @media (max-width: 430px) {
+      .cred-value-row { flex-direction: column; align-items: stretch; gap: 8px; }
+      .btn-copy { justify-content: center; }
+      .download-app-btn { font-size: 0.9rem; padding-left: 12px; padding-right: 12px; }
     }
   </style>
 </head>
@@ -316,8 +260,8 @@
           <div class="cred-label"><i class="ph-bold ph-key"></i> Your License Key</div>
           <div class="cred-value-row">
             <div class="key-display" id="keyText">Loading key...</div>
-            <button class="btn-copy" id="copyBtn" onclick="copyKey()">
-              <i class="ph-bold ph-copy"></i> Copy
+            <button class="btn-copy" id="downloadKeyBtn" onclick="downloadKey()" title="Download your license key as a .txt file">
+              <i class="ph-bold ph-download-simple"></i> Download
             </button>
           </div>
         </div>
@@ -332,61 +276,24 @@
         <i class="ph-bold ph-download-simple"></i> Download App
       </a>
 
-      <div class="tutorial-block" id="tutorialBlock">
-        <button type="button" class="tutorial-cta" id="tutorialToggle" aria-expanded="false" aria-controls="tutorialPanel" onclick="toggleTutorial()">
-          <span class="tutorial-thumb">
-            <img id="tutorialThumb" alt="" width="128" height="72" />
-            <span class="tutorial-thumb-play" aria-hidden="true"><i class="ph-fill ph-play"></i></span>
-          </span>
-          <span class="tutorial-cta-copy">
-            <span class="tutorial-cta-title" id="tutorialTitle">Watch the install guide</span>
-            <span class="tutorial-cta-sub" id="tutorialSub">Step by step, from download to activation</span>
-          </span>
-          <i class="ph-bold ph-caret-down tutorial-caret" aria-hidden="true"></i>
-        </button>
-        <div class="tutorial-panel" id="tutorialPanel" hidden>
-          <video class="tutorial-video" id="tutorialVideo" controls preload="metadata" playsinline width="1280" height="720">
-            Your browser cannot play this video.
-          </video>
-        </div>
+      <div class="install-guide">
+        <h4><i class="ph-bold ph-play-circle"></i> Install Guide</h4>
+        <video class="tutorial-video" id="tutorialVideo" controls preload="metadata" playsinline width="1280" height="720">
+          Your browser cannot play this video.
+        </video>
       </div>
-
-      <div class="save-row">
-        <button class="btn btn-ghost" id="downloadKeyBtn" onclick="downloadKey()">
-          <i class="ph-bold ph-download-simple"></i> Download key (.txt)
-        </button>
-        <a class="btn btn-ghost" href="manage.html" id="manageLink">
-          <i class="ph-bold ph-key"></i> Manage or upgrade
-        </a>
-        <a class="btn btn-ghost" id="guideLink" href="https://d1q4n4qb8q811f.cloudfront.net/file/guide/windows" download>
-          <i class="ph-bold ph-file-text"></i> Windows install help
-        </a>
-      </div>
-      <div class="license-note" id="licenseNote">
-        Save this key - it is your licence on any device. You can manage or upgrade it later with the same key.
-      </div>
-      <div class="plan-line" id="planText"></div>
 
       <div id="upgradeCard" class="upgrade-card" hidden>
         <div class="upgrade-copy">
+          <div class="upgrade-kicker">Want to upgrade to a higher tier?</div>
           <div class="upgrade-title" id="upgradeTitle"></div>
           <div class="upgrade-sub" id="upgradeSub"></div>
         </div>
         <button class="btn btn-primary" id="upgradeBtn" onclick="startUpgrade()">Upgrade</button>
       </div>
 
-      <div class="instructions-list">
-        <h4><i class="ph-bold ph-rocket-launch"></i> Activation Steps:</h4>
-        <ol>
-          <li>Download the installer package for your operating system using the button below.</li>
-          <li>Launch the program (Calculator disguise appears).</li>
-          <li>Enter <strong>3636=</strong> on the calculator keypad to unlock the HUD.</li>
-          <li>Paste your <strong>License Key</strong> into the prompt to activate.</li>
-        </ol>
-      </div>
-
       <a href="https://discord.gg/fab9WUG39U" target="_blank" class="btn btn-discord btn-block" style="margin-top: 18px;">
-        <i class="ph-bold ph-discord-logo"></i> Join VIP Discord
+        <i class="ph-bold ph-discord-logo"></i> Join Community Discord
       </a>
     </div>
 
@@ -407,6 +314,7 @@
     let currentUpgrade = null;
     let currentProgram = 'TFD';
     let currentPasscode = '3636=';
+    let currentPlanText = '';
 
     const PLAN_LABEL = { '1day': '1-Day', '7days': '7-Day', '30days': '30-Day', 'lifetime': 'Lifetime' };
 
@@ -436,12 +344,9 @@
           currentPasscode = rawCode.endsWith('=') ? rawCode : rawCode + '=';
           document.getElementById('passcodeText').innerText = currentPasscode;
           try { sessionStorage.setItem('loki_key', data.key); } catch (_) {}
-          document.getElementById('planText').innerText = data.duration
+          currentPlanText = data.duration
             ? `${PLAN_LABEL[data.duration] || data.duration} licence${data.maxScreenshots ? ` · ${data.maxScreenshots} screenshot${data.maxScreenshots === 1 ? '' : 's'} per question` : ''}`
             : '';
-          if (currentProgram === 'TFDMAC') {
-            document.getElementById('guideLink').style.display = 'none';
-          }
           renderUpgrade();
           
           const downloadBtn = document.getElementById('downloadBtn');
@@ -470,29 +375,8 @@
     function setTutorial(isMac) {
       const base = isMac ? 'assets/tutorial-mac' : 'assets/tutorial-windows';
       const video = document.getElementById('tutorialVideo');
-      video.dataset.src = `${base}.mp4`;
+      video.src = `${base}.mp4`;
       video.poster = `${base}.jpg`;
-      document.getElementById('tutorialThumb').src = `${base}.jpg`;
-      document.getElementById('tutorialTitle').textContent = isMac ? 'Watch the Mac install guide' : 'Watch the Windows install guide';
-      document.getElementById('tutorialSub').textContent = isMac
-        ? '4 min · SIP, security settings and activation'
-        : '2 min · Smart App Control, Defender and activation';
-    }
-
-    function toggleTutorial() {
-      const toggle = document.getElementById('tutorialToggle');
-      const panel = document.getElementById('tutorialPanel');
-      const video = document.getElementById('tutorialVideo');
-      const opening = toggle.getAttribute('aria-expanded') !== 'true';
-      toggle.setAttribute('aria-expanded', opening ? 'true' : 'false');
-      panel.hidden = !opening;
-      if (!opening) { video.pause(); return; }
-      if (!video.hasAttribute('src')) {
-        video.src = video.dataset.src;
-        video.load();
-      }
-      const played = video.play();
-      if (played && typeof played.catch === 'function') played.catch(() => {});
     }
 
     function renderUpgrade() {
@@ -529,24 +413,22 @@
 
     function downloadKey() {
       if (!currentKey) return;
-      const plan = document.getElementById('planText').innerText || '';
-      const text = [
+      const lines = [
         'LOKI HUD - LICENSE',
         '==================',
         '',
         `License key: ${currentKey}`,
-        `Plan: ${plan}`,
         `Calculator passcode: ${currentPasscode}`,
+      ];
+      if (currentPlanText) lines.push(`Plan: ${currentPlanText}`);
+      lines.push(
         '',
         'Manage or upgrade this license:',
         'https://loki.live/manage',
         '',
-        'Windows install help:',
-        `${BACKEND_URL}/file/guide/windows`,
-        '',
-        'Keep this file private. Your key is your license.',
-      ].join('\n');
-      const blob = new Blob([text], { type: 'text/plain' });
+        'Keep this file private. Your key is your license.'
+      );
+      const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -555,21 +437,6 @@
       a.click();
       a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 1500);
-    }
-
-    function copyKey() {
-      const keyStr = document.getElementById('keyText').innerText;
-      navigator.clipboard.writeText(keyStr).then(() => {
-        const btn = document.getElementById('copyBtn');
-        btn.innerHTML = `<i class="ph-bold ph-check"></i> Copied!`;
-        btn.style.background = '#4ade80';
-        btn.style.color = '#000';
-        setTimeout(() => {
-          btn.innerHTML = `<i class="ph-bold ph-copy"></i> Copy`;
-          btn.style.background = '';
-          btn.style.color = '';
-        }, 2000);
-      });
     }
 
     function showError(msg) {
