@@ -375,8 +375,8 @@
     function setTutorial(isMac) {
       const base = isMac ? 'assets/tutorial-mac' : 'assets/tutorial-windows';
       const video = document.getElementById('tutorialVideo');
+      video.poster = `${base}-poster.jpg`;
       video.src = `${base}.mp4`;
-      video.poster = `${base}.jpg`;
     }
 
     function renderUpgrade() {
